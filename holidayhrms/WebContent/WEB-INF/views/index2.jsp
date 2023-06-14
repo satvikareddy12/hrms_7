@@ -260,7 +260,7 @@ canvas {
                 <a href="#"><i class="ri-file-list-line"></i> Leaves</a>
               </li>
               <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Permissions</a>
+                <a onclick="getPermissions()"><i class="ri-check-double-line"></i> Permissions</a>
               </li>
               <li class="item">
                 <a href="#"><i class="ri-time-line"></i> Attendance</a>
@@ -552,7 +552,39 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
   	  });
   	}
 
+    
+    function getPermissions() {
+  	  $.ajax({
+  	    type: "POST",
+  	    url: "getpermissions",
+  	    data: {},
+  	    success: function(response) {
+  	      var containerDiv = $(".main");
+  	      containerDiv.html(response);
+  	     
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
 
+    function donePermissions() {
+    	  $.ajax({
+    	    type: "POST",
+    	    url: "applyPermission",
+    	    data: {},
+    	    success: function(response) {
+    	      var containerDiv = $(".main");
+    	      containerDiv.html(response);
+    	     
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
  </script>
  
   

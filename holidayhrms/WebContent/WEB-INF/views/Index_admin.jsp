@@ -214,10 +214,55 @@
   	    }
   	  });
   	}
-
+  
+    
+    function getemployees() {
+  	  $.ajax({
+  	    type: "POST",
+  	    url: "employees",
+  	    data: {},
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    function getcandidates() {
+    	  $.ajax({
+    	    type: "POST",
+    	    url: "viewcandidates",
+    	    data: {},
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    function referenceDoc() {
+  	  $.ajax({
+  	    type: "POST",
+  	    url: "viewDocuments",
+  	    data: {},
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    
     </script>
-    
-    
 
     
   </head>
@@ -235,27 +280,8 @@
             <a href="#"><i class="ri-bar-chart-line"></i> Profile</a>
           </li>
           
-<li class="item">
-            <div class="submenu-item">
-              <span><i class="ri-handbag-line"></i> Candidates</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-            <ul class="menu-items submenu">
-              <div class="menu-title">
-                <i class="fa-solid fa-chevron-left"></i>
-                Back to Candidates
-              </div>
-             
-              <li class="item">
-              <a href="javascript:void(0)"  onclick="getHolidays();"><i class="ri-calendar-line"></i> Insert</a>
-              </li>
-              
-               <li class="item">
-                <a href="javascript:void(0)"  onclick="getyourtHolidays();"><i class="ri-file-list-line"></i> View</a>
-              </li>
-              
-            </ul>
+ <li class="item">
+            <a onclick = "getcandidates();"><i class="ri-bar-chart-line"></i> Candidates</a>
           </li>
 
           <li class="item">
@@ -305,24 +331,12 @@
           </li>
           
           <li class="item">
-            <div class="submenu-item">
-              <span><i class="ri-user-line"></i> Employees</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-
-            <ul class="menu-items submenu">
-              <div class="menu-title">
-                <i class="fa-solid fa-chevron-left"></i>
-                Back to Employees
-              </div>
-              <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> View Employees</a>
-              </li>
-              <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Edit Employees</a>
-              </li>
-            </ul>
+            <a onclick = "getemployees();"><i class="ri-bar-chart-line"></i> Employees</a>
           </li>
+
+          
+           
+          
           <li class="item">
             <div class="submenu-item">
               <span><i class="ri-user-line"></i> Master Data</span>
@@ -384,7 +398,7 @@
                 <a href="#"><i class="ri-file-list-line"></i> Employee Induction</a>
               </li>
               <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Employee Reference</a>
+                <a onclick="referenceDoc();"><i class="ri-check-double-line"></i> Employee Reference</a>
               </li>
             </ul>
           </li>

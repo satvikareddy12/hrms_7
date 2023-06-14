@@ -5,8 +5,10 @@ import java.util.List;
 import models.Candidate;
 
 public interface CandidateDAO {
-	List<Candidate> findAllIssuedCandidates();
 
-	Candidate findCandidateById(int id);
+	List<Object[]> getAllCandidates();
 
+	void saveCandidate(Candidate candidate);
+
+	Candidate getCandidateById(int candidateId);
 }

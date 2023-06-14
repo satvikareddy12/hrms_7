@@ -4,6 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/mvc
@@ -29,37 +30,53 @@
         <property name="username" value="plf_training_admin" />
         <property name="password" value="pff123" />
     </bean>
-
-    <!-- Hibernate properties -->
-    <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="properties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <!-- Additional Hibernate properties can be added here -->
-            </props>
+    
+    <!-- EntityManager configuration -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:persistenceUnitName="myPersistenceUnit"
+        p:dataSource-ref="dataSource">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
+                <property name="showSql" value="true" />
+            </bean>
         </property>
-    </bean>
-
-    <!-- SessionFactory configuration -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
         <property name="packagesToScan" value="models" />
-        <property name="hibernateProperties" ref="hibernateProperties" />
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+                <entry key="hibernate.show_sql" value="true" />
+                <!-- Additional Hibernate properties can be added here -->
+            </map>
+        </property>
     </bean>
   
     <!-- Define the HolidayDAO bean -->
-    <bean id="holidayDAO" class="DAO.HolidayDAOImpl" />
-     <bean id="candidateDAO" class="DAO.CandidateDAOImpl" />
+   
+   
+    <!-- Enable transactional support for EntityManager -->
+    <tx:annotation-driven transaction-manager="jpaTransactionManager" />
     
-
-
-    <!-- Enable transactional support -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
-
-    <!-- Configure the Hibernate transaction manager -->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
+    <!-- EntityManager configuration -->
+    <bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
+    <!-- Configure the Hibernate transaction manager -->
+    <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+  
+    <bean id="apdi" class="DAO.ApplyPermissionDaoImpl" />
+    <bean id="app" class="models.ApplyPermissions" />
+    <bean id="cKey" class="models.PermissionCompositeKey" />
+     <!-- Dependency Injection Configuration -->
+    <bean id="holidayDAO" class="DAO.HolidayDAOImpl" />
+    <bean id="ed" class="DAO.EmployeeDAOImpl" />
+    <bean id="cd" class="DAO.CandidateDAOImpl" />
+    <bean id="cds" class="models.Candidate" />
+    <bean id="es" class="models.Employee" />
+    <bean id="rd" class="DAO.ReferenceDAO" />
+    <bean id="rs" class="service.ReferenceService" />
+    
 </beans>
