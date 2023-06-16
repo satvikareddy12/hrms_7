@@ -15,15 +15,15 @@
         }
 
         table {
-            width: 100%;
+            width: 60%;
             border-collapse: collapse;
-            margin-top: 20px;
+       
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #fff;
         }
 
         th, td {
-            padding: 10px;
+            
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -47,7 +47,7 @@
         }
 
         .table-container::-webkit-scrollbar {
-            height: 8px;
+            height: 5px;
             background-color: #f4f4f4;
         }
 
@@ -71,7 +71,7 @@
         }
          .center {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -102,6 +102,7 @@
                         <td><%= employee[3] %></td>
                        <td><a class="view-link" href="get-employee-details?id=<%= employee[0] %>">View</a></td>
                        <td><a class="view-link" href="updempl?id=<%= employee[0] %>">Edit</a></td>
+                       <td><a class="view-link" href="emplparam?id=<%= employee[0] %>">Parameters</a></td>
                     </tr>
                 <% } %>
             </tbody>

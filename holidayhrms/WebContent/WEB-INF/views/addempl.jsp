@@ -47,13 +47,28 @@
             cursor: pointer;
             border-radius: 3px;
         }
+        
+        button.back-button {
+    		 background-color: #4CAF50;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             margin-top: 10px;
+             cursor: pointer;
+             border-radius: 3px;
+		}		
     </style>
+     <script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
 </head>
 <body align="center">
     <h1>Employee Form</h1>
     <form  method="post" action="success3" >
         <label for="emplId">Employee ID:</label>
-        <input type="text" name="emplId" id="emplId" required><br>
+        <input type="number" name="emplId" id="emplId" required><br>
         
         <label for="emplFirstname">First Name:</label>
         <input type="text" name="emplFirstname" id="emplFirstname" required><br>
@@ -65,10 +80,10 @@
         <input type="text" name="emplSurname" id="emplSurname" required><br>
         
         <label for="emplRmanagerEmplId">Reporting Manager ID:</label>
-        <input type="text" name="emplRmanagerEmplId" id="emplRmanagerEmplId"><br>
+        <input type="number" name="emplRmanagerEmplId" id="emplRmanagerEmplId"><br>
         
         <label for="emplHrEmplId">HR Employee ID:</label>
-        <input type="text" name="emplHrEmplId" id="emplHrEmplId"><br>
+        <input type="number" name="emplHrEmplId" id="emplHrEmplId"><br>
         
         <label for="emplJbgrId">Job Group ID:</label>
         <input type="text" name="emplJbgrId" id="emplJbgrId"><br>
@@ -92,7 +107,7 @@
         <input type="text" name="emplPemail" id="emplPemail"><br>
         
         <label for="emplMobile">Mobile Number:</label>
-        <input type="text" name="emplMobile" id="emplMobile"><br>
+        <input type="number" name="emplMobile" id="emplMobile"><br>
         
         <label for="emplAlemail">Alternate Email:</label>
         <input type="text" name="emplAlemail" id="emplAlemail"><br>
@@ -113,24 +128,25 @@
         <input type="date" name="emplLuudate" id="emplLuudate"><br>
         
          <label for="emplLuuser">EmplLuuser:</label>
-        <input type="text" name="emplLuuser" id="emplLuuser"><br>
+        <input type="number" name="emplLuuser" id="emplLuuser"><br>
         
          <label for="empl_ctc">Employee CTC:</label>
-        <input type="text" name="empl_ctc" id="empl_ctc"><br>
+        <input type="number" name="empl_ctc" id="empl_ctc"><br>
         
          <label for="empl_basicsal">Basic Salary:</label>
-        <input type="text" name="empl_basicsal" id="empl_basicsal"><br>
+        <input type="number" name="empl_basicsal" id="empl_basicsal"><br>
         
          <label for="empl_fixedsal">Fixed Salary:</label>
-        <input type="text" name="empl_fixedsal" id="empl_fixedsal"><br>
+        <input type="number" name="empl_fixedsal" id="empl_fixedsal"><br>
         
          <label for="empl_variablesal">Variable Salary:</label>
-        <input type="text" name="empl_variablesal" id="empl_variablesal"><br>
+        <input type="number" name="empl_variablesal" id="empl_variablesal"><br>
         
          <label for="empl_status">Status:</label>
         <input type="text" name="empl_status" id="empl_status"><br>
         
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit"><br><br>
     </form>
+     <button class="back-button" onclick="goBack()">Go Back</button>
 </body>
 </html>

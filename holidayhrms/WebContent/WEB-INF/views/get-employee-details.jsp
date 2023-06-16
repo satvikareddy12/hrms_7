@@ -47,7 +47,21 @@
             color: #ff0000;
             font-weight: bold;
         }
+        button.back-button {
+    		 background-color: #4CAF50;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             margin-top: 10px;
+             cursor: pointer;
+             border-radius: 3px;
+		}		
     </style>
+     <script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
 </head>
 <body>
     <!-- Other HTML code... -->
@@ -83,7 +97,7 @@
             <p>Fixed Salary: <%= employee.getEmpl_fixedsal() %></p>
             <p>Variable Salary: <%= employee.getEmpl_variablesal() %></p>
             <p>Status: <%= employee.getEmpl_status() %></p>
-            
+            <button class="back-button" onclick="goBack()">Go Back</button>
         </div>
     <% } else { %>
         <p>No employee found with ID <%= employeeId %></p>

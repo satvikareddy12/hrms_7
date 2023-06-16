@@ -39,7 +39,7 @@
   overflow-y: scroll;
 }
 .menu-content::-webkit-scrollbar {
-  display: none;
+  overflow-y: scroll;
 }
 .menu-items {
   height: 100%;
@@ -123,17 +123,11 @@
 .main {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   z-index: 100;
   background: #e7f2fd;
 }
-.main h1 {
-  color: #11101d;
-  font-size: 40px;
-  text-align: center;
-}
+
     
     </style>
     <!-- Fontawesome CDN Link -->

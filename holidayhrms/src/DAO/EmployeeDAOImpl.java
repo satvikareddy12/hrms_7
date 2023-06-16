@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import models.Employee;
+import models.EmployeeParameter;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -47,6 +49,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Transactional
 	public void updateEmployee(Employee employee) {
 		entityManager.merge(employee);
+	}
+
+	@Override
+	@Transactional
+	public List<EmployeeParameter> getEmployeeParametersById(Integer employeeId) {
+		TypedQuery<EmployeeParameter> parameterQuery = entityManager.createQuery(
+				"SELECT p FROM EmployeeParameter p WHERE p.employeeId = :employeeId", EmployeeParameter.class);
+		parameterQuery.setParameter("employeeId", employeeId);
+		List<EmployeeParameter> parameters = parameterQuery.getResultList();
+
+		return parameters;
 	}
 
 }

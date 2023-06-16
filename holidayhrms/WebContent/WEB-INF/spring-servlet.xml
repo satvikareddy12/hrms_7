@@ -67,15 +67,13 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
   
+    <!-- Dependency Injection Configuration -->
     <bean id="apdi" class="DAO.ApplyPermissionDaoImpl" />
     <bean id="app" class="models.ApplyPermissions" />
     <bean id="cKey" class="models.PermissionCompositeKey" />
-     <!-- Dependency Injection Configuration -->
     <bean id="holidayDAO" class="DAO.HolidayDAOImpl" />
     <bean id="ed" class="DAO.EmployeeDAOImpl" />
     <bean id="cd" class="DAO.CandidateDAOImpl" />
-    <bean id="cds" class="models.Candidate" />
-    <bean id="es" class="models.Employee" />
     <bean id="rd" class="DAO.ReferenceDAO" />
     <bean id="rs" class="service.ReferenceService" />
     

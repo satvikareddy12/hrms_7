@@ -1,11 +1,11 @@
 package controllers;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +17,10 @@ import models.Candidate;
 public class CandidateController {
 
 	private CandidateDAO candidateDAO;
-	private Candidate cdd;
 
-	public CandidateController(CandidateDAO candidateDAO, Candidate cds) {
+	public CandidateController(CandidateDAO candidateDAO) {
 		this.candidateDAO = candidateDAO;
-		cdd = cds;
+
 	}
 
 	@RequestMapping("/viewcandidates")
@@ -53,26 +52,9 @@ public class CandidateController {
 	}
 
 	@RequestMapping(value = "/success", method = RequestMethod.POST)
-	public String saveCandidate(@RequestParam("firstName") String firstName,
-			@RequestParam("middleName") String middleName, @RequestParam("lastName") String lastName,
-			@RequestParam("rDate") Date rDate, @RequestParam("gender") String gender, @RequestParam("dob") Date dob,
-			@RequestParam("email") String email, @RequestParam("mobile") Long mobile,
-			@RequestParam("address") String address, @RequestParam("ludate") Date ludate,
-			@RequestParam("status") String status, Model model) {
+	public String saveCandidate(@ModelAttribute Candidate cand, Model model) {
 
-		cdd.setCandFirstName(firstName);
-		cdd.setCandMiddleName(middleName);
-		cdd.setCandLastName(lastName);
-		cdd.setCandRDate(rDate);
-		cdd.setCandGender(gender);
-		cdd.setCandDOB(dob);
-		cdd.setCandEmail(email);
-		cdd.setCandMobile(mobile);
-		cdd.setCandAddress(address);
-		cdd.setCandLUDate(ludate);
-		cdd.setCandStatus(status);
-
-		candidateDAO.saveCandidate(cdd);
+		candidateDAO.saveCandidate(cand);
 
 		model.addAttribute("message", "Candidate details saved successfully!");
 		return "success";

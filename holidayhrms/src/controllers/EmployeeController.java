@@ -1,11 +1,11 @@
 package controllers;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.EmployeeDAO;
 import models.Employee;
+import models.EmployeeParameter;
 
 @Controller
 public class EmployeeController {
 
 	private final EmployeeDAO emp;
-	private final Employee empr;
 
 	@Autowired
-	public EmployeeController(EmployeeDAO ed, Employee es) {
+	public EmployeeController(EmployeeDAO ed) {
 		emp = ed;
-		empr = es;
+
 	}
 
 	@RequestMapping("/employees")
@@ -47,51 +47,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/success3", method = RequestMethod.POST)
-	public String insertEmployee(@RequestParam("emplId") Integer emplId,
-			@RequestParam("emplFirstname") String emplFirstname, @RequestParam("emplLastname") String emplLastname,
-			@RequestParam("emplSurname") String emplSurname,
-			@RequestParam("emplRmanagerEmplId") Integer emplRmanagerEmplId,
-			@RequestParam("emplHrEmplId") Integer emplHrEmplId, @RequestParam("emplJbgrId") String emplJbgrId,
-			@RequestParam("emplPhoto") String emplPhoto, @RequestParam("emplJondate") Date emplJondate,
-			@RequestParam("emplDob") Date emplDob, @RequestParam("emplDesignation") String emplDesignation,
-			@RequestParam("emplOffemail") String emplOffemail, @RequestParam("emplPemail") String emplPemail,
-			@RequestParam("emplMobile") long emplMobile, @RequestParam("emplAlemail") String emplAlemail,
-			@RequestParam("emplBloodgroup") String emplBloodgroup, @RequestParam("emplGender") char emplGender,
-			@RequestParam("emplAddress") String emplAddress, @RequestParam("emplFname") String emplFname,
-			@RequestParam("emplLuudate") Date emplLuudate, @RequestParam("emplLuuser") Integer emplLuuser,
-			@RequestParam("empl_ctc") Double empl_ctc, @RequestParam("empl_basicsal") Double empl_basicsal,
-			@RequestParam("empl_fixedsal") Double empl_fixedsal,
-			@RequestParam("empl_variablesal") Double empl_variablesal, @RequestParam("empl_status") String empl_status,
-			Model model) {
-
-		empr.setEmplId(emplId);
-		empr.setEmplFirstname(emplFirstname);
-		empr.setEmplLastname(emplLastname);
-		empr.setEmplSurname(emplSurname);
-		empr.setEmplRmanagerEmplId(emplRmanagerEmplId);
-		empr.setEmplHrEmplId(emplHrEmplId);
-		empr.setEmplJbgrId(emplJbgrId);
-		empr.setEmplPhoto(emplPhoto);
-		empr.setEmplJondate(emplJondate);
-		empr.setEmplDob(emplDob);
-		empr.setEmplDesignation(emplDesignation);
-		empr.setEmplOffemail(emplOffemail);
-		empr.setEmplPemail(emplPemail);
-		empr.setEmplMobile(emplMobile);
-		empr.setEmplAlemail(emplAlemail);
-		empr.setEmplBloodgroup(emplBloodgroup);
-		empr.setEmplGender(emplGender);
-		empr.setEmplAddress(emplAddress);
-		empr.setEmplFname(emplFname);
-		empr.setEmplLuudate(emplLuudate);
-		empr.setEmplLuuser(emplLuuser);
-		empr.setEmpl_ctc(empl_ctc);
-		empr.setEmpl_basicsal(empl_basicsal);
-		empr.setEmpl_fixedsal(empl_fixedsal);
-		empr.setEmpl_variablesal(empl_variablesal);
-		empr.setEmpl_status(empl_status);
-
-		emp.insertEmployee(empr);
+	public String insertEmployee(@ModelAttribute Employee emps, Model model) {
+		emp.insertEmployee(emps);
 		model.addAttribute("message", "Employee details saved successfully!");
 		return "success3";
 	}
@@ -118,53 +75,17 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateEmployeeing(@RequestParam("emplId") Integer emplId,
-			@RequestParam("emplFirstname") String emplFirstname, @RequestParam("emplLastname") String emplLastname,
-			@RequestParam("emplSurname") String emplSurname,
-			@RequestParam("emplRmanagerEmplId") Integer emplRmanagerEmplId,
-			@RequestParam("emplHrEmplId") Integer emplHrEmplId, @RequestParam("emplJbgrId") String emplJbgrId,
-			@RequestParam("emplPhoto") String emplPhoto, @RequestParam("emplJondate") Date emplJondate,
-			@RequestParam("emplDob") Date emplDob, @RequestParam("emplDesignation") String emplDesignation,
-			@RequestParam("emplOffemail") String emplOffemail, @RequestParam("emplPemail") String emplPemail,
-			@RequestParam("emplMobile") long emplMobile, @RequestParam("emplAlemail") String emplAlemail,
-			@RequestParam("emplBloodgroup") String emplBloodgroup, @RequestParam("emplGender") char emplGender,
-			@RequestParam("emplAddress") String emplAddress, @RequestParam("emplFname") String emplFname,
-			@RequestParam("emplLuudate") Date emplLuudate, @RequestParam("emplLuuser") Integer emplLuuser,
-			@RequestParam("empl_ctc") Double empl_ctc, @RequestParam("empl_basicsal") Double empl_basicsal,
-			@RequestParam("empl_fixedsal") Double empl_fixedsal,
-			@RequestParam("empl_variablesal") Double empl_variablesal, @RequestParam("empl_status") String empl_status,
-			Model model) {
-
-		empr.setEmplId(emplId);
-		empr.setEmplFirstname(emplFirstname);
-		empr.setEmplLastname(emplLastname);
-		empr.setEmplSurname(emplSurname);
-		empr.setEmplRmanagerEmplId(emplRmanagerEmplId);
-		empr.setEmplHrEmplId(emplHrEmplId);
-		empr.setEmplJbgrId(emplJbgrId);
-		empr.setEmplPhoto(emplPhoto);
-		empr.setEmplJondate(emplJondate);
-		empr.setEmplDob(emplDob);
-		empr.setEmplDesignation(emplDesignation);
-		empr.setEmplOffemail(emplOffemail);
-		empr.setEmplPemail(emplPemail);
-		empr.setEmplMobile(emplMobile);
-		empr.setEmplAlemail(emplAlemail);
-		empr.setEmplBloodgroup(emplBloodgroup);
-		empr.setEmplGender(emplGender);
-		empr.setEmplAddress(emplAddress);
-		empr.setEmplFname(emplFname);
-		empr.setEmplLuudate(emplLuudate);
-		empr.setEmplLuuser(emplLuuser);
-		empr.setEmpl_ctc(empl_ctc);
-		empr.setEmpl_basicsal(empl_basicsal);
-		empr.setEmpl_fixedsal(empl_fixedsal);
-		empr.setEmpl_variablesal(empl_variablesal);
-		empr.setEmpl_status(empl_status);
-
-		emp.updateEmployee(empr);
+	public String updateEmployeeing(@ModelAttribute Employee empst, Model model) {
+		emp.updateEmployee(empst);
 		model.addAttribute("message", "Employee details updated successfully!");
 		return "update";
+	}
+
+	@RequestMapping("/emplparam")
+	public String getEmployeeParameters(@RequestParam("id") Integer employeeId, Model model) {
+		List<EmployeeParameter> employeeParameters = emp.getEmployeeParametersById(employeeId);
+		model.addAttribute("employeeParameters", employeeParameters);
+		return "employeeparamaters";
 	}
 
 }
