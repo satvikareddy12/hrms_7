@@ -30,8 +30,8 @@ public class CandidateDAOImpl implements CandidateDAO {
 
 	@Override
 	@Transactional
-	public List<Object[]> getAllCandidates() {
-		String query = "SELECT c.candId, c.candFirstName, c.candMiddleName, c.candLastName FROM Candidate c";
-		return entityManager.createQuery(query, Object[].class).getResultList();
+	public List<Candidate> getAllCandidates() {
+		String query = "SELECT c FROM Candidate c";
+		return entityManager.createQuery(query, Candidate.class).getResultList();
 	}
 }

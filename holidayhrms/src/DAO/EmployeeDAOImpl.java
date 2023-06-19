@@ -20,9 +20,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public List<Object[]> getAllEmployees() {
-		String query = "SELECT e.emplId, e.emplFirstname, e.emplLastname, e.emplSurname FROM Employee e";
-		return entityManager.createQuery(query, Object[].class).getResultList();
+	public List<Employee> getAllEmployees() {
+		String query = "SELECT e FROM Employee e";
+		return entityManager.createQuery(query, Employee.class).getResultList();
 	}
 
 	@Override

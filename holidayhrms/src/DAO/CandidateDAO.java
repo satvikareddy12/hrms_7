@@ -6,7 +6,7 @@ import models.Candidate;
 
 public interface CandidateDAO {
 
-	List<Object[]> getAllCandidates();
+	List<Candidate> getAllCandidates();
 
 	void saveCandidate(Candidate candidate);
 

@@ -44,14 +44,12 @@
         <property name="packagesToScan" value="models" />
         <property name="jpaPropertyMap">
             <map>
-                <entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+                <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
                 <entry key="hibernate.show_sql" value="true" />
                 <!-- Additional Hibernate properties can be added here -->
             </map>
         </property>
     </bean>
-  
-    <!-- Define the HolidayDAO bean -->
    
    
     <!-- Enable transactional support for EntityManager -->
@@ -76,5 +74,7 @@
     <bean id="cd" class="DAO.CandidateDAOImpl" />
     <bean id="rd" class="DAO.ReferenceDAO" />
     <bean id="rs" class="service.ReferenceService" />
+    <bean id="mp" class="org.modelmapper.ModelMapper" />
+    
     
 </beans>

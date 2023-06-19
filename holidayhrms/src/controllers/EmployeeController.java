@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,23 +15,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.EmployeeDAO;
 import models.Employee;
+import models.EmployeeOutput;
 import models.EmployeeParameter;
 
 @Controller
 public class EmployeeController {
 
 	private final EmployeeDAO emp;
+	private final ModelMapper modelMapper;
 
 	@Autowired
-	public EmployeeController(EmployeeDAO ed) {
+	public EmployeeController(EmployeeDAO ed, ModelMapper mp) {
 		emp = ed;
+		modelMapper = mp;
 
 	}
 
 	@RequestMapping("/employees")
 	public String showEmployees(Model model) {
-		List<Object[]> employees = emp.getAllEmployees();
-		model.addAttribute("employees", employees);
+		List<Employee> employees = emp.getAllEmployees();
+		List<EmployeeOutput> employeeOutputs = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
+		}.getType());
+		model.addAttribute("employees", employeeOutputs);
 		return "employees";
 	}
 
@@ -46,11 +53,12 @@ public class EmployeeController {
 		return "addempl";
 	}
 
-	@RequestMapping(value = "/success3", method = RequestMethod.POST)
+	@RequestMapping(value = "/employeeList", method = RequestMethod.POST)
 	public String insertEmployee(@ModelAttribute Employee emps, Model model) {
 		emp.insertEmployee(emps);
-		model.addAttribute("message", "Employee details saved successfully!");
-		return "success3";
+		List<Employee> employees = emp.getAllEmployees();
+		model.addAttribute("employees", employees);
+		return "employees";
 	}
 
 	@RequestMapping(value = "/delempl")
@@ -59,11 +67,12 @@ public class EmployeeController {
 		return "delempl";
 	}
 
-	@PostMapping(value = "/delete")
+	@PostMapping(value = "/employeeListDelete")
 	public String updateEmployeeStatus(@RequestParam("emplId") int emplId, Model model) {
 		emp.updateEmployeeStatus(emplId, "deleted");
-		model.addAttribute("message", "Employee deleted!");
-		return "delete";
+		List<Employee> employees = emp.getAllEmployees();
+		model.addAttribute("employees", employees);
+		return "employees";
 	}
 
 	@RequestMapping(value = "/updempl", method = RequestMethod.GET)

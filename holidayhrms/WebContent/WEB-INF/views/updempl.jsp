@@ -26,7 +26,7 @@
 
         form {
             max-width: 500px;
-            margin: 0 auto; /* Center align the form */
+            margin: 0 auto; 
             margin-top: 20px;
         }
 
@@ -54,9 +54,61 @@
             cursor: pointer;
             border-radius: 3px;
         }
+        
+         .modal {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center the content */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
     </style>
+    
+    <script>
+        // Function to close the modal popup
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Event listener to close the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+    
 </head>
 <body>
+ <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
     <h1>Employee Details</h1>
 
     <% Employee employee = (Employee) request.getAttribute("updating");
@@ -143,6 +195,9 @@
 
       <input type="submit" value="Save">
   </form>
+  </div>
+  </div>
+  </div>
 
 </body>
 </html>

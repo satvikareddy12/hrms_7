@@ -6,16 +6,15 @@ import models.Employee;
 import models.EmployeeParameter;
 
 public interface EmployeeDAO {
-	List<Object[]> getAllEmployees();
+	List<Employee> getAllEmployees();
 
 	Employee getEmployeeById(int id);
 
-	public void insertEmployee(Employee employee);
+	void insertEmployee(Employee employee);
 
-	public void updateEmployeeStatus(int id, String newStatus);
+	void updateEmployeeStatus(int id, String newStatus);
 
-	public void updateEmployee(Employee employee);
+	void updateEmployee(Employee employee);
 
-	public List<EmployeeParameter> getEmployeeParametersById(Integer employeeId);
-
+	List<EmployeeParameter> getEmployeeParametersById(Integer employeeId);
 }

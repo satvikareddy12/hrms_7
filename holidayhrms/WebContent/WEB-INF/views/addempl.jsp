@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.lang.System" %>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <!DOCTYPE html>
 <html>
@@ -56,17 +60,44 @@
              margin-top: 10px;
              cursor: pointer;
              border-radius: 3px;
-		}		
-    </style>
-     <script>
-    function goBack() {
-      window.history.back();
+		}
+		 .modal {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
     }
-    </script>
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center the content */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }		
+    </style>
+    
 </head>
 <body align="center">
     <h1>Employee Form</h1>
-    <form  method="post" action="success3" >
+    <form  method="post" action="employeeList" >
         <label for="emplId">Employee ID:</label>
         <input type="number" name="emplId" id="emplId" required><br>
         
@@ -147,6 +178,26 @@
         
         <input type="submit" value="Submit"><br><br>
     </form>
-     <button class="back-button" onclick="goBack()">Go Back</button>
+     
+      <div id="employeeList">
+        <!-- Employee list will be dynamically updated here -->
+    </div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+        function loadEmployeeList() {
+    	$.ajax({
+        	url: "employeeList", 
+        	method: "GET",
+        	success: function(response) {
+            	$("#employeeList").html(response);
+        	},
+        	error: function(xhr, status, error) {
+            	console.log("Error loading employee list: " + error);
+        	}
+    	});
+	}
+    loadEmployeeList();
+    setInterval(loadEmployeeList, 2000);
+    </script>
 </body>
 </html>

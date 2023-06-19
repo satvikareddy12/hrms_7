@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+<%@ page import="models.Candidate" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,12 +73,100 @@
             text-align: center;
             margin-top: 20px;
         }
+         .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
     </style>
+     <script>
+        // Function to open the modal popup
+        function openModal(employeeId) {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            // Set the URL to fetch employee details
+            var url = "viewcandidate?id=" + employeeId;
+            // Use AJAX to fetch the employee details and update the modal content
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var employeeDetails = this.responseText;
+                    document.getElementById("modalContent").innerHTML = employeeDetails;
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+        function openAddEmployeePopup() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            // Set the URL of the add employee form
+            var url = "addempl";
+            // Use AJAX to fetch the add employee form content and update the modal content
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var addEmployeeForm = this.responseText;
+                    document.getElementById("modalContent").innerHTML = addEmployeeForm;
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+            
+            // Reload the current page after closing the modal
+            modal.addEventListener("click", function(event) {
+                if (event.target.classList.contains("close")) {
+                    modal.style.display = "none";
+                    location.reload(); // Reload the page
+                }
+            });
+        }
+
+        
+        // Function to close the modal popup
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Event listener to close the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>Candidate List</h1>
     <%-- Retrieve the list of employees from the model --%>
-    <% List<Object[]> candidates = (List<Object[]>) request.getAttribute("candidates"); %>
+    <% List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates"); %>
     <%-- Check if the list is not null and not empty --%>
     <% if (candidates != null && !candidates.isEmpty()) { %>
         <table>
@@ -87,22 +176,39 @@
                     <th>First Name</th>
                     <th>Middle Name</th>
                     <th>Last Name</th>
-                    <th>View</th>
+                    <th>Registered Date</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Status</th>                   
                 </tr>
             </thead>
             <tbody>
                 <%-- Iterate over the list of employees and display the data --%>
-                <% for (Object[] candidate : candidates) { %>
-                    <tr>
-                        <td><%= candidate[0] %></td>
-                        <td><%= candidate[1] %></td>
-                        <td><%= candidate[2] %></td>
-                        <td><%= candidate[3] %></td>
-                       <td><a class="view-link" href="viewcandidate?id=<%= candidate[0] %>">View</a></td>
+                <% for (Candidate candidate : candidates) { %>
+                     <tr onclick="window.location.href='viewcandidate?id=<%= candidate.getCandId() %>'">
+                        <td><%= candidate.getCandId() %></td>
+                        <td><%= candidate.getCandFirstName() %></td>
+                        <td><%= candidate.getCandMiddleName() %></td>
+                        <td><%= candidate.getCandLastName() %></td>
+                        <td><%= candidate.getCandRDate() %></td>
+                        <td><%= candidate.getCandGender() %></td>
+                        <td><%= candidate.getCandDOB() %></td>
+                        <td><%= candidate.getCandEmail() %></td>
+                        <td><%= candidate.getCandMobile() %></td>
+                        <td><%= candidate.getCandStatus() %></td>                      
                     </tr>
                 <% } %>
             </tbody>
         </table>
+         <!-- Modal popup content -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
         <div class="center">
         <button onclick="window.location.href='candidate'">Add</button>
         

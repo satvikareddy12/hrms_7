@@ -25,7 +25,7 @@ public class CandidateController {
 
 	@RequestMapping("/viewcandidates")
 	public String showCandidates(Model model) {
-		List<Object[]> candidates = candidateDAO.getAllCandidates();
+		List<Candidate> candidates = candidateDAO.getAllCandidates();
 		model.addAttribute("candidates", candidates);
 		return "candidateview";
 	}
