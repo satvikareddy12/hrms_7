@@ -195,8 +195,7 @@
                     <th>Designation</th>
                     <th>Office Email</th>
                     <th>Personal Email</th>
-                    <th>Mobile number</th>
-                    <th>Alternate Email</th>              
+                    <th>Mobile number</th>                               
                 </tr>
             </thead>
             <tbody>
@@ -215,8 +214,7 @@
                         <td><%= employee.getEmplDesignation() %></td>
                         <td><%= employee.getEmplOffemail() %></td>
                         <td><%= employee.getEmplPemail() %></td>
-                        <td><%= employee.getEmplMobile() %></td>
-                        <td><%= employee.getEmplAlemail() %></td>
+                        <td><%= employee.getEmplMobile() %></td>                       
                     </tr>
                 <% } %>
             </tbody>

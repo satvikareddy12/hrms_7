@@ -3,34 +3,39 @@
 <%@ page import="models.EmployeeRefDocuments" %>
 <%@ page import="java.util.List" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
 
     h1 {
       font-size: 24px;
-   
+      margin-bottom: 10px;
     }
 
     .category {
-  
+      margin-bottom: 20px;
     }
 
     .category-title {
       font-weight: bold;
       font-size: 20px;
-
+      margin-bottom: 10px;
     }
 
     .document {
       display: flex;
       align-items: center;
-
+      margin-bottom: 10px;
     }
 
     .document-name {
- 
+      margin-right: 10px;
     }
 
     .document-link {
@@ -40,7 +45,7 @@
     }
     
     .category-select {
-
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -56,7 +61,10 @@
     <option value="all">All Categories</option>
     <option value="employee-handbook">Employee Handbook</option>
     <option value="code-of-conduct">Code of Conduct</option>
-    <!-- Add more category options here -->
+        <option value="Anti-Harrasement-Policy">Anti Harrasement Policy</option>
+        <option value="IT-Security-Policy">IT Security Policy</option>
+        <option value="Travel-and-Expense-Policy">Travel and Expense Policy</option>
+    
   </select>
 </div>
 
@@ -89,7 +97,51 @@ for(EmployeeRefDocuments doc : er) {
   <% }} %>
 </div>
 
-  <div class="add-button">
+ 
+  
+  <div class="category" id="Anti-Harrasement-Policy">
+  <div class="category-title">Anti Harrasement Policy</div>
+  <% String p = "Anti Harrasement Policy";
+  for (EmployeeRefDocuments doc : er) {
+    if (doc != null && doc.getCategory().equals(p)) { %>
+      <div class="document">
+        <%= doc.getDocName() %>&nbsp;&nbsp;
+        <div class="document-link" onclick="openDocument('<%= doc.getDocName() %>')">View</div>&nbsp;&nbsp;
+        <div class="document-link" onclick="deleteDocument('<%= doc.getId() %>')">Delete</div>
+      </div>
+    <% } 
+  } %>
+</div>
+
+<div class="category" id="IT-Security-Policy">
+  <div class="category-title">IT Security Policy</div>
+  <% String q = "IT Security Policy";
+  for (EmployeeRefDocuments doc : er) {
+    if (doc != null && doc.getCategory().equals(q)) { %>
+      <div class="document">
+        <%= doc.getDocName() %>&nbsp;&nbsp;
+        <div class="document-link" onclick="openDocument('<%= doc.getDocName() %>')">View</div>&nbsp;&nbsp;
+        <div class="document-link" onclick="deleteDocument('<%= doc.getId() %>')">Delete</div>
+      </div>
+    <% } 
+  } %>
+</div>
+
+<div class="category" id="Travel-and-Expense-Policy">
+  <div class="category-title">Travel and Expense Policy</div>
+  <% String r = "Travel and Expense Policy";
+  for (EmployeeRefDocuments doc : er) {
+    if (doc != null && doc.getCategory().equals(r)) { %>
+      <div class="document">
+        <%= doc.getDocName() %>&nbsp;&nbsp;
+        <div class="document-link" onclick="openDocument('<%= doc.getDocName() %>')">View</div>&nbsp;&nbsp;
+        <div class="document-link" onclick="deleteDocument('<%= doc.getId() %>')">Delete</div>
+      </div>
+    <% } 
+  } %>
+</div>
+
+   <div class="add-button">
     <a href="addReferenceDocument">Add Document</a>
   </div>
   
@@ -101,17 +153,45 @@ for(EmployeeRefDocuments doc : er) {
 	  if (category === "all") {
 	    document.getElementById("code-of-conduct").style.display = "block";
 	    document.getElementById("employee-handbook").style.display = "block";
-	    // Add more category elements here if needed
-	  } else if (category === "employee-handbook") {
+	    document.getElementById("Anti-Harrasement-Policy").style.display = "block";
+	    document.getElementById("IT-Security-Policy").style.display = "block";
+	    document.getElementById("Travel-and-Expense-Policy").style.display = "block";
+	  }
+	  else if (category === "employee-handbook") {
 	    document.getElementById("code-of-conduct").style.display = "none";
 	    document.getElementById("employee-handbook").style.display = "block";
-	    // Hide other category elements if needed
-	  } else if (category === "code-of-conduct") {
+	    document.getElementById("Anti-Harrasement-Policy").style.display = "none";
+	    document.getElementById("IT-Security-Policy").style.display = "none";
+	    document.getElementById("Travel-and-Expense-Policy").style.display = "none";
+	  } 
+	  else if (category === "code-of-conduct") {
 	    document.getElementById("code-of-conduct").style.display = "block";
 	    document.getElementById("employee-handbook").style.display = "none";
-	    // Hide other category elements if needed
+	    document.getElementById("Anti-Harrasement-Policy").style.display = "none";
+	    document.getElementById("IT-Security-Policy").style.display = "none";
+	    document.getElementById("Travel-and-Expense-Policy").style.display = "none";
 	  }
-	  // Add more category conditions here if needed
+	  else if (category === "Anti-Harrasement-Policy") {
+		    document.getElementById("code-of-conduct").style.display = "none";
+		    document.getElementById("employee-handbook").style.display = "none";
+		    document.getElementById("Anti-Harrasement-Policy").style.display = "block";
+		    document.getElementById("IT-Security-Policy").style.display = "none";
+		    document.getElementById("Travel-and-Expense-Policy").style.display = "none";
+		  }
+	  else if (category === "IT-Security-Policy") {
+		    document.getElementById("code-of-conduct").style.display = "none";
+		    document.getElementById("employee-handbook").style.display = "none";
+		    document.getElementById("Anti-Harrasement-Policy").style.display = "none";
+		    document.getElementById("IT-Security-Policy").style.display = "block";
+		    document.getElementById("Travel-and-Expense-Policy").style.display = "none";
+		  }
+	  else if (category === "Travel-and-Expense-Policy") {
+		    document.getElementById("code-of-conduct").style.display = "none";
+		    document.getElementById("employee-handbook").style.display = "none";
+		    document.getElementById("Anti-Harrasement-Policy").style.display = "none";
+		    document.getElementById("IT-Security-Policy").style.display = "none";
+		    document.getElementById("Travel-and-Expense-Policy").style.display = "block";
+		  }
 	}
 
     function openDocument(documentPath) {

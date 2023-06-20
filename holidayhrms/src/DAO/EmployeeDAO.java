@@ -17,4 +17,8 @@ public interface EmployeeDAO {
 	void updateEmployee(Employee employee);
 
 	List<EmployeeParameter> getEmployeeParametersById(Integer employeeId);
+
+	List<Employee> getEmployeesByHRAndManager(int employeeId);
+
+	Employee getEmployee(int employeeId);
 }

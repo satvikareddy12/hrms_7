@@ -116,7 +116,7 @@
   width: 100%;
 }
 .navbar {
-  position: fixed;
+  position: relative;
   color: #fff;
   padding: 15px 20px;
   font-size: 25px;
@@ -130,10 +130,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 100vh;
   z-index: 100;
   background: #e7f2fd;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
 }
 .main h1 {
   color: #11101d;
@@ -257,13 +260,13 @@ canvas {
                 Back to ALMS
               </div>
               <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> Leaves</a>
+                <a onclick="applyLeaves()"><i class="ri-file-list-line"></i> Apply Leaves</a>
               </li>
               <li class="item">
                 <a onclick="getPermissions()"><i class="ri-check-double-line"></i> Permissions</a>
               </li>
               <li class="item">
-                <a href="#"><i class="ri-time-line"></i> Attendance</a>
+                <a onclick="viewAttendance()"><i class="ri-time-line"></i> Attendance</a>
               </li>
               <li class="item">
                 <a href="#"><i class="ri-check-line"></i> Approvals</a>
@@ -584,6 +587,38 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
     	    }
     	  });
     	}
+    
+    function applyLeaves() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "leaveform",
+  	    success: function(response) {
+  	      var containerDiv = $(".main");
+  	      containerDiv.html(response);
+  	     
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    function viewAttendance() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "employeeAttendance",
+    	    success: function(response) {
+    	      var containerDiv = $(".main");
+    	      containerDiv.html(response);
+    	     
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    
     
  </script>
  

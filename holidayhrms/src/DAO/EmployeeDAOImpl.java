@@ -62,4 +62,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return parameters;
 	}
 
+	@Override
+	@Transactional
+	public List<Employee> getEmployeesByHRAndManager(int employeeId) {
+		String query = "SELECT e FROM Employee e "
+				+ "WHERE e.emplHrEmplId = :employeeId OR e.emplRmanagerEmplId = :employeeId";
+
+		return entityManager.createQuery(query, Employee.class).setParameter("employeeId", employeeId).getResultList();
+	}
+
+	@Override
+	@Transactional
+	public Employee getEmployee(int employeeId) {
+		return entityManager.find(Employee.class, employeeId);
+	}
 }

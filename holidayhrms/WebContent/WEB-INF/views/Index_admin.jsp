@@ -110,7 +110,7 @@
   width: 100%;
 }
 .navbar {
-  position: fixed;
+  position: relative;
   color: #fff;
   padding: 15px 20px;
   font-size: 25px;
@@ -120,14 +120,23 @@
 .navbar #sidebar-close {
   cursor: pointer;
 }
-.main {
-  position: relative;
-  display: flex;
-  height: 100vh;
-  z-index: 100;
-  background: #e7f2fd;
-}
-
+ .main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      height: 100vh;
+      padding: 20px;
+      background: #e7f2fd;
+      overflow: auto;
+      max-width: 100%;
+      max-height: 100%;
+      top: 2px;
+      right: 60px;
+      
+     
+    }
     
     </style>
     <!-- Fontawesome CDN Link -->
@@ -139,32 +148,11 @@
     
     
     
-    
-    <script>
-    function getHolidays() {
-    	  $.ajax({
-    	    type: "POST",
-    	    url: "holidaysupdd",
-    	    data: {},
-    	    success: function(response) {
-    	      var containerDiv = $("#main");
-    	      containerDiv.html(response);
-    	      history.pushState(null, "", "holidaysupd");
-    	    },
-    	    error: function() {
-    	      alert("Error occurred. Please try again later.");
-    	    }
-    	  });
-    	}
-
-    </script>
-    
      <script>
     function getHolidays() {
     	  $.ajax({
-    	    type: "POST",
-    	    url: "holidaysupmd",
-    	    data: {},
+    	    type: "GET",
+    	    url: "holidaysupd",    	  
     	    success: function(response) {
     	      var containerDiv = $("#main");
     	      containerDiv.html(response);
@@ -192,23 +180,6 @@
   	}
 
     
-    
-    function getyourtHolidays() {
-  	  $.ajax({
-  	    type: "POST",
-  	    url: "yourholidayss",
-  	    data: {},
-  	    success: function(response) {
-  	      var containerDiv = $("#main");
-  	      containerDiv.html(response);
-  	      history.pushState(null, "", "yourholidays");
-  	    },
-  	    error: function() {
-  	      alert("Error occurred. Please try again later.");
-  	    }
-  	  });
-  	}
-  
     
     function getemployees() {
   	  $.ajax({
@@ -255,6 +226,141 @@
   	  });
   	}
     
+    function getInductions() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "getform",
+    	    data: {},
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    function viewInductions() {
+  	  $.ajax({
+  	    type: "POST",
+  	    url: "inductionlist",
+  	  
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    function getLeaveRequests() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "leaveRequests",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    function getApprovedLeaves() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "AdminapprovedLeaves",
+  	   
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	} 
+    
+    function uploadAttendance() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "attendanceform",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	} 
+    
+    function viewAttendance() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "adminAttendance",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	} 
+    
+    function permissionsToBeApproved() {
+  	  $.ajax({
+  	    type: "POST",
+  	    url: "adminviewpermissions",
+  	   
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	} 
+  
+    function generatePayroll() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "getpayroll",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	} 
+    
+    function issueOffer() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "abs",
+  	   
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	} 
+    
     
     </script>
 
@@ -291,11 +397,11 @@
               </div>
              
               <li class="item">
-              <a href="javascript:void(0)"  onclick="getHolidays();"><i class="ri-calendar-line"></i> Provided</a>
+              <a href="javascript:void(0)" ><i class="ri-calendar-line"></i> Provided</a>
               </li>
               
                <li class="item">
-                <a href="javascript:void(0)"  onclick="getCandidates();"><i class="ri-file-list-line"></i> Issue</a>
+                <a href="javascript:void(0)"  onclick="issueOffer();"><i class="ri-file-list-line"></i> Issue</a>
               </li>
               
             </ul>
@@ -314,11 +420,11 @@
               </div>
              
               <li class="item">
-              <a href="javascript:void(0)"  onclick="getHolidays();"><i class="ri-calendar-line"></i> Insert</a>
+              <a href="javascript:void(0)" onclick="getInductions();"><i class="ri-calendar-line"></i> Insert</a>
               </li>
               
                <li class="item">
-                <a href="javascript:void(0)"  onclick="getyourtHolidays();"><i class="ri-file-list-line"></i> View</a>
+                <a href="javascript:void(0)" onclick="viewInductions();"><i class="ri-file-list-line"></i> View</a>
               </li>
               
             </ul>
@@ -343,7 +449,7 @@
                 Back to Master Data
               </div>
               <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> Holidays</a>
+                <a onclick="getHolidays();"><i class="ri-file-list-line"></i> Holidays</a>
               </li>
               <li class="item">
                 <a href="#"><i class="ri-check-double-line"></i> Leaves</a>
@@ -363,13 +469,20 @@
                 Back to ALMS
               </div>
               <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> Attendance</a>
-              </li>
-              <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Leaves</a>
+                <a onclick="uploadAttendance();"><i class="ri-file-list-line"></i> Upload Attendance</a>
               </li>
                <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Permissions</a>
+                <a onclick="viewAttendance();"><i class="ri-file-list-line"></i> View Attendance</a>
+              </li>
+              <li class="item">
+              <li class="item">
+                <a onclick="getLeaveRequests();"><i class="ri-check-double-line"></i> LeaveRequests</a>
+              </li>
+              <li class="item">
+                <a onclick="getApprovedLeaves();"><i class="ri-check-double-line"></i> Approved Leaves</a>
+              </li>
+               <li class="item">
+                <a onclick="permissionsToBeApproved();"><i class="ri-check-double-line"></i> Permissions</a>
               </li>
               <li class="item">
                 <a href="#"><i class="ri-check-double-line"></i> Approvals</a>
@@ -398,7 +511,7 @@
           </li>
           
           <li class="item">
-            <a href="#"><span class="icon"><i class="ri-booklet-line"></i></span> Payrolls</a>
+            <a onclick="generatePayroll();"><span class="icon"><i class="ri-booklet-line"></i></span> Payrolls</a>
           </li>
           <li class="item">
             <a href="#"><span class="icon"><i class="ri-settings-3-line"></i></span> Settings</a>
@@ -417,10 +530,11 @@
       <i class="fa-solid fa-bars" id="sidebar-close"></i>
     </nav>
 
-    <main class="main" id="main">
+<div class="main" id="main">
+   <!--  <main class="main" id="main"  height="600px" width="600px">
       <h1>Welcome Admin to Pennant Technologies....</h1>
-    </main>
-
+    </main> -->
+</div>
    
   </body>
        <script>

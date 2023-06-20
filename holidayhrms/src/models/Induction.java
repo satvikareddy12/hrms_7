@@ -3,59 +3,97 @@ package models;
 import java.sql.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_induction")
 public class Induction {
+	@Id
+	@Column(name = "indc_id")
+	private int indcId;
 
-	@EmbeddedId
-	private InductionId id;
+	@Column(name = "indc_emof_id")
+	private int indcEmofId;
 
 	@Column(name = "indc_date")
-	private Date inductionDate;
+	private Date indcDate;
 
 	@Column(name = "indc_processes_ausr_id")
-	private Integer indc_processes_ausr_id;
+	private int indcProcessedAusrId;
 
 	@Column(name = "indc_status")
-	private String status;
+	private String indcStatus;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "indc_emof_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
+	private HrmsEmploymentOffer employmentOffer;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "indc_processes_ausr_id", referencedColumnName = "ausr_empl_id", insertable = false, updatable = false)
+	private HrmsAdminUser adminUser;
+
+	public int getIndcId() {
+		return indcId;
+	}
+
+	public void setIndcId(int indcId) {
+		this.indcId = indcId;
+	}
+
+	public int getIndcEmofId() {
+		return indcEmofId;
+	}
+
+	public void setIndcEmofId(int indcEmofId) {
+		this.indcEmofId = indcEmofId;
+	}
+
+	public Date getIndcDate() {
+		return indcDate;
+	}
+
+	public void setIndcDate(Date indcDate) {
+		this.indcDate = indcDate;
+	}
+
+	public int getIndcProcessedAusrId() {
+		return indcProcessedAusrId;
+	}
+
+	public void setIndcProcessedAusrId(int indcProcessedAusrId) {
+		this.indcProcessedAusrId = indcProcessedAusrId;
+	}
+
+	public String getIndcStatus() {
+		return indcStatus;
+	}
+
+	public void setIndcStatus(String indcStatus) {
+		this.indcStatus = indcStatus;
+	}
+
+	public HrmsEmploymentOffer getEmploymentOffer() {
+		return employmentOffer;
+	}
+
+	public void setEmploymentOffer(HrmsEmploymentOffer employmentOffer) {
+		this.employmentOffer = employmentOffer;
+	}
+
+	public HrmsAdminUser getAdminUser() {
+		return adminUser;
+	}
+
+	public void setAdminUser(HrmsAdminUser adminUser) {
+		this.adminUser = adminUser;
+	}
 
 	// Constructors, getters, and setters
-
-	public InductionId getId() {
-		return id;
-	}
-
-	public void setId(InductionId id) {
-		this.id = id;
-	}
-
-	public Date getInductionDate() {
-		return inductionDate;
-	}
-
-	public void setInductionDate(Date inductionDate) {
-		this.inductionDate = inductionDate;
-	}
-
-	public void setIndcProcessesAusrId(Integer processerid) {
-
-		indc_processes_ausr_id = processerid;
-	}
-
-	public Integer getIndcProcessesAusrId() {
-		return indc_processes_ausr_id;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	// ...
 
 }

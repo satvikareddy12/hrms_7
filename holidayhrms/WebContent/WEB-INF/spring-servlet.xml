@@ -14,7 +14,19 @@
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>multipart/form-data</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+
+     
+    </mvc:annotation-driven>
     <context:component-scan base-package="controllers" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -75,6 +87,34 @@
     <bean id="rd" class="DAO.ReferenceDAO" />
     <bean id="rs" class="service.ReferenceService" />
     <bean id="mp" class="org.modelmapper.ModelMapper" />
+    <bean id="idao" class="DAO.InductionDAOImpl" />
+    <bean id="j" class="models.Induction" />
+    <bean id="docServ" class="service.EmploymentInductionDocumentService" />
+    <bean id="docDAO" class="DAO.EmploymentInductionDocDAOImpl" />
+    <bean id="document" class="models.EmploymentInductionDocument" />
+    <bean id="employeeLeaveModel" class="models.EmployeeLeaveModel" scope="prototype"/>
+    <bean id="leaveRequest" class="models.EmployeeLeaveRequest" autowire="byName" />
+    <bean id="leaveRequestId" class="models.EmployeeLeaveRequestId" autowire="byName" />
+    <bean id="gson" class="com.google.gson.Gson" autowire="byName" />
+    <bean id="employeeService" class="service.EmployeeLeaveService" autowire="byName" />
+    <bean id="leaveValidation" class="models.LeaveValidationModel" autowire="byName"/>
+    <bean id="approvedLeaveModel" class="models.ApprovedLeaveModel" scope="prototype"/>
+    <bean id="leaveRequestDAO" class="DAO.EmployeeLeaveRequestDAOImpl" />
+    <bean id="attendance" class="models.EmployeeAttendance" autowire="byName" />
+    <bean id="attendanceEvent" class="models.AttendanceEvent" scope="prototype"></bean>
+	<bean id="attendanceId" class="models.EmployeeAttendanceId" autowire="byName" />
+	<bean id="response" class="models.EmployeeRequestResult" autowire="byName" />
+	<bean id="employeeAttendanceService" class="service.EmployeeAttendanceService" />
+	<bean id="employeeAttendanceDAO" class="DAO.EmployeeAttendanceDAOImpl"  />
+	<bean id="prd" class="DAO.PayRollDaoImpl" autowire="byName"/>
+   
+    
+     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- Set the maximum allowed file size (in bytes) -->
+    <property name="maxUploadSize" value="10485760"/> <!-- 10MB -->
+    <!-- Set the maximum allowed size for a request (in bytes) -->
+    <property name="maxUploadSizePerFile" value="5242880"/> <!-- 5MB -->
+    </bean>
     
     
 </beans>

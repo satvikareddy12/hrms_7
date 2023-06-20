@@ -75,7 +75,7 @@
 
     .modal-content {
         background-color: #fefefe;
-        margin: 10% auto;
+        margin: 2% auto;
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
