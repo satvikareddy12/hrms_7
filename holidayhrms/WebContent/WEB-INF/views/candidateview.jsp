@@ -122,29 +122,25 @@
             xhttp.open("GET", url, true);
             xhttp.send();
         }
-        function openAddEmployeePopup() {
+        
+            
+
+        // Function to open the modal popup
+        function openAddCandidatePopup() {
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
-            // Set the URL of the add employee form
-            var url = "addempl";
-            // Use AJAX to fetch the add employee form content and update the modal content
+            // Set the URL of the add candidate form
+            var url = "candidate";
+            // Use AJAX to fetch the add candidate form content and update the modal content
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    var addEmployeeForm = this.responseText;
-                    document.getElementById("modalContent").innerHTML = addEmployeeForm;
+                    var addCandidateForm = this.responseText;
+                    document.getElementById("modalContent").innerHTML = addCandidateForm;
                 }
             };
             xhttp.open("GET", url, true);
             xhttp.send();
-            
-            // Reload the current page after closing the modal
-            modal.addEventListener("click", function(event) {
-                if (event.target.classList.contains("close")) {
-                    modal.style.display = "none";
-                    location.reload(); // Reload the page
-                }
-            });
         }
 
         
@@ -187,7 +183,7 @@
             <tbody>
                 <%-- Iterate over the list of employees and display the data --%>
                 <% for (Candidate candidate : candidates) { %>
-                     <tr onclick="window.location.href='viewcandidate?id=<%= candidate.getCandId() %>'">
+                     <tr onclick="openModal('<%= candidate.getCandId() %>')">
                         <td><%= candidate.getCandId() %></td>
                         <td><%= candidate.getCandFirstName() %></td>
                         <td><%= candidate.getCandMiddleName() %></td>
@@ -210,8 +206,7 @@
             </div>
         </div>
         <div class="center">
-        <button onclick="window.location.href='candidate'">Add</button>
-        
+           <button onclick="openAddCandidatePopup()">Add</button> 
        </div>
     <% } else { %>
         <p class="no-employees">No candidates found.</p>

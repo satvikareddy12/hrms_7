@@ -155,12 +155,6 @@
         <label for="emplFname">Father's Name:</label>
         <input type="text" name="emplFname" id="emplFname"><br>
         
-         <label for="emplLuudate">EmplLuudate:</label>
-        <input type="date" name="emplLuudate" id="emplLuudate"><br>
-        
-         <label for="emplLuuser">EmplLuuser:</label>
-        <input type="number" name="emplLuuser" id="emplLuuser"><br>
-        
          <label for="empl_ctc">Employee CTC:</label>
         <input type="number" name="empl_ctc" id="empl_ctc"><br>
         

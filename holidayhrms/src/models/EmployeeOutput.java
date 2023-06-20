@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class EmployeeOutput {
 
@@ -23,13 +24,13 @@ public class EmployeeOutput {
 	private char emplGender;
 	private String emplAddress;
 	private String emplFname;
-	private Date emplLuudate;
+	private Timestamp emplLuudate;
 	private Integer emplLuuser;
-	private Double emplCtc;
-	private Double emplBasicsal;
-	private Double emplFixedsal;
-	private Double emplVariablesal;
-	private String emplStatus;
+	private Double empl_ctc;
+	private Double empl_basicsal;
+	private Double empl_fixedsal;
+	private Double empl_variablesal;
+	private String empl_status;
 
 	// Constructors, getters, and setters
 
@@ -188,11 +189,11 @@ public class EmployeeOutput {
 		this.emplFname = emplFname;
 	}
 
-	public Date getEmplLuudate() {
+	public Timestamp getEmplLuudate() {
 		return emplLuudate;
 	}
 
-	public void setEmplLuudate(Date emplLuudate) {
+	public void setEmplLuudate(Timestamp emplLuudate) {
 		this.emplLuudate = emplLuudate;
 	}
 
@@ -204,43 +205,44 @@ public class EmployeeOutput {
 		this.emplLuuser = emplLuuser;
 	}
 
-	public Double getEmplCtc() {
-		return emplCtc;
+	public Double getEmpl_ctc() {
+		return empl_ctc;
 	}
 
-	public void setEmplCtc(Double emplCtc) {
-		this.emplCtc = emplCtc;
+	public void setEmpl_ctc(Double empl_ctc) {
+		this.empl_ctc = empl_ctc;
 	}
 
-	public Double getEmplBasicsal() {
-		return emplBasicsal;
+	public Double getEmpl_basicsal() {
+		return empl_basicsal;
 	}
 
-	public void setEmplBasicsal(Double emplBasicsal) {
-		this.emplBasicsal = emplBasicsal;
+	public void setEmpl_basicsal(Double empl_basicsal) {
+		this.empl_basicsal = empl_basicsal;
 	}
 
-	public Double getEmplFixedsal() {
-		return emplFixedsal;
+	public Double getEmpl_fixedsal() {
+		return empl_fixedsal;
 	}
 
-	public void setEmplFixedsal(Double emplFixedsal) {
-		this.emplFixedsal = emplFixedsal;
+	public void setEmpl_fixedsal(Double empl_fixedsal) {
+		this.empl_fixedsal = empl_fixedsal;
 	}
 
-	public Double getEmplVariablesal() {
-		return emplVariablesal;
+	public Double getEmpl_variablesal() {
+		return empl_variablesal;
 	}
 
-	public void setEmplVariablesal(Double emplVariablesal) {
-		this.emplVariablesal = emplVariablesal;
+	public void setEmpl_variablesal(Double empl_variablesal) {
+		this.empl_variablesal = empl_variablesal;
 	}
 
-	public String getEmplStatus() {
-		return emplStatus;
+	public String getEmpl_status() {
+		return empl_status;
 	}
 
-	public void setEmplStatus(String emplStatus) {
-		this.emplStatus = emplStatus;
+	public void setEmpl_status(String empl_status) {
+		this.empl_status = empl_status;
 	}
+
 }

@@ -21,7 +21,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	@Transactional
 	public List<Employee> getAllEmployees() {
-		String query = "SELECT e FROM Employee e";
+		String query = "SELECT e FROM Employee e WHERE e.emplHrEmplId=301";
 		return entityManager.createQuery(query, Employee.class).getResultList();
 	}
 

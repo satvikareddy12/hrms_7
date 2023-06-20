@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,7 +70,7 @@ public class Employee {
 	private String emplFname;
 
 	@Column(name = "empl_luudate", nullable = true)
-	private Date emplLuudate;
+	private Timestamp emplLuudate;
 
 	@Column(name = "empl_luuser", nullable = true)
 	private Integer emplLuuser;
@@ -288,11 +289,11 @@ public class Employee {
 		this.emplFname = emplFname;
 	}
 
-	public Date getEmplLuudate() {
+	public Timestamp getEmplLuudate() {
 		return emplLuudate;
 	}
 
-	public void setEmplLuudate(Date emplLuudate) {
+	public void setEmplLuudate(Timestamp emplLuudate) {
 		this.emplLuudate = emplLuudate;
 	}
 

@@ -54,56 +54,10 @@
             cursor: pointer;
             border-radius: 3px;
         }
-        
-         .modal {
-        display: block;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 800px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Center the content */
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+      
     </style>
     
-    <script>
-        // Function to close the modal popup
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        // Event listener to close the modal when clicking outside of it
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
-    
+   
 </head>
 <body>
  <div id="myModal" class="modal">
@@ -116,7 +70,7 @@
     <form method="post" action="update" >
     
       <label for="emplId">Employee ID:</label>
-      <input type="text" id="emplId" name="emplId" value="<%= employee.getEmplId() %>" readonly ><br><br>
+      <input type="number" id="emplId" name="emplId" value="<%= employee.getEmplId() %>" readonly ><br><br>
 
       <label for="emplFirstname">First Name:</label>
       <input type="text" id="emplFirstname" name="emplFirstname" value="<%= employee.getEmplFirstname() %>"><br><br>
@@ -128,10 +82,10 @@
       <input type="text" id="emplSurname" name="emplSurname" value="<%= employee.getEmplSurname() %>"><br><br>
 
       <label for="emplRmanagerEmplId">Reporting Manager ID:</label>
-      <input type="text" id="emplRmanagerEmplId" name="emplRmanagerEmplId" value="<%= employee.getEmplRmanagerEmplId() %>"><br><br>
+      <input type="number" id="emplRmanagerEmplId" name="emplRmanagerEmplId" value="<%= employee.getEmplRmanagerEmplId() %>"><br><br>
 
       <label for="emplHrEmplId">HR Employee ID:</label>
-      <input type="text" id="emplHrEmplId" name="emplHrEmplId" value="<%= employee.getEmplHrEmplId() %>"><br><br>
+      <input type="number" id="emplHrEmplId" name="emplHrEmplId" value="<%= employee.getEmplHrEmplId() %>"><br><br>
 
       <label for="emplJbgrId">Job Group ID:</label>
       <input type="text" id="emplJbgrId" name="emplJbgrId" value="<%= employee.getEmplJbgrId() %>"><br><br>
@@ -140,10 +94,10 @@
       <input type="text" id="emplPhoto" name="emplPhoto" value="<%= employee.getEmplPhoto() %>"><br><br>
 
       <label for="emplJondate">Joining Date:</label>
-      <input type="date" id="emplJondate" name="emplJondate" value="<%= employee.getEmplJondate() %>" ><br><br>
+      <input type="date" id="emplJondate" name="emplJondate" value="<%= employee.getEmplJondate() %>" readonly><br><br>
 
       <label for="emplDob">Date of Birth:</label>
-      <input type="date" id="emplDob" name="emplDob" value="<%= employee.getEmplDob() %>" ><br><br>
+      <input type="date" id="emplDob" name="emplDob" value="<%= employee.getEmplDob() %>" readonly><br><br>
 
       <label for="emplDesignation">Designation:</label>
       <input type="text" id="emplDesignation" name="emplDesignation" value="<%= employee.getEmplDesignation() %>"><br><br>
@@ -155,7 +109,7 @@
       <input type="text" id="emplPemail" name="emplPemail" value="<%= employee.getEmplPemail() %>"><br><br>
 
       <label for="emplMobile">Mobile:</label>
-      <input type="text" id="emplMobile" name="emplMobile" value="<%= employee.getEmplMobile() %>"><br><br>
+      <input type="number" id="emplMobile" name="emplMobile" value="<%= employee.getEmplMobile() %>"><br><br>
 
       <label for="emplAlemail">Alternate Email:</label>
       <input type="text" id="emplAlemail" name="emplAlemail" value="<%= employee.getEmplAlemail() %>"><br><br>
@@ -176,22 +130,22 @@
       <input type="date" id="emplLuudate" name="emplLuudate" value="<%= employee.getEmplLuudate() %>"><br><br>
 
       <label for="emplLuuser">Last Update User:</label>
-      <input type="text" id="emplLuuser" name="emplLuuser" value="<%= employee.getEmplLuuser() %>"><br><br>
+      <input type="number" id="emplLuuser" name="emplLuuser" value="<%= employee.getEmplLuuser() %>"><br><br>
 
       <label for="empl_ctc">CTC:</label>
-      <input type="text" id="empl_ctc" name="empl_ctc" value="<%= employee.getEmpl_ctc() %>"><br><br>
+      <input type="number" id="empl_ctc" name="empl_ctc" value="<%= employee.getEmpl_ctc() %>"><br><br>
 
       <label for="empl_basicsal">Basic Salary:</label>
-      <input type="text" id="empl_basicsal" name="empl_basicsal" value="<%= employee.getEmpl_basicsal() %>"><br><br>
+      <input type="number" id="empl_basicsal" name="empl_basicsal" value="<%= employee.getEmpl_basicsal() %>"><br><br>
 
       <label for="empl_fixedsal">Fixed Salary:</label>
-      <input type="text" id="empl_fixedsal" name="empl_fixedsal" value="<%= employee.getEmpl_fixedsal() %>"><br><br>
+      <input type="number" id="empl_fixedsal" name="empl_fixedsal" value="<%= employee.getEmpl_fixedsal() %>"><br><br>
 
       <label for="empl_variablesal">Variable Salary:</label>
-      <input type="text" id="empl_variablesal" name="empl_variablesal" value="<%= employee.getEmpl_variablesal() %>"><br><br>
+      <input type="number" id="empl_variablesal" name="empl_variablesal" value="<%= employee.getEmpl_variablesal() %>"><br><br>
 
       <label for="empl_status">Status:</label>
-      <input type="text" id="empl_status" name="empl_status" value="<%= employee.getEmpl_status() %>"><br><br>
+      <input type=text id="empl_status" name="empl_status" value="<%= employee.getEmpl_status() %>" readonly><br><br>
 
       <input type="submit" value="Save">
   </form>

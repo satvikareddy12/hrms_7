@@ -1,5 +1,6 @@
 package controllers;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -43,7 +44,9 @@ public class EmployeeController {
 	@RequestMapping("/get-employee-details")
 	public String getEmployeeDetails(@RequestParam("id") int employeeId, Model model) {
 		Employee employee = emp.getEmployeeById(employeeId);
-		model.addAttribute("employee", employee);
+		EmployeeOutput eout = modelMapper.map(employee, new TypeToken<EmployeeOutput>() {
+		}.getType());
+		model.addAttribute("employee", eout);
 		return "get-employee-details";
 	}
 
@@ -55,7 +58,12 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/employeeList", method = RequestMethod.POST)
 	public String insertEmployee(@ModelAttribute Employee emps, Model model) {
+
+		emps.setEmplLuuser(301);
+		Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+		emps.setEmplLuudate(currentTimestamp);
 		emp.insertEmployee(emps);
+
 		List<Employee> employees = emp.getAllEmployees();
 		model.addAttribute("employees", employees);
 		return "employees";
@@ -71,7 +79,9 @@ public class EmployeeController {
 	public String updateEmployeeStatus(@RequestParam("emplId") int emplId, Model model) {
 		emp.updateEmployeeStatus(emplId, "deleted");
 		List<Employee> employees = emp.getAllEmployees();
-		model.addAttribute("employees", employees);
+		List<EmployeeOutput> employeeOutputs = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
+		}.getType());
+		model.addAttribute("employees", employeeOutputs);
 		return "employees";
 	}
 

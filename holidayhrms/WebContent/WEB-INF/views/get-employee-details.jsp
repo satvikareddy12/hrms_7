@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="models.Employee" %>
+<%@ page import="models.EmployeeOutput" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +65,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h1>Employee Details</h1>
-            <% Employee employee = (Employee) request.getAttribute("employee");
+            <% EmployeeOutput employee = (EmployeeOutput) request.getAttribute("employee");
                String imagePath = request.getContextPath() + "/";
                String employeeId = request.getParameter("id"); %>
             <% if (employee != null) { %>
