@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"  %>
+<%@ page import="models.input.output.EmployeePayRollOutputModel" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,32 +54,32 @@
 </head>
 <body>
   <h2>Pay Slip</h2>
-
+  <% EmployeePayRollOutputModel pay = (EmployeePayRollOutputModel) request.getAttribute("pay"); %>
   <div class="container">
     <div class="container1">
       <div class="sub-container sub-container1">
       <h2>Details</h2>
-        <p><strong>Employee ID:</strong><%=request.getAttribute("id") %> </p>
-        <p><strong>Employee Name:</strong><%=request.getAttribute("name")  %> </p>
-        <p><strong>Designation:</strong><%=request.getAttribute("dest")  %> </p>
-        <p><strong>Basic Pay:</strong><%=request.getAttribute("basicPay")  %> </p>
-        <p><strong>HRA:</strong><%=request.getAttribute("hra")  %> </p>
-        <p><strong>TA:</strong><%=request.getAttribute("ta")  %></p>
-        <p><strong>Variable Pay:</strong><%=request.getAttribute("variablePay")  %> </p>
-        <p><strong>Earned Leaves:</strong><%=request.getAttribute("earnedLeave")  %> </p>
+        <p><strong>Employee ID:</strong><%=pay.getId() %> </p>
+        <p><strong>Employee Name:</strong><%=pay.getName()  %> </p>
+        <p><strong>Designation:</strong><%=pay.getDesignation()  %> </p>
+        <p><strong>Basic Pay:</strong><%=pay.getBasicPay() %> </p>
+        <p><strong>HRA:</strong><%=pay.getHra() %> </p>
+        <p><strong>Special Allowances:</strong><%=pay.getTa()%></p>
+        <p><strong>Variable Pay:</strong><%=pay.getVariablePay()%> </p>
+        <p><strong>Earned Leaves:</strong><%=pay.getEarnedLeave()%> </p>
       </div>
       <div class="sub-container sub-container2">
       <h2>Deductions</h2>
-        <p><strong>Gratuity:</strong><%=request.getAttribute("gratuity")  %> </p>
-        <p><strong>Health Insurance:</strong><%=request.getAttribute("healthInsurance")  %> </p>
-        <p><strong>PF:</strong><%=request.getAttribute("pf")  %> </p>
-        <p><strong>Extra Leaves:</strong><%=request.getAttribute("unpaidLeave")  %> </p>
+        <p><strong>Gratuity:</strong><%=pay.getGratuity()%> </p>
+        <p><strong>Health Insurance:</strong><%=pay.getHealthInsurance()%> </p>
+        <p><strong>PF:</strong><%=pay.getPf()%> </p>
+        <p><strong>Extra Leaves:</strong><%=pay.getUnpaidLeave()%> </p>
       </div>
     </div>
     <div class="container2"><h2>Pay</h2>
-      <p><strong>Gross Pay:</strong><%=request.getAttribute("gp")%> </p>
-      <p><strong>Deductions:</strong> 	<%=request.getAttribute("deduction") %></p>
-      <p><strong>Net Pay:</strong><%=request.getAttribute("total") %></p>
+      <p><strong>Gross Pay:</strong><%=pay.getGp()%> </p>
+      <p><strong>Deductions:</strong> 	<%=pay.getDeduction()%></p>
+      <p><strong>Net Pay:</strong><%=pay.getTotal()%></p>
     </div>
   </div>
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.EmployeeParameter" %>
+<%@ page import="models.input.output.EmployeeParameterIO" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,8 @@
 
         table {
             width: 60%;
-            border-collapse: collapse;
-       
+            border-collapse: collapse;  
+            margin: 0 auto;     
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #fff;
         }
@@ -72,7 +72,7 @@
 <h1>Employee Parameters</h1>
 
 <%
-    List<EmployeeParameter> employeeParameters = (List<EmployeeParameter>) request.getAttribute("employeeParameters");
+    List<EmployeeParameterIO> employeeParameters = (List<EmployeeParameterIO>) request.getAttribute("employeeParameters");
 %>
 
 <table>
@@ -85,7 +85,7 @@
         <th>Last Updated User</th>
     </tr>
 
-    <% for (EmployeeParameter employeeParam : employeeParameters) { %>
+    <% for (EmployeeParameterIO employeeParam : employeeParameters) { %>
         <tr>
             <td><%= employeeParam.getEmployeeId() %></td>
             <td><%= employeeParam.getParameterId() %></td>

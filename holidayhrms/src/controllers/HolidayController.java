@@ -20,26 +20,11 @@ public class HolidayController {
 		this.hd = holidayDAO;
 	}
 
-	@RequestMapping("/holidays")
-	public String showHolidays() {
-		return "index2";
-	}
-
 	@RequestMapping("/holidaysupd")
 	public String showHolidays(Model model) {
 		List<Holiday> holidays = hd.findAllHolidays();
 		model.addAttribute("holidays", holidays);
 		return "holidays";
-	}
-
-	@RequestMapping("/yourholidays")
-	public String yourHolidays() {
-		return "yourholiday";
-	}
-
-	@RequestMapping("/admindashboard")
-	public String showAdmin() {
-		return "Index_admin";
 	}
 
 }

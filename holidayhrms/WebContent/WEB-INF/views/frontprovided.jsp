@@ -65,7 +65,6 @@
                     <th>Candidate Register Date</th>
                     <th>Candidate Status</th>
                     <th>View Candidate</th>
-                    <th>Generate Offer</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,15 +80,14 @@
                             <td><%= candidate.getCandStatus() %></td>
                             <td><a class="view-link" href="viewcandidate?id=<%= candidate.getCandId() %>">View</a></td>
                             
-            			
-            				
+            				<td>
+            
 <td>
     <form action="get-candidate-details" method="GET">
         <input type="hidden" name="id" value="<%= candidate.getCandId() %>">
-        <button type="submit" class="view-button" style="background-color: #4CAF50; color: #fff;">generate offer letter</button>
     </form>
 </td>
-            				
+            				</td>
             				
                         </tr>
                         

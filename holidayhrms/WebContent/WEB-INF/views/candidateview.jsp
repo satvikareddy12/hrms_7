@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Candidate" %>
+<%@ page import="models.input.output.CandidateIO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +73,20 @@
             text-align: center;
             margin-top: 20px;
         }
+         .center button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        background-color: #4CAF50;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .center button:hover {
+        background-color: #45a049;
+    }
+        
          .modal {
         display: none;
         position: fixed;
@@ -162,7 +176,7 @@
 <body>
     <h1>Candidate List</h1>
     <%-- Retrieve the list of employees from the model --%>
-    <% List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates"); %>
+    <% List<CandidateIO> candidates = (List<CandidateIO>) request.getAttribute("candidates"); %>
     <%-- Check if the list is not null and not empty --%>
     <% if (candidates != null && !candidates.isEmpty()) { %>
         <table>
@@ -182,7 +196,7 @@
             </thead>
             <tbody>
                 <%-- Iterate over the list of employees and display the data --%>
-                <% for (Candidate candidate : candidates) { %>
+                <% for (CandidateIO candidate : candidates) { %>
                      <tr onclick="openModal('<%= candidate.getCandId() %>')">
                         <td><%= candidate.getCandId() %></td>
                         <td><%= candidate.getCandFirstName() %></td>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="models.Employee" %>
+<%@ page import="models.input.output.EmployeeOutput" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +65,7 @@
             <span class="close" onclick="closeModal()">&times;</span>
     <h1>Employee Details</h1>
 
-    <% Employee employee = (Employee) request.getAttribute("updating");
+    <% EmployeeOutput employee = (EmployeeOutput) request.getAttribute("updating");
         %>
     <form method="post" action="update" >
     
@@ -125,12 +125,6 @@
 
       <label for="emplFname">Fname:</label>
       <input type="text" id="emplFname" name="emplFname" value="<%= employee.getEmplFname() %>" readonly><br><br>
-
-      <label for="emplLuudate">Last Update Date:</label>
-      <input type="date" id="emplLuudate" name="emplLuudate" value="<%= employee.getEmplLuudate() %>"><br><br>
-
-      <label for="emplLuuser">Last Update User:</label>
-      <input type="number" id="emplLuuser" name="emplLuuser" value="<%= employee.getEmplLuuser() %>"><br><br>
 
       <label for="empl_ctc">CTC:</label>
       <input type="number" id="empl_ctc" name="empl_ctc" value="<%= employee.getEmpl_ctc() %>"><br><br>

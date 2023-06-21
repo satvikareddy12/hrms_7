@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import DAO.EmployeeAttendanceDAO;
 import DAO.EmployeeDAO;
 import models.AttendanceEvent;
 import models.AttendanceRequest;
+import models.Employee;
 import models.EmployeeAttendance;
 import models.EmployeeAttendanceId;
 import models.EmployeeRequestResult;
@@ -72,13 +74,19 @@ public class AttendanceController {
 
 		// should handle the employee id
 		session.setAttribute("employeeid", 1);
-		// int id = (int) session.getAttribute("employeeid");
-		// Employee employee = employeeDAO.getEmployee(id);
-		// Date joinDate = employee.getEmplJondate();
-		// System.out.println(joinDate);
-		// List<Integer> yearsList = employeeAttendanceService.getYears(joinDate);
-		// model.addAttribute("years", yearsList);
+		int id = (int) session.getAttribute("employeeid");
+		Employee employee = employeeDAO.getEmployee(id);
+		System.out.println(employee);
+		Date joinDate = employee.getEmplJondate();
+		System.out.println(joinDate);
+		List<Integer> yearsList = employeeAttendanceService.getYears(joinDate);
+
+		for (Integer i : yearsList)
+			System.out.println(i);
+
+		model.addAttribute("years", yearsList);
 		return "employeeAttendance";
+
 	}
 
 	// Admin side attendance
@@ -159,4 +167,22 @@ public class AttendanceController {
 		return ResponseEntity.ok("succesfully updated");
 	}
 
+	@RequestMapping(value = "/getYearsList", method = RequestMethod.POST)
+	public ResponseEntity<String> getYearsOfEmployee(@ModelAttribute AttendanceRequest attendanceRequest) {
+		int id = attendanceRequest.getEmployeeid();
+		System.out.println(id);
+		Employee employee = employeeDAO.getEmployee(id);
+
+		if (employee == null)
+			return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+
+		System.out.println(employee);
+		Date joinDate = employee.getEmplJondate();
+		System.out.println(joinDate);
+		List<Integer> yearsList = employeeAttendanceService.getYears(joinDate);
+
+		System.out.println(gson.toJson(yearsList));
+
+		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(yearsList));
+	}
 }

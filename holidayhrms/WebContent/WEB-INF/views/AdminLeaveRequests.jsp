@@ -203,7 +203,7 @@ tr:nth-child(even) {
 	<%
 	session.setAttribute("adminId", 123);
 	%>
-	<h1>Leave Requests</h1>
+	<h1>Leave Requests</h1><br>
 	<table>
 		<tr>
 			<th>Employee ID</th>

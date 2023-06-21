@@ -7,19 +7,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-
+    <style>
+  
     h1 {
       font-size: 24px;
       margin-bottom: 10px;
+      text-align: center;
     }
 
     .category {
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .category-title {
@@ -32,6 +30,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 10px;
+      justify-content: center;
     }
 
     .document-name {
@@ -42,15 +41,25 @@
       color: blue;
       text-decoration: underline;
       cursor: pointer;
+      text-align: center;
     }
-    
+
     .category-select {
       margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .add-button {
+      text-align: center;
+    }
+
+    h1 {
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>Reference Documents</h1>
+  <h1>Reference Documents</h1><br>
 	 <% 
 	 List<EmployeeRefDocuments> er = ( List<EmployeeRefDocuments> ) request.getAttribute("document");
 	 String imagePath = request.getContextPath() + "/";%> 

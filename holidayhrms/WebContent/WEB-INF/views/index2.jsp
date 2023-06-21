@@ -128,9 +128,9 @@
 }
 .main {
   position: relative;
-  display: flex;
+  
   align-items: center;
-  justify-content: space-between;
+ 
   height: 100vh;
   z-index: 100;
   background: #e7f2fd;
@@ -226,7 +226,7 @@ canvas {
             <a onclick="loadStatistics()"><i class="ri-booklet-line"></i> Dashboard </a>
           </li>
           <li class="item">
-            <a href="#"><i class="ri-bar-chart-line"></i> Profile</a>
+            <a onclick="viewProfile()"><i class="ri-bar-chart-line"></i> Profile</a>
           </li>
 
           <li class="item">
@@ -244,7 +244,7 @@ canvas {
                 <a onclick="getHolidays()"><i class="ri-calendar-line"></i> Holidays</a>
               </li>
               <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> Leaves</a>
+                <a onclick="getLeaves()"><i class="ri-file-list-line"></i> Leaves</a>
               </li>
             </ul>
           </li>
@@ -607,6 +607,36 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
     	  $.ajax({
     	    type: "GET",
     	    url: "employeeAttendance",
+    	    success: function(response) {
+    	      var containerDiv = $(".main");
+    	      containerDiv.html(response);
+    	     
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    function getLeaves() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "geEmployeeLeaves",
+  	    success: function(response) {
+  	      var containerDiv = $(".main");
+  	      containerDiv.html(response);
+  	     
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    function viewProfile() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "toprofile",
     	    success: function(response) {
     	      var containerDiv = $(".main");
     	      containerDiv.html(response);

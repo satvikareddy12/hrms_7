@@ -61,7 +61,7 @@
 </head>
 <body>
     <h1>Enter Candidate Details</h1>
-    <form method="post" action="success">
+    <form method="post" action="candidateadded">
         <label for="candFirstName">First Name:</label>
         <input type="text" name="candFirstName" id="candFirstName" required><br><br>
         
@@ -97,5 +97,22 @@
         
         <input type="submit" value="Submit">
     </form>
+    
+     <script>
+        function loadEmployeeList() {
+    	$.ajax({
+        	url: "candidateadded", 
+        	method: "GET",
+        	success: function(response) {
+            	$("#candidateadded").html(response);
+        	},
+        	error: function(xhr, status, error) {
+            	console.log("Error loading employee list: " + error);
+        	}
+    	});
+	}
+    loadEmployeeList();
+    setInterval(loadEmployeeList, 2000);
+    </script>
 </body>
 </html>

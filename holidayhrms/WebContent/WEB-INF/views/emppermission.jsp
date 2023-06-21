@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,11 +20,13 @@
     label {
       display: block;
       margin-top: 10px;
+      text-align: center;
     }
 
     input[type="text"],
     input[type="date"],
     input[type="time"],
+    input[type="number"],
     textarea {
       width: 100%;
       padding: 5px;
@@ -49,6 +52,9 @@
 
     button:hover {
       background-color: #45a049;
+    }
+    h1{
+     text-align: center;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -98,6 +104,7 @@
   </script>
 </head>
 <body>
+  <h1>Permission Form</h1>
   <div class="container">
     <form id="permissionForm" action="applyPermission" method="get">
       <label for="id">ID:</label>

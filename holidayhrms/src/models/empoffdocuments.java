@@ -19,10 +19,6 @@ public class empoffdocuments {
 	empoffdocuments() {
 	}
 
-	public int getEofdIdtyId() {
-		return eofdIdtyId;
-	}
-
 	public empoffdocuments(empoffdocscomposite empoff, int eofdIdtyId) {
 		super();
 		this.empoff = empoff;
@@ -33,12 +29,21 @@ public class empoffdocuments {
 		return empoff;
 	}
 
+	@Override
+	public String toString() {
+		return "empoffdocuments [empoff=" + empoff + ", eofdIdtyId=" + eofdIdtyId + "]";
+	}
+
 	public void setEmpoff(empoffdocscomposite empoff) {
 		this.empoff = empoff;
 	}
 
 	public void setEofdIdtyId(int eofdIdtyId) {
 		this.eofdIdtyId = eofdIdtyId;
+	}
+
+	public int getEofdIdtyId() {
+		return eofdIdtyId;
 	}
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Approved Leaves</title>
+    <title>Job Grade Leaves</title>
     <style>
         /* Add your custom CSS styles here */
         body {
@@ -12,9 +12,11 @@
         h1 {
             color: #333;
             text-align: center;
+            margin-bottom: 30px;
         }
         
         table {
+            margin-top: 20px;
             border-collapse: collapse;
             width: 100%;
             max-width: 800px;
@@ -40,28 +42,30 @@
 </head>
 <body>
     <%@ page import="java.util.List, java.util.ArrayList" %>
-    <%@ page import="models.ApprovedLeaveModel" %>
+    <%@ page import="models.input.output.JobGradeLeavesOutModel" %>
     
-    <h1>Approved Leaves</h1><br>
+    <h1>Job Grade Leaves</h1>
     
     <table>
         <tr>
-            <th>Employee ID</th>
-            <th>Employee Name</th>
-            <th>Approved Start Date</th>
-            <th>Approved End Date</th>
+            <th>Job Grade ID</th>
+            <th>Total Leaves</th>
+            <th>Casual Leaves</th>
+            <th>Sick Leaves</th>
+            <th>Other Leaves</th>
         </tr>
         
         <% 
-        List<ApprovedLeaveModel> approvedLeaves = (List<ApprovedLeaveModel>) request.getAttribute("approvedLeaves");
+        List<JobGradeLeavesOutModel> jobGradeLeaves = (List<JobGradeLeavesOutModel>) request.getAttribute("jobgradeleaves");
         
-        for (ApprovedLeaveModel leave : approvedLeaves) { 
+        for (JobGradeLeavesOutModel jobGrade : jobGradeLeaves) { 
         %>
         <tr>
-            <td><%= leave.getEmployeeId() %></td>
-            <td><%= leave.getEmployeeName() %></td>
-            <td><%= leave.getApprovedStartDate() %></td>
-            <td><%= leave.getApprovedEndDate() %></td>
+            <td><%= jobGrade.getJobGradeId() %></td>
+            <td><%= jobGrade.getTotalLeaves() %></td>
+            <td><%= jobGrade.getCasualLeaves() %></td>
+            <td><%= jobGrade.getSickLeaves() %></td>
+            <td><%= jobGrade.getOtherLeaves() %></td>
         </tr>
         <% } %>
     </table>

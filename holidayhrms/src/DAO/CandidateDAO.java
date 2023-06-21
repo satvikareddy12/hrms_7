@@ -3,8 +3,8 @@ package DAO;
 import java.util.List;
 
 import models.Candidate;
-import models.Employee;
 import models.Eofr;
+import models.HRDepartment;
 import models.OfferModel;
 
 public interface CandidateDAO {
@@ -21,11 +21,13 @@ public interface CandidateDAO {
 
 	void insertEofrInto(Eofr eofr);
 
-	Employee getHrById(int hR_id);
+	HRDepartment getHrById(int hR_id);
 
 	List<String> getAllDocuments();
 
 	void updateEmploymentOfferDocuments(Eofr eofr, OfferModel offerModel);
 
 	void updateCandidateStatus(String cand_status, String newValue);
+
+	public List<Candidate> findAllProvidedCandidates();
 }

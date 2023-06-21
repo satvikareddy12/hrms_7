@@ -106,7 +106,12 @@
 	<bean id="response" class="models.EmployeeRequestResult" autowire="byName" />
 	<bean id="employeeAttendanceService" class="service.EmployeeAttendanceService" />
 	<bean id="employeeAttendanceDAO" class="DAO.EmployeeAttendanceDAOImpl"  />
-	<bean id="prd" class="DAO.PayRollDaoImpl" autowire="byName"/>
+	<bean id="jobGradeLeavesOutModel" class="models.input.output.JobGradeLeavesOutModel" scope="prototype" />
+	<bean id="empserv" class="service.EmpService" /> 
+    <bean id="empauto" class="models.Employee" /> 
+    <bean id="empdao" class="DAO.EmpDAO" />
+    <bean id="payRollservice" class="service.PayRollServiceImpl" autowire="byName"/>
+    <bean id="payRollOutput" class="models.input.output.EmployeePayRollOutputModel" autowire="byName"/>
    
     
      <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

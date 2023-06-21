@@ -2,40 +2,8 @@
 <%@page import="models.Holiday" %>
 <%@ page import="java.util.List" %>
 
-<div class="container">
-    
-    <div class="search-box">
-       <input type="text" id="filterInput" placeholder="Search..." onkeyup="filterTable()">
-
-    </div>
-    <div class="table-container">
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Holiday Date</th>
-                    <th>Holiday Title</th>
-                    <th>Holiday Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                List<Holiday> holidays = (List<Holiday>) request.getAttribute("holidays");
-                if (holidays != null) {
-                    for (Holiday holiday : holidays) { %>
-                        <tr>
-                            <td align="center"><%= holiday.getYear() %></td>
-                            <td align="center"><%= holiday.gethday_date() %></td>
-                            <td align="center"><%= holiday.gethday_title() %></td>
-                            <td align="center"><%= holiday.gethday_type() %></td>
-                        </tr>
-                    <% }
-                } %>
-            </tbody>
-        </table>
-    </div>
-</div>
-
+<html>
+<head>
 <style>
     /* Styles for holidays.jsp */
     .container {
@@ -82,6 +50,9 @@
     tr:hover {
         background-color: #ddd;
     }
+     h2 {
+        text-align: center;
+    }
 </style>
 <script>
     function filterTable() {
@@ -117,3 +88,43 @@
         }
     }
 </script>
+</head>
+<body>
+<h2>List of Holidays</h2>
+<div class="container">
+    
+    <div class="search-box">
+       <input type="text" id="filterInput" placeholder="Search..." onkeyup="filterTable()">
+
+    </div>
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Holiday Date</th>
+                    <th>Holiday Title</th>
+                    <th>Holiday Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                List<Holiday> holidays = (List<Holiday>) request.getAttribute("holidays");
+                if (holidays != null) {
+                    for (Holiday holiday : holidays) { %>
+                        <tr>
+                            <td align="center"><%= holiday.getYear() %></td>
+                            <td align="center"><%= holiday.gethday_date() %></td>
+                            <td align="center"><%= holiday.gethday_title() %></td>
+                            <td align="center"><%= holiday.gethday_type() %></td>
+                        </tr>
+                    <% }
+                } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

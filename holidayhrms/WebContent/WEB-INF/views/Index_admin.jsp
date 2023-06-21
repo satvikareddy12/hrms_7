@@ -125,7 +125,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      justify-content: space-between;
+     
       height: 100vh;
       padding: 20px;
       background: #e7f2fd;
@@ -361,6 +361,36 @@
   	  });
   	} 
     
+    function providedOffers() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "provided",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	} 
+    
+    function getLeavesByGrade() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "getJobGradeWiseLeaves",
+  	   
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	} 
+    
     
     </script>
 
@@ -397,7 +427,7 @@
               </div>
              
               <li class="item">
-              <a href="javascript:void(0)" ><i class="ri-calendar-line"></i> Provided</a>
+              <a href="javascript:void(0)" onclick="providedOffers();"><i class="ri-calendar-line"></i> Provided</a>
               </li>
               
                <li class="item">
@@ -452,7 +482,7 @@
                 <a onclick="getHolidays();"><i class="ri-file-list-line"></i> Holidays</a>
               </li>
               <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Leaves</a>
+                <a onclick="getLeavesByGrade();"><i class="ri-check-double-line"></i> Leaves</a>
               </li>
             </ul>
           </li>

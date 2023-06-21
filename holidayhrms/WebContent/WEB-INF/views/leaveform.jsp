@@ -14,6 +14,8 @@ h1 {
 
 .form-group {
 	margin-bottom: 20px;
+	margin-left :20px;
+	text-align: center;
 }
 
 .form-group label {
@@ -37,7 +39,13 @@ h1 {
 	margin-top: 10px;
 	font-size: 16px;
 	padding: 10px 20px;
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+	background-color: #4CAF50;
+	color: #fff;
 }
+
 
 .process-msg {
 	color: #1F6E8C;
@@ -63,7 +71,7 @@ h1 {
    
     
 
-	<h1>Leave Form</h1>
+	<h1>Leave Form</h1><br>
 
 	<%
 	session.setAttribute("employeeid", 1);

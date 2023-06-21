@@ -2,9 +2,9 @@
 package DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -12,11 +12,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import models.EmploymentInductionDocument;
+import models.input.output.EmploymentInductionDocumentViewModel;
 
 @Component
 public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumentDAO {
-
-	private EntityManagerFactory entityManagerFactory;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -32,20 +31,26 @@ public class EmploymentInductionDocDAOImpl implements EmploymentInductionDocumen
 	}
 
 	@Override
-	public ArrayList<EmploymentInductionDocument> getAllDocuments() {
-		String queryString = "SELECT e FROM EmploymentInductionDocument e";
+	public List<EmploymentInductionDocumentViewModel> getAllDocuments() {
+		String queryString = "SELECT e.emplid, e.emplidty, e.documentData, e.verified FROM EmploymentInductionDocument e WHERE e.emplid IS NOT NULL AND e.emplidty IS NOT NULL AND e.documentData IS NOT NULL AND e.verified IS NOT NULL";
 		Query query = entityManager.createQuery(queryString);
+		// return (List<EmploymentInductionDocumentViewModel>) query.getResultList();
 
-		ArrayList<EmploymentInductionDocument> al = new ArrayList<>();
-		EmploymentInductionDocument eid = new EmploymentInductionDocument();
-		// eid.setDocumentIndex(1);
-		// eid.setEmplid(1);
-		// eid.setEmplidty(11);
-		// eid.setIndcProcessedAusrId(111);
-		// eid.setVerified("Yes");
-		// al.add(eid);
+		List<Object[]> results = query.getResultList();
+		List<EmploymentInductionDocumentViewModel> documents = new ArrayList<>();
 
-		return al; // (ArrayList<EmploymentInductionDocument>) query.getResultList();
+		for (Object[] result : results) {
+			int emplid = (int) result[0];
+			int emid_idty_id = (int) result[1];
+			String documentData = (String) result[2];
+			String verified = (String) result[3];
+
+			EmploymentInductionDocumentViewModel document = new EmploymentInductionDocumentViewModel(emplid,
+					emid_idty_id, documentData, verified);
+			documents.add(document);
+		}
+
+		return documents;
 	}
 
 }

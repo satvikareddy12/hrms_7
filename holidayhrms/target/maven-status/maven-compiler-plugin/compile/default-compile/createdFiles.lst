@@ -1,8 +1,0 @@
-DAO\CandidateDAO.class
-controllers\HolidayController.class
-models\Candidate.class
-DAO\CandidateDAOImpl.class
-models\Holiday.class
-DAO\HolidayDAO.class
-DAO\HolidayDAOImpl.class
-controllers\CandidateController.class

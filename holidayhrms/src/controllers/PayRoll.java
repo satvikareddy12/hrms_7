@@ -3,68 +3,97 @@ package controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.PayRollDao;
+import DAO.EmployeeDAO;
+import models.Employee;
+import models.input.output.EmployeePayRollInputModel;
+import models.input.output.EmployeePayRollOutputModel;
+import service.PayRollService;
 
 @Controller
 public class PayRoll {
 
-	PayRollDao pd;
+	private PayRollService payRollservice;
+	private EmployeeDAO ed;
+	private EmployeePayRollOutputModel payRollOutput;
 
 	@Autowired
-	PayRoll(PayRollDao prd) {
-		pd = prd;
+	PayRoll(PayRollService payRollservice, EmployeeDAO ed, EmployeePayRollOutputModel payRollOutput) {
+		this.payRollservice = payRollservice;
+		this.ed = ed;
+		this.payRollOutput = payRollOutput;
 	}
 
-	// hello jii
 	@RequestMapping(value = "/getpayslip")
-	public String getPayroll(@RequestParam("employee-id") int id, @RequestParam("employee-name") String name,
-			@RequestParam("designation") String dest, @RequestParam("basic-pay") double basicPay,
-			@RequestParam("hra") double hra, @RequestParam("ta") double ta,
-			@RequestParam("variable-pay") double variablePay, @RequestParam("gratuity") double gratuity,
-			@RequestParam("health-insurance") double healthInsurance, @RequestParam("pf") double pf,
-			@RequestParam("earned-leave") int earnedLeave, @RequestParam("unpaid-leaves") int unpaidLeave,
-			Model model) {
+	public String getPayroll(@ModelAttribute("employee") EmployeePayRollInputModel employee, Model model) {
+		// Retrieve employee data from the input model
+		int id = employee.getId();
 		System.out.println(id);
-		System.out.println(name);
-		System.out.println(dest);
-		System.out.println(basicPay);
-		System.out.println(hra);
-		System.out.println(ta);
-		System.out.println(variablePay);
-		System.out.println(pf);
-		System.out.println(healthInsurance);
-		System.out.println(gratuity);
+		String name = employee.getName();
+		String dest = employee.getDesignation();
+		double basicPay = employee.getBasicPay();
+		double fixedPay = employee.getFixedPay();
+		double variablePay = employee.getVariablePay();
+		double gratuity = employee.getGratuity();
+		double healthInsurance = employee.getHealthInsurance();
+		double pf = employee.getPf();
+		int earnedLeave = employee.getEarnedLeave();
+		int unpaidLeave = employee.getUnpaidLeave();
 
-		double gp = pd.grossPay(basicPay, hra, ta, variablePay, earnedLeave);
-		double deduction = pd.deductions(basicPay, healthInsurance, gratuity, pf, unpaidLeave);
-		double total = pd.totalsal(basicPay, hra, ta, variablePay, healthInsurance, gratuity, pf, earnedLeave,
-				unpaidLeave);
+		// Calculate payroll details
+		double gp = payRollservice.grossPay(basicPay, fixedPay, variablePay, earnedLeave);
+		double deduction = payRollservice.deductions(basicPay, healthInsurance, gratuity, pf, unpaidLeave);
+		double total = payRollservice.totalsal(basicPay, fixedPay, variablePay, healthInsurance, gratuity, pf,
+				earnedLeave, unpaidLeave);
+		double hra = payRollservice.forHRA(fixedPay);
+		double ta = payRollservice.forspecialAllowance(fixedPay);
 
-		model.addAttribute("id", id);
-		model.addAttribute("name", name);
-		model.addAttribute("dest", dest);
-		model.addAttribute("basicPay", basicPay);
-		model.addAttribute("hra", hra);
-		model.addAttribute("ta", ta);
-		model.addAttribute("variablePay", variablePay);
-		model.addAttribute("pf", pf);
-		model.addAttribute("healthInsurance", healthInsurance);
-		model.addAttribute("gratuity", gratuity);
-		model.addAttribute("gp", gp);
-		model.addAttribute("deduction", deduction);
-		model.addAttribute("total", total);
-		model.addAttribute("earnedLeave", earnedLeave);
-		model.addAttribute("unpaidLeave", unpaidLeave);
+		// Set the payroll details in the output model
 
+		payRollOutput.setId(id);
+		payRollOutput.setName(name);
+		payRollOutput.setDesignation(dest);
+		payRollOutput.setBasicPay(basicPay);
+		payRollOutput.setFixedPay(fixedPay);
+		payRollOutput.setVariablePay(variablePay);
+		payRollOutput.setGratuity(gratuity);
+		payRollOutput.setHealthInsurance(healthInsurance);
+		payRollOutput.setPf(pf);
+		payRollOutput.setEarnedLeave(earnedLeave);
+		payRollOutput.setUnpaidLeave(unpaidLeave);
+		payRollOutput.setGp(gp);
+		payRollOutput.setDeduction(deduction);
+		payRollOutput.setTotal(total);
+		payRollOutput.setHra(hra);
+		payRollOutput.setTa(ta);
+
+		// Add the output model to the model attribute
+		model.addAttribute("pay", payRollOutput);
+
+		double ctc = payRollservice.calCTC();
+		System.out.println(ctc);
 		return "payslip";
 	}
 
 	@RequestMapping(value = "/getpayroll")
-	public String getPayslip(Model model) {
+	public String getPayslip(@RequestParam("empl_id") int id, Model model) {
+
+		// for fetching details of an employee based on id
+		Employee employee = ed.getEmployeeById(id);
+		if (employee != null) {
+			model.addAttribute("employee", employee);
+		} else {
+			model.addAttribute("error", "No employee found with the provided ID.");
+		}
 		return "payroll";
+	}
+
+	@RequestMapping(value = "/getemppay")
+	public String getPayslip2(Model model) {
+		return "payrollemp";
 	}
 
 }

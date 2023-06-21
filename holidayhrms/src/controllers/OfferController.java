@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.CandidateDAO;
 import models.Candidate;
-import models.Employee;
 import models.Eofr;
+import models.HRDepartment;
 import models.Inductiondocuments;
 import models.OfferModel;
 import models.empoffdocuments;
@@ -43,8 +43,9 @@ public class OfferController {
 	@RequestMapping("/get-candidate-details")
 	public String getEmployeeDetails(@RequestParam("id") int candidateId, Inductiondocuments indocm, Model model) {
 		Candidate candidate = cd.getCandidateById(candidateId);
-		int HR_id = 301;
-		Employee emp = cd.getHrById(HR_id);
+		int HR_id = 123;
+		HRDepartment emp = cd.getHrById(HR_id);
+		System.out.println("mobileno" + emp.getMobileNumber());
 		indoc = indocm;
 		can = candidate;
 		List<String> listOfDocuments = cd.getAllDocuments();
@@ -92,4 +93,10 @@ public class OfferController {
 		return "front";
 	}
 
+	@RequestMapping("/provided")
+	public String getprovidedCandidates(Model model) {
+		List<Candidate> candidates = cd.findAllProvidedCandidates();
+		model.addAttribute("candidates", candidates);
+		return "frontprovided";
+	}
 }

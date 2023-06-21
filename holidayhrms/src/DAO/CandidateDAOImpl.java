@@ -3,6 +3,7 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import models.Candidate;
-import models.Employee;
 import models.Eofr;
+import models.HRDepartment;
 import models.Inductiondocuments;
 import models.OfferModel;
 import models.empoffdocscomposite;
@@ -22,6 +23,8 @@ public class CandidateDAOImpl implements CandidateDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	int eofrId;
+	Candidate cann;
 
 	@Override
 	@Transactional
@@ -41,8 +44,6 @@ public class CandidateDAOImpl implements CandidateDAO {
 		String query = "SELECT c FROM Candidate c";
 		return entityManager.createQuery(query, Candidate.class).getResultList();
 	}
-
-	Candidate cann;
 
 	@Override
 	public List<Candidate> findAllIssuedCandidates() {
@@ -83,7 +84,7 @@ public class CandidateDAOImpl implements CandidateDAO {
 	public void updateEmploymentOfferDocuments(Eofr employmentOfferModel, OfferModel of) {
 
 		System.out.println("in here");
-		int eofrId = employmentOfferModel.getEofr_cand_id();
+		eofrId = employmentOfferModel.getEofr_cand_id();
 		List<String> documentsToBring = of.getDocuments();
 
 		System.out.println(documentsToBring);
@@ -91,16 +92,17 @@ public class CandidateDAOImpl implements CandidateDAO {
 
 		System.out.println(inductionDocuments);
 
-		int docIndex = 1;
 		for (String document : documentsToBring) {
+			int docIndex = getMaxDocIndexFromDatabase() + 1;
+
 			int idtyId = findIdtyIdByTitle(inductionDocuments, document);
 			empoffdocscomposite comp = new empoffdocscomposite();
 			comp.setEofrId(eofrId);
 			comp.setEofdDocIndex(docIndex);
 			empoffdocuments documentModel = new empoffdocuments(comp, idtyId);
+
 			System.out.println(documentModel);
-			saveEmploymentOfferDocument(documentModel);
-			docIndex++;
+			entityManager.persist(documentModel);
 		}
 	}
 
@@ -121,13 +123,41 @@ public class CandidateDAOImpl implements CandidateDAO {
 				return document.getIdtyId();
 			}
 		}
-		return 0; // Return an appropriate default value if the document title is not found
+		return 0;
 	}
 
 	@Override
-	public Employee getHrById(int hR_id) {
+	public HRDepartment getHrById(int hR_id) {
+		String queryString = "SELECT hr FROM HRDepartment hr WHERE hr.employeeId = :id";
+		TypedQuery<HRDepartment> query = entityManager.createQuery(queryString, HRDepartment.class);
+		query.setParameter("id", hR_id);
+		try {
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null; // Return null if no HR department is found for the given ID
+		}
+	}
 
-		return entityManager.find(Employee.class, hR_id);
+	@Override
+	public List<Candidate> findAllProvidedCandidates() {
+		TypedQuery<Candidate> query = entityManager
+				.createQuery("SELECT c FROM Candidate c WHERE c.candStatus = :status", Candidate.class);
+		query.setParameter("status", "AC");
+		return query.getResultList();
+	}
+
+	public Integer getMaxDocIndexFromDatabase() {
+		TypedQuery<Integer> query = entityManager.createQuery(
+				"SELECT MAX(e.empoff.eofdDocIndex) FROM empoffdocuments e WHERE e.empoff.eofrId = :eofdId",
+				Integer.class);
+		query.setParameter("eofdId", eofrId);
+		System.out.println(eofrId);
+		Integer flag = query.getSingleResult();
+		if (flag == null)
+			return 0;
+		else
+			return flag;
 
 	}
+
 }

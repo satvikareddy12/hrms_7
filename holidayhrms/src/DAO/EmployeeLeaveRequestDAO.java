@@ -17,8 +17,11 @@ public interface EmployeeLeaveRequestDAO {
 
 	JobGradeWiseLeaves getJobGradeWiseLeaves(String jobGradeId);
 
-	List<EmployeeLeaveRequest> getApprovedAndPendingEmployeeAndLeaveRequestData(int id);
+	List<EmployeeLeaveRequest> getApprovedAndPendingEmployeeAndLeaveRequestData(int id, int year);
 
 	List<EmployeeLeaveRequest> getApprovedEmployeeAndLeaveRequestData(int id);
 
+	List<EmployeeLeaveRequest> getLeaveRequestHistory(int id);
+
+	List<JobGradeWiseLeaves> getJobGradeWiseLeaves();
 }

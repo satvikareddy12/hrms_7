@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.EmployeeDAO;
 import models.Employee;
-import models.EmployeeOutput;
 import models.EmployeeParameter;
+import models.input.output.EmployeeOutput;
+import models.input.output.EmployeeParameterIO;
 
 @Controller
 public class EmployeeController {
@@ -65,7 +66,9 @@ public class EmployeeController {
 		emp.insertEmployee(emps);
 
 		List<Employee> employees = emp.getAllEmployees();
-		model.addAttribute("employees", employees);
+		List<EmployeeOutput> eout = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
+		}.getType());
+		model.addAttribute("employees", eout);
 		return "employees";
 	}
 
@@ -88,14 +91,18 @@ public class EmployeeController {
 	@RequestMapping(value = "/updempl", method = RequestMethod.GET)
 	public String updEmpl(@RequestParam("id") int emplId, Model model) {
 		Employee existingEmployee = emp.getEmployeeById(emplId);
-		model.addAttribute("updating", existingEmployee);
+		EmployeeOutput eout = modelMapper.map(existingEmployee, new TypeToken<EmployeeOutput>() {
+		}.getType());
+		model.addAttribute("updating", eout);
 		System.out.println("route");
 		return "updempl";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateEmployeeing(@ModelAttribute Employee empst, Model model) {
-		emp.updateEmployee(empst);
+	public String updateEmployeeing(@ModelAttribute EmployeeOutput empst, Model model) {
+		Employee erm = modelMapper.map(empst, new TypeToken<Employee>() {
+		}.getType());
+		emp.updateEmployee(erm);
 		model.addAttribute("message", "Employee details updated successfully!");
 		return "update";
 	}
@@ -103,7 +110,9 @@ public class EmployeeController {
 	@RequestMapping("/emplparam")
 	public String getEmployeeParameters(@RequestParam("id") Integer employeeId, Model model) {
 		List<EmployeeParameter> employeeParameters = emp.getEmployeeParametersById(employeeId);
-		model.addAttribute("employeeParameters", employeeParameters);
+		List<EmployeeParameterIO> ep = modelMapper.map(employeeParameters, new TypeToken<List<EmployeeParameterIO>>() {
+		}.getType());
+		model.addAttribute("employeeParameters", ep);
 		return "employeeparamaters";
 	}
 

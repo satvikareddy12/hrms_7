@@ -2,6 +2,7 @@ package controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import models.EmployeeLeaveRequest;
 import models.EmployeeLeaveRequestId;
 import models.JobGradeWiseLeaves;
 import models.LeaveValidationModel;
+import models.input.output.JobGradeLeavesOutModel;
 import service.EmployeeLeaveService;
 
 @Controller
@@ -78,7 +80,7 @@ public class LeaveController {
 				.getJobGradeWiseLeaves(employee.getEmplJbgrId().trim());
 		System.out.println(leavesProvidedStatistics);
 		List<EmployeeLeaveRequest> leaves = leaveRequestDAO
-				.getApprovedAndPendingEmployeeAndLeaveRequestData(employee.getEmplId());
+				.getApprovedAndPendingEmployeeAndLeaveRequestData(employee.getEmplId(), Year.now().getValue());
 		LeaveValidationModel validation = employeeService.calculateLeavesTaken(leaves, leavesProvidedStatistics);
 		model.addAttribute("validationData", validation);
 		return "leaveform";
@@ -226,4 +228,46 @@ public class LeaveController {
 		return "AdminApprovedLeaves";
 	}
 
+	@RequestMapping(value = "/geEmployeeLeaves", method = RequestMethod.GET)
+	public String getEmployeeLeavesHistory(Model model) {
+		// need to change the emoloyee id : pending - sessions
+		List<EmployeeLeaveModel> history = new ArrayList<>();
+		List<EmployeeLeaveRequest> employeeLeavesData = leaveRequestDAO.getLeaveRequestHistory(1);
+		for (EmployeeLeaveRequest leave : employeeLeavesData) {
+			EmployeeLeaveModel leavemodel = context.getBean(EmployeeLeaveModel.class);
+			leavemodel.setLeaveRequestIndex(leave.getLeaveRequestId().getLeaveRequestIndex());
+			leavemodel.setLeaveRequestDate(leave.getRequestDateTime());
+			leavemodel.setLeaveStartDate(leave.getApprovedLeaveStartDate());
+			leavemodel.setLeaveEndDate(leave.getApprovedLeaveEndDate());
+			leavemodel.setLeaveType(leave.getLeaveType());
+			leavemodel.setReason(leave.getReason());
+			leavemodel.setStatus(leave.getApprovedBy());
+			history.add(leavemodel);
+
+		}
+
+		model.addAttribute("leavehistory", history);
+		return "employeeLeaveHistory";
+	}
+
+	@RequestMapping(value = "/getJobGradeWiseLeaves", method = RequestMethod.GET)
+	public String getJobGradeWiseLeaves(Model model) {
+		List<JobGradeWiseLeaves> jobGradeLeaves = leaveRequestDAO.getJobGradeWiseLeaves();
+		List<JobGradeLeavesOutModel> result = new ArrayList<>();
+		for (JobGradeWiseLeaves leaves : jobGradeLeaves) {
+			System.out.println(leaves);
+			JobGradeLeavesOutModel leavedata = context.getBean(JobGradeLeavesOutModel.class);
+			leavedata.setJobGradeId(leaves.getJbgrId());
+			leavedata.setTotalLeaves(leaves.getTotalLeavesPerYear());
+			leavedata.setSickLeaves(leaves.getSickLeavesPerYear());
+			leavedata.setCasualLeaves(leaves.getCasualLeavesPerYear());
+			leavedata.setOtherLeaves(leaves.getOtherLeavesPerYear());
+
+			result.add(leavedata);
+		}
+
+		model.addAttribute("jobgradeleaves", result);
+
+		return "jobGradeWiseLeaves";
+	}
 }

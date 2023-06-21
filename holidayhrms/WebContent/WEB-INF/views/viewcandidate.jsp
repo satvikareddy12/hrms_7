@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="models.Candidate" %>
+<%@ page import="models.input.output.CandidateIO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +61,7 @@
 <body>
     <h1>Candidate Details</h1>
     <%
-        Candidate candidate = (Candidate) request.getAttribute("candidate");
+    CandidateIO candidate = (CandidateIO) request.getAttribute("candidate");
         String error = (String) request.getAttribute("error");
         
         if (candidate != null) {
