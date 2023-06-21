@@ -88,6 +88,10 @@
         color: #888;
         font-style: italic;
     }
+    h1
+    {
+      text-align: center;
+    }
 </style>
 
     <script>
@@ -176,7 +180,7 @@
     </script>
 </head>
 <body>
-    <h1>Employee List</h1>
+    <h1>Employee List</h1><br>
     <% List<EmployeeOutput> employees = (List<EmployeeOutput>) request.getAttribute("employees"); %>
     <% if (employees != null && !employees.isEmpty()) { %>
         <table>

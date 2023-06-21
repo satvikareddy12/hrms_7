@@ -11,11 +11,6 @@
     <meta charset="UTF-8">
     <title>Employee Form</title>
      <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
         
         h1 {
             color: #333;

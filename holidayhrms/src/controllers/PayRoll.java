@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.EmployeeDAO;
@@ -27,7 +28,7 @@ public class PayRoll {
 		this.payRollOutput = payRollOutput;
 	}
 
-	@RequestMapping(value = "/getpayslip")
+	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
 	public String getPayroll(@ModelAttribute("employee") EmployeePayRollInputModel employee, Model model) {
 		// Retrieve employee data from the input model
 		int id = employee.getId();
@@ -78,7 +79,7 @@ public class PayRoll {
 		return "payslip";
 	}
 
-	@RequestMapping(value = "/getpayroll")
+	@RequestMapping(value = "/getpayroll", method = RequestMethod.POST)
 	public String getPayslip(@RequestParam("empl_id") int id, Model model) {
 
 		// for fetching details of an employee based on id
@@ -91,7 +92,7 @@ public class PayRoll {
 		return "payroll";
 	}
 
-	@RequestMapping(value = "/getemppay")
+	@RequestMapping(value = "/getemppay", method = RequestMethod.GET)
 	public String getPayslip2(Model model) {
 		return "payrollemp";
 	}

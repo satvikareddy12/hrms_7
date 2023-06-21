@@ -38,7 +38,7 @@
 <body>
   <h1>Monthly Pay Slip</h1>
 
-  <form action="getpayslip" method="get">
+  <form action="getpayslip" method="post">
   
    <%
         Employee employee = (Employee) request.getAttribute("employee");

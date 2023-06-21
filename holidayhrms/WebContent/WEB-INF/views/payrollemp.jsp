@@ -4,10 +4,6 @@
 <head>
     <title>Enter Candidate ID</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
         
         h1 {
             color: #333;

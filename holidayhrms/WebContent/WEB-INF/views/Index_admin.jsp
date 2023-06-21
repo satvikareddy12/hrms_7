@@ -334,7 +334,7 @@
     function generatePayroll() {
     	  $.ajax({
     	    type: "GET",
-    	    url: "getpayroll",
+    	    url: "getemppay",
     	   
     	    success: function(response) {
     	      var containerDiv = $("#main");

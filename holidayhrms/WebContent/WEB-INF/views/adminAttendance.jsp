@@ -7,7 +7,6 @@
 /* Add modern CSS styles for formatting */
 .empattendance {
 	font-family: Arial, sans-serif;
-	background-color: #f2f2f2;
 	margin: 0;
 	padding: 20px;
 }
@@ -111,7 +110,8 @@ th {
 			<h2>Year:</h2>
 			<div class="select-container">
 				<select id="yearSelect" class="month-select">
-
+                  <option value="1">2022</option>
+					<option value="2">2023</option>
 				</select>
 			</div>
 
