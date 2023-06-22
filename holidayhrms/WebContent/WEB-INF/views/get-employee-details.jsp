@@ -48,7 +48,7 @@
     }
     
      button.back-button {
-    		 background-color: #4CAF50;
+    		 background-color: #333;
              color: white;
              border: none;
              padding: 10px 20px;
@@ -56,18 +56,22 @@
              cursor: pointer;
              border-radius: 3px;
 		}		
-</style>
-
-
+     </style>
 </head>
+
 <body>
+    
     <div id="myModal" class="modal">
         <div class="modal-content">
+            
             <span class="close" onclick="closeModal()">&times;</span>
-            <h1>Employee Details</h1>
+            
+            <h1>Employee Details</h1>            
+           
             <% EmployeeOutput employee = (EmployeeOutput) request.getAttribute("employee");
                String imagePath = request.getContextPath() + "/";
                String employeeId = request.getParameter("id"); %>
+           
             <% if (employee != null) { %>
                 <img src="<%= imagePath + employee.getEmplPhoto() %>" alt="Employee Photo">
                 <div class="details">
@@ -107,7 +111,5 @@
             
         </div>
     </div>
-     
-    
 </body>
 </html>

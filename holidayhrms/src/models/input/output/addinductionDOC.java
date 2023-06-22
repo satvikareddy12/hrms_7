@@ -1,19 +1,27 @@
-package models;
+package models.input.output;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import jakarta.validation.constraints.NotNull;
+import java.io.File;
 
 public class addinductionDOC {
 	private int employmentOfferId;
 	private int documentTypeId;
-	private MultipartFile documentData;
+	private File documentData;
 	private int processedUserId;
 	private String verified;
 
-	// Getters and setters
+	public addinductionDOC() {
+		// Default constructor
+	}
 
-	@NotNull(message = "employmentOfferId must be provided")
+	public addinductionDOC(int employmentOfferId, int documentTypeId, File documentData, int processedUserId,
+			String verified) {
+		this.employmentOfferId = employmentOfferId;
+		this.documentTypeId = documentTypeId;
+		this.documentData = documentData;
+		this.processedUserId = processedUserId;
+		this.verified = verified;
+	}
+
 	public int getEmploymentOfferId() {
 		return employmentOfferId;
 	}
@@ -22,7 +30,6 @@ public class addinductionDOC {
 		this.employmentOfferId = employmentOfferId;
 	}
 
-	@NotNull(message = "documentTypeId must be provided")
 	public int getDocumentTypeId() {
 		return documentTypeId;
 	}
@@ -31,16 +38,14 @@ public class addinductionDOC {
 		this.documentTypeId = documentTypeId;
 	}
 
-	@NotNull(message = "documentData must be provided")
-	public MultipartFile getDocumentData() {
+	public File getDocumentData() {
 		return documentData;
 	}
 
-	public void setDocumentData(MultipartFile documentData) {
+	public void setDocumentData(File documentData) {
 		this.documentData = documentData;
 	}
 
-	@NotNull(message = "processedUserId must be provided")
 	public int getProcessedUserId() {
 		return processedUserId;
 	}
@@ -49,7 +54,6 @@ public class addinductionDOC {
 		this.processedUserId = processedUserId;
 	}
 
-	@NotNull(message = "verified must be provided")
 	public String getVerified() {
 		return verified;
 	}

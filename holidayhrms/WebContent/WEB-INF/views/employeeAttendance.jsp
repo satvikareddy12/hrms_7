@@ -7,7 +7,6 @@
 /* Add modern CSS styles for formatting */
 .empattendance {
 	font-family: Arial, sans-serif;
-	background-color: #f2f2f2;
 	margin: 0;
 	padding: 20px;
 }

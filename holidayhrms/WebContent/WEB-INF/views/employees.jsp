@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Employee" %>
 <%@ page import="models.input.output.EmployeeOutput" %>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -73,15 +72,12 @@
         padding: 10px 20px;
         font-size: 16px;
         border: none;
-        background-color: #4CAF50;
+        background-color: #333;
         color: #fff;
         cursor: pointer;
         margin-right: 10px;
     }
 
-    .center button:hover {
-        background-color: #45a049;
-    }
 
     .no-employees {
         text-align: center;
@@ -92,16 +88,16 @@
     {
       text-align: center;
     }
-</style>
+    </style>
 
     <script>
-        // Function to open the modal popup
-        function openModal(employeeId) {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            // Set the URL to fetch employee details
-            var url = "get-employee-details?id=" + employeeId;
-            // Use AJAX to fetch the employee details and update the modal content
+        // Function to open the modal popup for employee details
+        function openModal(employeeId) 
+        {
+           
+        	var modal = document.getElementById("myModal");
+            modal.style.display = "block";          
+            var url = "get-employee-details?id=" + employeeId;            
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -112,12 +108,13 @@
             xhttp.open("GET", url, true);
             xhttp.send();
         }
-        function openAddEmployeePopup() {
+        
+     // Function to open the modal popup for inserting a new employee
+        function openAddEmployeePopup() 
+        {
             var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            // Set the URL of the add employee form
-            var url = "addempl";
-            // Use AJAX to fetch the add employee form content and update the modal content
+            modal.style.display = "block";          
+            var url = "addempl";           
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -127,22 +124,15 @@
             };
             xhttp.open("GET", url, true);
             xhttp.send();
-            
-            // Reload the current page after closing the modal
-            modal.addEventListener("click", function(event) {
-                if (event.target.classList.contains("close")) {
-                    modal.style.display = "none";
-                    location.reload(); // Reload the page
-                }
-            });
+                    
         }
         
-        function openDeleteEmployeePopup() {
+     // Function to open the modal popup for deleting an employee
+        function openDeleteEmployeePopup() 
+        {
             var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            // Set the URL of the delete employee page
-            var url = "delempl";
-            // Use AJAX to fetch the delete employee page content and update the modal content
+            modal.style.display = "block";           
+            var url = "delempl";           
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -152,14 +142,7 @@
             };
             xhttp.open("GET", url, true);
             xhttp.send();
-
-            // Reload the current page after closing the modal
-            modal.addEventListener("click", function(event) {
-                if (event.target.classList.contains("close")) {
-                    modal.style.display = "none";
-                    location.reload(); // Reload the page
-                }
-            });
+            
         }
 
 
@@ -169,16 +152,10 @@
             var modal = document.getElementById("myModal");
             modal.style.display = "none";
         }
-
-        // Event listener to close the modal when clicking outside of it
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
+        
     </script>
 </head>
+
 <body>
     <h1>Employee List</h1><br>
     <% List<EmployeeOutput> employees = (List<EmployeeOutput>) request.getAttribute("employees"); %>
@@ -224,7 +201,7 @@
             </tbody>
         </table>
 
-        <!-- Modal popup content -->
+        <!-- Modal content -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -232,13 +209,15 @@
             </div>
         </div>
 
+         <!-- Add and delete buttons -->
         <div class="center">       
             <button onclick="openAddEmployeePopup();">Add</a>
             <button onclick="openDeleteEmployeePopup()">Delete</button>
-
         </div>
+        
     <% } else { %>
         <p class="no-employees">No employees found.</p>
     <% } %>
+    
 </body>
 </html>

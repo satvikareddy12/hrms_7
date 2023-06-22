@@ -3,14 +3,12 @@ package controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import DAO.EmployeeDAO;
 import models.Employee;
-import models.input.output.EmployeePayRollInputModel;
 import models.input.output.EmployeePayRollOutputModel;
 import service.PayRollService;
 
@@ -29,53 +27,20 @@ public class PayRoll {
 	}
 
 	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
-	public String getPayroll(@ModelAttribute("employee") EmployeePayRollInputModel employee, Model model) {
-		// Retrieve employee data from the input model
-		int id = employee.getId();
-		System.out.println(id);
-		String name = employee.getName();
-		String dest = employee.getDesignation();
-		double basicPay = employee.getBasicPay();
-		double fixedPay = employee.getFixedPay();
-		double variablePay = employee.getVariablePay();
-		double gratuity = employee.getGratuity();
-		double healthInsurance = employee.getHealthInsurance();
-		double pf = employee.getPf();
-		int earnedLeave = employee.getEarnedLeave();
-		int unpaidLeave = employee.getUnpaidLeave();
+	public String getPayroll(@RequestParam("empl_id") int id, Model model) {
 
-		// Calculate payroll details
-		double gp = payRollservice.grossPay(basicPay, fixedPay, variablePay, earnedLeave);
-		double deduction = payRollservice.deductions(basicPay, healthInsurance, gratuity, pf, unpaidLeave);
-		double total = payRollservice.totalsal(basicPay, fixedPay, variablePay, healthInsurance, gratuity, pf,
-				earnedLeave, unpaidLeave);
-		double hra = payRollservice.forHRA(fixedPay);
-		double ta = payRollservice.forspecialAllowance(fixedPay);
+		Employee employee = ed.getEmployeeById(id);
+		double ctc = employee.getEmpl_ctc();
+		double basicsal = employee.getEmpl_basicsal();
+		double fixedsal = employee.getEmpl_fixedsal();
+		double variablesal = employee.getEmpl_variablesal();
 
-		// Set the payroll details in the output model
+		payRollservice.forDA(fixedsal / 12);
+		payRollservice.forTA(fixedsal / 12);
+		payRollservice.forHRA(fixedsal / 12);
+		payRollservice.additions(variablesal / 12);
+		payRollservice.grossPay(basicsal / 12, fixedsal / 12, variablesal / 12);
 
-		payRollOutput.setId(id);
-		payRollOutput.setName(name);
-		payRollOutput.setDesignation(dest);
-		payRollOutput.setBasicPay(basicPay);
-		payRollOutput.setFixedPay(fixedPay);
-		payRollOutput.setVariablePay(variablePay);
-		payRollOutput.setGratuity(gratuity);
-		payRollOutput.setHealthInsurance(healthInsurance);
-		payRollOutput.setPf(pf);
-		payRollOutput.setEarnedLeave(earnedLeave);
-		payRollOutput.setUnpaidLeave(unpaidLeave);
-		payRollOutput.setGp(gp);
-		payRollOutput.setDeduction(deduction);
-		payRollOutput.setTotal(total);
-		payRollOutput.setHra(hra);
-		payRollOutput.setTa(ta);
-
-		// Add the output model to the model attribute
-		model.addAttribute("pay", payRollOutput);
-
-		double ctc = payRollservice.calCTC();
-		System.out.println(ctc);
 		return "payslip";
 	}
 
@@ -84,6 +49,7 @@ public class PayRoll {
 
 		// for fetching details of an employee based on id
 		Employee employee = ed.getEmployeeById(id);
+
 		if (employee != null) {
 			model.addAttribute("employee", employee);
 		} else {
@@ -95,6 +61,11 @@ public class PayRoll {
 	@RequestMapping(value = "/getemppay", method = RequestMethod.GET)
 	public String getPayslip2(Model model) {
 		return "payrollemp";
+	}
+
+	@RequestMapping(value = "/EmployeePaySlip", method = RequestMethod.GET)
+	public String getPayslip3(Model model) {
+		return "EmployeePaySlip";
 	}
 
 }

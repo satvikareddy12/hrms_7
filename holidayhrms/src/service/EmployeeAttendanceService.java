@@ -1,9 +1,9 @@
 package service;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,7 +138,7 @@ public class EmployeeAttendanceService {
 
 	public List<Integer> getYears(Date joinDate) {
 
-		LocalDate join = joinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate join = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(joinDate));
 		LocalDate currentDate = LocalDate.now();
 
 		List<Integer> yearList = new ArrayList<>();

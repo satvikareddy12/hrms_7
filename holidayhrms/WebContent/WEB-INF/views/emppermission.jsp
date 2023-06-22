@@ -60,9 +60,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
-      var today = new Date().toISOString().split("T")[0];
-      document.getElementById("current-date").setAttribute("max", today);
-      document.getElementById("current-date").setAttribute("min", today);
+    	var today = new Date().toISOString().split("T")[0];
+    	document.getElementById("current-date").setAttribute("max", today);
+    	document.getElementById("current-date").setAttribute("min", today);
+
 
       // Update end time when start time changes
       $("#start-time").on("change", function() {
@@ -114,10 +115,11 @@
       <input type="date" id="current-date" name="current_date" required>
 
       <label for="start-time">Permission Start Time:</label>
-      <input type="time" id="start-time" name="start_time" required>
-
+      <input type="time" id="start-time" name="start_time"  required >
+ 
       <label for="end-time">Permission End Time:</label>
-      <input type="time" id="end-time" name="end_time" required>
+      <input type="time" id="end-time" name="end_time"  required >
+
 
       <label for="reason">Reason:</label>
       <textarea id="reason" name="reason" required></textarea>

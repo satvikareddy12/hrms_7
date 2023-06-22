@@ -1,6 +1,6 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="models.Employee" %>
+<%@ page import="models.input.output.EmployeeOutput" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -48,6 +48,7 @@
       margin-top: 10px;
       background-color: #4CAF50;
       color: #fff;
+      padding: 10px 10px;
     }
     form
     {
@@ -60,11 +61,10 @@
   </style>
 </head>
 <body>
-  <form action="update_address" method="POST">
-    <% Employee empdet = (Employee) request.getAttribute("empdet"); %>
-
-    <!-- Profile section -->
-    <div>
+     <form action="update_address" method="POST">
+       <% EmployeeOutput empdet = (EmployeeOutput) request.getAttribute("empdet"); %>
+    
+     <div>
       <% String imagePath = request.getContextPath() + "/"; %>
       <div class="profile-picture">
         <img src="<%=imagePath+empdet.getEmplPhoto()%>" alt="profile-picture" height="200px" width="200px">
@@ -73,7 +73,7 @@
       <div class="form-group">
         <form>
           <label for="emplId">Employee ID</label>
-          <input type="text" class="form-control" id="emplId" name="emplId" value="<%=empdet.getEmplId() %>" readonly><br><br>
+          <input type="number" class="form-control" id="emplId" name="emplId" value="<%=empdet.getEmplId() %>" readonly><br><br>
 
           <label for="emplFirstname">First Name</label>
           <input type="text" class="form-control" id="emplFirstname" value="<%=empdet.getEmplFirstname() %>" readonly><br><br>

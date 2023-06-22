@@ -38,20 +38,22 @@
             border-radius: 3px;
         }
     </style>
-
 </head>
+
 <body>
+
     <h1>Enter Employee ID</h1>
+    
     <form action="employeeListDelete" method="post">
         <label for="emplId">Employee ID:</label>
         <input type="text" name="emplId" id="emplId" required><br>
         <input type="submit" value="Submit">
     </form>
-      <div id="employeeList">
-        <!-- Employee list will be dynamically updated here -->
+    
+    <div id="employeeList">    
     </div>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
         function loadEmployeeList() {
     	$.ajax({
         	url: "employeeListDelete", 
@@ -64,8 +66,10 @@
         	}
     	});
 	}
+        
     loadEmployeeList();
     setInterval(loadEmployeeList, 2000);
-    </script>
+    
+   </script>
 </body>
 </html>

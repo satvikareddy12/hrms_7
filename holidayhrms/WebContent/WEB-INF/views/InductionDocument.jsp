@@ -42,7 +42,7 @@
         
         button[type="submit"] {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #333;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -59,6 +59,22 @@
         .show-form {
             display: block;
         }
+        button
+        {
+         background-color: #333;
+         padding: 10px 20px;
+         margin: 0 auto;
+         color: #fff;
+           
+        }
+        h1,h2
+        {
+         text-align: center;
+        }
+        form,label
+        {
+          text-align: center;
+        }
     </style>
     <script>
         function showAddDocumentForm() {
@@ -68,7 +84,7 @@
     </script>
 </head>
 <body>
-    <h1>Employment Induction Documents</h1>
+    <h1>Employment Induction Documents</h1><br>
     
      <table>
         <thead>
@@ -89,9 +105,9 @@
                 </tr>
             </c:forEach>
         </tbody>
-    </table>
+    </table><br>
     
-    <button onclick="showAddDocumentForm()">Add Document</button>
+    <button onclick="showAddDocumentForm()">Add Document</button><br>
     
     <div id="addDocumentForm" class="add-document-form">
         <h2>Add Document</h2>
@@ -110,9 +126,9 @@
             <input type="text" id="processedUser" name="processedUserId" required><br>
 
             <label for="verified">Verified:</label>
-            <input type="text" id="verified" name="verified" required><br>
+            <input type="text" id="verified" name="verified" required><br><br>
 
-            <button type="submit">Add Document</button>
+            <button type="submit">Insert</button>
         </form>
     </div>
 </body>

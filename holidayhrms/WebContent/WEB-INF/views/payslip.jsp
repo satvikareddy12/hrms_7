@@ -54,7 +54,8 @@
 </head>
 <body>
   <h2>Pay Slip</h2>
-  <% EmployeePayRollOutputModel pay = (EmployeePayRollOutputModel) request.getAttribute("pay"); %>
+  <% EmployeePayRollOutputModel pay = (EmployeePayRollOutputModel) request.getAttribute("pay");
+      %>
   <div class="container">
     <div class="container1">
       <div class="sub-container sub-container1">
@@ -66,7 +67,6 @@
         <p><strong>HRA:</strong><%=pay.getHra() %> </p>
         <p><strong>Special Allowances:</strong><%=pay.getTa()%></p>
         <p><strong>Variable Pay:</strong><%=pay.getVariablePay()%> </p>
-        <p><strong>Earned Leaves:</strong><%=pay.getEarnedLeave()%> </p>
       </div>
       <div class="sub-container sub-container2">
       <h2>Deductions</h2>

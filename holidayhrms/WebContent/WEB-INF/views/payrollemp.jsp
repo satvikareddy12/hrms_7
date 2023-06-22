@@ -7,15 +7,18 @@
         
         h1 {
             color: #333;
+            text-align: center;
         }
         
         form {
             margin-top: 20px;
+            text-align: center;
         }
         
         label {
             display: block;
             margin-bottom: 10px;
+            text-align: center;
         }
         
         input[type="text"] {
@@ -29,14 +32,15 @@
             color: #fff;
             border: none;
             cursor: pointer;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Enter Employee ID</h1>
-    <form action="getpayroll" method="post">
+    <h1>Enter Employee ID</h1><br>
+    <form action="getpayslip" method="post">
         <label for="employeeeId">Employee ID:</label>
-        <input type="text" id="empl_id" name="empl_id" required>
+        <input type="text" id="empl_id" name="empl_id" required><br><br>
         <input type="submit" value="Get Details">
     </form>
 </body>

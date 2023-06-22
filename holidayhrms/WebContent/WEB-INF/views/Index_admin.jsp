@@ -514,9 +514,6 @@
                <li class="item">
                 <a onclick="permissionsToBeApproved();"><i class="ri-check-double-line"></i> Permissions</a>
               </li>
-              <li class="item">
-                <a href="#"><i class="ri-check-double-line"></i> Approvals</a>
-              </li>
             </ul>
           </li>
           
@@ -531,9 +528,6 @@
                 <i class="fa-solid fa-chevron-left"></i>
                 Back to Reference Documents
               </div>
-              <li class="item">
-                <a href="#"><i class="ri-file-list-line"></i> Employee Induction</a>
-              </li>
               <li class="item">
                 <a onclick="referenceDoc();"><i class="ri-check-double-line"></i> Employee Reference</a>
               </li>

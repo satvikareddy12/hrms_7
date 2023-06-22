@@ -9,15 +9,67 @@ public class EmployeePayRollOutputModel {
 	private double fixedPay;
 	private double variablePay;
 	private double gratuity;
-	private double healthInsurance;
+	private double esi; // health insurance
 	private double pf;
-	private int earnedLeave;
 	private int unpaidLeave;
 	private double gp;
 	private double deduction;
 	private double total;
 	private double hra;
 	private double ta;
+	private double da;
+	private String monthYear;
+	private double additions;
+	private double ptax;
+	private double tds;
+
+	public double getEsi() {
+		return esi;
+	}
+
+	public void setEsi(double esi) {
+		this.esi = esi;
+	}
+
+	public double getDa() {
+		return da;
+	}
+
+	public void setDa(double da) {
+		this.da = da;
+	}
+
+	public String getMonthYear() {
+		return monthYear;
+	}
+
+	public void setMonthYear(String monthYear) {
+		this.monthYear = monthYear;
+	}
+
+	public double getAdditions() {
+		return additions;
+	}
+
+	public void setAdditions(double additions) {
+		this.additions = additions;
+	}
+
+	public double getPtax() {
+		return ptax;
+	}
+
+	public void setPtax(double ptax) {
+		this.ptax = ptax;
+	}
+
+	public double getTds() {
+		return tds;
+	}
+
+	public void setTds(double tds) {
+		this.tds = tds;
+	}
 
 	public int getId() {
 		return id;
@@ -76,11 +128,11 @@ public class EmployeePayRollOutputModel {
 	}
 
 	public double getHealthInsurance() {
-		return healthInsurance;
+		return esi;
 	}
 
-	public void setHealthInsurance(double healthInsurance) {
-		this.healthInsurance = healthInsurance;
+	public void setHealthInsurance(double esi) {
+		this.esi = esi;
 	}
 
 	public double getPf() {
@@ -89,14 +141,6 @@ public class EmployeePayRollOutputModel {
 
 	public void setPf(double pf) {
 		this.pf = pf;
-	}
-
-	public int getEarnedLeave() {
-		return earnedLeave;
-	}
-
-	public void setEarnedLeave(int earnedLeave) {
-		this.earnedLeave = earnedLeave;
 	}
 
 	public int getUnpaidLeave() {

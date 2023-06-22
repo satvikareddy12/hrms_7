@@ -6,51 +6,59 @@ public class PayRollServiceImpl implements PayRollService {
 	private double deductions_sal;
 
 	@Override
-	public double grossPay(double basicPay, double fixedpay, double variablePay, int earnedLeave) {
-		// TODO Auto-generated method stub
-		this.gross = basicPay + fixedpay + variablePay + ((basicPay * 0.008) * earnedLeave);
+	public double grossPay(double basicPay, double fixedpay, double variablePay) {
 
-		return basicPay + fixedpay + variablePay + ((basicPay * 0.008) * earnedLeave);
+		this.gross = basicPay + fixedpay + variablePay + ((basicPay * 0.008));
 
-	}
-
-	@Override
-	public double deductions(double basicPay, double healthInsurance, double gratuity, double pf, int unpaidLeave) {
-		// TODO Auto-generated method stub
-		this.deductions_sal = gratuity + healthInsurance + pf + ((basicPay * 0.005) * unpaidLeave);
-
-		return gratuity + healthInsurance + pf + ((basicPay * 0.005) * unpaidLeave);
+		return basicPay + fixedpay + variablePay + ((basicPay * 0.008));
 
 	}
 
 	@Override
-	public double totalsal(double basicPay, double fixedpay, double variablePay, double healthInsurance,
-			double gratuity, double pf, int earnedLeave, int unpaidLeave) {
-		// TODO Auto-generated method stub
-		return grossPay(basicPay, fixedpay, variablePay, earnedLeave)
-				- deductions(basicPay, healthInsurance, gratuity, pf, unpaidLeave);
+	public double deductions(double basicPay, double esi, double gratuity, double pf, int unpaidLeave, double tds) {
+
+		this.deductions_sal = gratuity + esi + pf + ((basicPay * 0.005) * unpaidLeave);
+
+		return gratuity + esi + pf + ((basicPay * 0.005) * unpaidLeave);
 
 	}
 
 	@Override
-	public double calCTC() {
-		// TODO Auto-generated method stub
-		double ctc = (gross + deductions_sal) * 12;
-		System.out.println(ctc);
+	public double totalsal(double basicPay, double fixedpay, double variablePay, double esi, double gratuity, double pf,
+			int earnedLeave, int unpaidLeave, double tds) {
 
-		return ctc;
+		return grossPay(basicPay, fixedpay, variablePay) - deductions(basicPay, esi, gratuity, pf, unpaidLeave, tds);
+
 	}
 
 	@Override
 	public double forHRA(double fixedpay) {
-		// TODO Auto-generated method stub
+
 		return fixedpay * 0.4;
 	}
 
 	@Override
-	public double forspecialAllowance(double fixedpay) {
-		// TODO Auto-generated method stub
-		return fixedpay * 0.6;
+	public double forDA(double fixedpay) {
+
+		return fixedpay * 0.3;
+	}
+
+	@Override
+	public double forTA(double fixedpay) {
+
+		return fixedpay * 0.3;
+	}
+
+	@Override
+	public double additions(double additionalPay) {
+
+		return 0;
+	}
+
+	@Override
+	public double calTax(double ctc) {
+
+		return 0;
 	}
 
 }

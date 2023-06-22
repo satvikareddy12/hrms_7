@@ -44,4 +44,10 @@ public class EmpService {
 
 	}
 
+	@Transactional
+	public void updateAddress(int empId, String newAddress) {
+
+		empdao.updateEmployeeAddress(empId, newAddress);
+	}
+
 }

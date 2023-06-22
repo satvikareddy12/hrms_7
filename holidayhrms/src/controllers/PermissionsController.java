@@ -3,8 +3,6 @@ package controllers;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class PermissionsController {
 
 	@RequestMapping(value = "/getpermissions")
 	public String applypermission(Model model) {
-		Long count = apd.getEmployeeAndPermissionRequestDataCount(302, Date.valueOf(LocalDate.now()));
+		Long count = apd.getEmployeeAndPermissionRequestDataCount(102, Date.valueOf(LocalDate.now()));
 		System.out.println(count);
 		model.addAttribute("PermissionCount", count);
 		return "emppermission";
@@ -53,11 +51,11 @@ public class PermissionsController {
 
 			ap.setCurrent_date(Date.valueOf(permissionInput.getCurrent_date()));
 			// Convert the start and end time strings to Time objects
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-			LocalTime startTime = LocalTime.parse(permissionInput.getStart_time(), formatter);
-			LocalTime endTime = LocalTime.parse(permissionInput.getEnd_time(), formatter);
+			// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+			String startTime = permissionInput.getStart_time();
+			String endTime = permissionInput.getEnd_time();
 
-			ap.setStart_time(Time.valueOf(startTime));
+			ap.setStart_time(Time.valueOf(startTime + ":00"));
 			ap.setEnd_time(Time.valueOf(endTime));
 			ap.setReason(permissionInput.getReason());
 
@@ -82,7 +80,7 @@ public class PermissionsController {
 
 		// List<ApplyPermissions> permissions = apd.adminViewPermission();
 
-		List<Employee> employees = apd.getEmployeesByHRAndManager(600);
+		List<Employee> employees = apd.getEmployeesByHRAndManager(301);
 		List<ApplyPermissions> outputmodel = new ArrayList<>();
 		for (Employee employee : employees) {
 			System.out.println(employee.getEmplId());

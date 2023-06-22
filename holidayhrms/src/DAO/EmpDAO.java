@@ -39,4 +39,13 @@ public class EmpDAO {
 		return query.getSingleResult();
 	}
 
+	@Transactional
+	public void updateEmployeeAddress(int empId, String newAddress) {
+		Employee employee = em.find(Employee.class, empId);
+		if (employee != null) {
+			employee.setEmplAddress(newAddress);
+			em.merge(employee);
+		}
+	}
+
 }

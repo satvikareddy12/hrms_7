@@ -77,15 +77,12 @@
         padding: 10px 20px;
         font-size: 16px;
         border: none;
-        background-color: #4CAF50;
+      background-color: #333;
         color: #fff;
         cursor: pointer;
         margin-right: 10px;
     }
 
-    .center button:hover {
-        background-color: #45a049;
-    }
         
          .modal {
         display: none;

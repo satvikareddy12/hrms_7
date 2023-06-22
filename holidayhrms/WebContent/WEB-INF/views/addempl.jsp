@@ -87,12 +87,15 @@
         font-weight: bold;
         cursor: pointer;
     }		
-    </style>
-    
+    </style>   
 </head>
-<body align="center">
+
+<body>
+
     <h1>Employee Form</h1>
-    <form  method="post" action="employeeList" >
+    
+      <form  method="post" action="employeeList" >
+    
         <label for="emplId">Employee ID:</label>
         <input type="number" name="emplId" id="emplId" required><br>
         
@@ -150,28 +153,29 @@
         <label for="emplFname">Father's Name:</label>
         <input type="text" name="emplFname" id="emplFname"><br>
         
-         <label for="empl_ctc">Employee CTC:</label>
+        <label for="empl_ctc">Employee CTC:</label>
         <input type="number" name="empl_ctc" id="empl_ctc"><br>
         
-         <label for="empl_basicsal">Basic Salary:</label>
+        <label for="empl_basicsal">Basic Salary:</label>
         <input type="number" name="empl_basicsal" id="empl_basicsal"><br>
         
-         <label for="empl_fixedsal">Fixed Salary:</label>
+        <label for="empl_fixedsal">Fixed Salary:</label>
         <input type="number" name="empl_fixedsal" id="empl_fixedsal"><br>
         
-         <label for="empl_variablesal">Variable Salary:</label>
+        <label for="empl_variablesal">Variable Salary:</label>
         <input type="number" name="empl_variablesal" id="empl_variablesal"><br>
         
-         <label for="empl_status">Status:</label>
+        <label for="empl_status">Status:</label>
         <input type="text" name="empl_status" id="empl_status"><br>
         
         <input type="submit" value="Submit"><br><br>
-    </form>
+      
+      </form>
      
-      <div id="employeeList">
-        <!-- Employee list will be dynamically updated here -->
+    <div id="employeeList">       
     </div>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
         function loadEmployeeList() {
     	$.ajax({
@@ -187,6 +191,6 @@
 	}
     loadEmployeeList();
     setInterval(loadEmployeeList, 2000);
-    </script>
+   </script>
 </body>
 </html>
