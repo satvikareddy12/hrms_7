@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import DAO.HolidayDAO;
+import models.GradeHoliday;
 import models.Holiday;
 
 @Controller
@@ -27,4 +28,10 @@ public class HolidayController {
 		return "holidays";
 	}
 
+	@RequestMapping("/getgradewiseholidays")
+	public String getgradewiseHolidays(Model model) {
+		List<GradeHoliday> gradeholidays = hd.findAllGradeHolidays();
+		model.addAttribute("gradeholidays", gradeholidays);
+		return "gradeholidays";
+	}
 }

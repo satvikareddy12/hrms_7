@@ -88,8 +88,9 @@ public class EmployeeAttendanceService {
 			}
 
 			Duration duration = Duration.between(punchIn, punchOut);
-
 			LocalDateTime dateOnly = punchIn.toLocalDate().atStartOfDay();
+
+			System.out.println("date key :" + dateOnly);
 
 			if (workingHoursPerDay.containsKey(dateOnly)) {
 				Duration totalDuration = workingHoursPerDay.get(dateOnly).plus(duration);
@@ -154,4 +155,49 @@ public class EmployeeAttendanceService {
 		return yearList;
 
 	}
+
+	public List<Long> getAvgPunchInAndOut(int id) {
+
+		int i;
+		long punchin = 0, punchout = 0;
+		List<Object[]> punchData = employeeAttendanceDAO.getPunchInAndPunchOutDataForYearAndMonthAndEmployee(id,
+				LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+		List<LocalDateTime> noofDays = new ArrayList<>();
+		LocalDateTime dateOnly = null;
+
+		for (i = 0; i < punchData.size() - 1; i++) {
+			punchin += Duration.between((LocalDateTime) punchData.get(i)[0], (LocalDateTime) punchData.get(i)[1])
+					.toMinutes();
+
+			LocalDateTime pOutOfCurrent = (LocalDateTime) punchData.get(i)[1];
+			LocalDateTime pInOfNext = (LocalDateTime) punchData.get(i + 1)[0];
+
+			if (pOutOfCurrent.toLocalDate().getDayOfMonth() == pInOfNext.toLocalDate().getDayOfMonth())
+				punchout += Duration.between(pOutOfCurrent, pInOfNext).toMinutes();
+			dateOnly = (LocalDateTime) punchData.get(i)[0];
+			System.out.println(dateOnly);
+			if (!noofDays.contains(dateOnly.toLocalDate().atStartOfDay()))
+				noofDays.add(dateOnly.toLocalDate().atStartOfDay());
+
+		}
+
+		punchin += Duration.between((LocalDateTime) punchData.get(i)[0], (LocalDateTime) punchData.get(i)[1])
+				.toMinutes();
+		dateOnly = (LocalDateTime) punchData.get(i)[0];
+		if (!noofDays.contains(dateOnly.toLocalDate().atStartOfDay()))
+			noofDays.add(dateOnly.toLocalDate().atStartOfDay());
+
+		List<Long> result = new ArrayList<>();
+		result.add(punchin / noofDays.size());
+		result.add(punchout / noofDays.size());
+
+		for (LocalDateTime date : noofDays) {
+			System.out.println("array" + date);
+		}
+
+		System.out.println(noofDays.size());
+
+		return result;
+	}
+
 }

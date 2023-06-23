@@ -391,6 +391,21 @@
   	  });
   	} 
     
+    function getHolidaysByGrade() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "getgradewiseholidays",
+    	   
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	} 
+    
     
     </script>
 
@@ -482,7 +497,10 @@
                 <a onclick="getHolidays();"><i class="ri-file-list-line"></i> Holidays</a>
               </li>
               <li class="item">
-                <a onclick="getLeavesByGrade();"><i class="ri-check-double-line"></i> Leaves</a>
+                <a onclick="getHolidaysByGrade();"><i class="ri-file-list-line"></i> Grade Wise Holidays</a>
+              </li>
+              <li class="item">
+                <a onclick="getLeavesByGrade();"><i class="ri-check-double-line"></i>Grade Wise Leaves</a>
               </li>
             </ul>
           </li>
@@ -536,12 +554,6 @@
           
           <li class="item">
             <a onclick="generatePayroll();"><span class="icon"><i class="ri-booklet-line"></i></span> Payrolls</a>
-          </li>
-          <li class="item">
-            <a href="#"><span class="icon"><i class="ri-settings-3-line"></i></span> Settings</a>
-          </li>
-          <li class="item">
-            <a href="#"><span class="icon"><i class="ri-question-line"></i></span> Help</a>
           </li>
           <li class="item">
             <a href="#"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>

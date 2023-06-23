@@ -74,7 +74,10 @@ public class ApplyPermissionDaoImpl {
 		}
 	}
 
-	public Long getEmployeeAndPermissionRequestDataCount(int id, Date current) {
+	public Long getEmployeeAndPermissionRequestDataCountPerDay(int id, Date current) {
+
+		System.out.println(current);
+
 		String jpqlQuery = "SELECT COUNT(elrq) FROM ApplyPermissions elrq " + "WHERE elrq.id.empl_id = :employeeIds "
 				+ "AND elrq.current_date = :currentdate";
 		TypedQuery<Long> query = em.createQuery(jpqlQuery, Long.class);
@@ -82,6 +85,19 @@ public class ApplyPermissionDaoImpl {
 		query.setParameter("currentdate", current);
 		Long count = query.getSingleResult();
 
+		return count;
+	}
+
+	public long getEmployeeAndPermissionRequestDataCountPerMonth(int id, int month, int year) {
+
+		String jpqlQuery = "SELECT COUNT(elrq) FROM ApplyPermissions elrq " + "WHERE elrq.id.empl_id = :employeeIds "
+				+ "AND EXTRACT(MONTH FROM elrq.current_date) = :month "
+				+ "AND EXTRACT(YEAR FROM elrq.current_date) = :year";
+		TypedQuery<Long> query = em.createQuery(jpqlQuery, Long.class);
+		query.setParameter("employeeIds", id);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		Long count = query.getSingleResult();
 		return count;
 	}
 

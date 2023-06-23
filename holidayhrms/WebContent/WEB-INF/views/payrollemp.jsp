@@ -35,13 +35,41 @@
             margin: 0 auto;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+  <script>
+  
+
+    function payroll() {
+
+      $.ajax({
+        type: "POST",
+        url: "getpayslip", 
+        data: $("#payrollemp").serialize(),
+        success: function(response) {
+          var containerDiv = $(".main");
+          containerDiv.html(response);
+        },
+        error: function() {
+          alert("Error occurred. Please try again later.");
+        }
+      });
+    }
+ 
+  </script>
+  
+  
+    
 </head>
 <body>
     <h1>Enter Employee ID</h1><br>
-    <form action="getpayslip" method="post">
+    <form id="payrollemp" method="post">
         <label for="employeeeId">Employee ID:</label>
         <input type="text" id="empl_id" name="empl_id" required><br><br>
-        <input type="submit" value="Get Details">
+        <input type="button" onclick="payroll();" value="Get Details">
     </form>
+     </div>
+  <div class="main"></div>
+  
 </body>
 </html>

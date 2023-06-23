@@ -3,6 +3,7 @@ package controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,16 +29,18 @@ public class PayRollController {
 	private EmployeePayRollInputModel payRollInput;
 	private EmployeePayslip empPaySlip;
 	private PayRollDAO payrollDAO;
+	private final ModelMapper modelMapper;
 
 	@Autowired
 	PayRollController(PayRollService payRollservice, EmployeeDAO ed, EmployeePayRollOutputModel payRollOutput,
-			EmployeePayRollInputModel payRollInput, EmployeePayslip empPaySlip, PayRollDAO payrollDAO) {
+			EmployeePayRollInputModel payRollInput, EmployeePayslip empPaySlip, PayRollDAO payrollDAO, ModelMapper mp) {
 		this.payRollservice = payRollservice;
 		this.ed = ed;
 		this.payRollOutput = payRollOutput;
 		this.payRollInput = payRollInput;
 		this.empPaySlip = empPaySlip;
 		this.payrollDAO = payrollDAO;
+		modelMapper = mp;
 	}
 
 	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
@@ -138,9 +141,38 @@ public class PayRollController {
 		return "payrollemp";
 	}
 
-	@RequestMapping(value = "/EmployeePaySlip", method = RequestMethod.GET)
-	public String getPayslip3(Model model) {
-		return "EmployeePaySlip";
+	@RequestMapping(value = "/EmployeeSidePaySlip", method = RequestMethod.GET)
+	public String getEmployeePayslip(Model model) {
+
+		Employee employee = ed.getEmployeeById(102);
+		EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeId(102);
+		String firstName = employee.getEmplFirstname();
+		String lastName = employee.getEmplLastname();
+		String designation = employee.getEmplDesignation();
+		payRollOutput.setId(102);
+		payRollOutput.setMonthYear(eps.getMonthYear());
+		payRollOutput.setFirstName(firstName);
+		payRollOutput.setLastName(lastName);
+		payRollOutput.setDesignation(designation);
+		payRollOutput.setBasicPay(eps.getBasicSalary());
+		payRollOutput.setDa(eps.getDa());
+		payRollOutput.setAdditions(eps.getAdditions());
+		payRollOutput.setDeduction(eps.getDeductions());
+		payRollOutput.setEsi(eps.getEsi());
+		payRollOutput.setGratuity(eps.getGratuity());
+		payRollOutput.setHra(eps.getHra());
+		payRollOutput.setPf(eps.getPf());
+		payRollOutput.setPtax(eps.getPtax());
+		payRollOutput.setTa(eps.getTa());
+		payRollOutput.setTds(eps.getTds());
+
+		payRollOutput.setTotal(eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions());
+		payRollOutput.setNetpay((eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions())
+				- eps.getDeductions());
+
+		model.addAttribute("output", payRollOutput);
+
+		return "EmployeeSidePaySlip";
 	}
 
 }

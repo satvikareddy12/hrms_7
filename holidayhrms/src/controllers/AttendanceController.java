@@ -185,4 +185,11 @@ public class AttendanceController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(yearsList));
 	}
+
+	@RequestMapping(value = "/getAvgPunchInAndOut", method = RequestMethod.GET)
+	public ResponseEntity<String> getAvgPunchInAndOut() {
+		// need to get the employee id
+		List<Long> result = employeeAttendanceService.getAvgPunchInAndOut(1);
+		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(result));
+	}
 }

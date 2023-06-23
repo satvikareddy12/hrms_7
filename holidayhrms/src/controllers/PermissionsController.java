@@ -39,9 +39,14 @@ public class PermissionsController {
 
 	@RequestMapping(value = "/getpermissions")
 	public String applypermission(Model model) {
-		Long count = apd.getEmployeeAndPermissionRequestDataCount(102, Date.valueOf(LocalDate.now()));
-		System.out.println(count);
-		model.addAttribute("PermissionCount", count);
+		// set employee id from session
+		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(102, Date.valueOf(LocalDate.now()));
+		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(102, LocalDate.now().getMonthValue(),
+				LocalDate.now().getYear());
+		System.out.println(daycount);
+		System.out.println(monthcount);
+		model.addAttribute("PermissionDayCount", daycount);
+		model.addAttribute("PermissionMonthCount", monthcount);
 		return "emppermission";
 	}
 

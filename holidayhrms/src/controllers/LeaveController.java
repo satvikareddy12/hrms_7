@@ -270,4 +270,23 @@ public class LeaveController {
 
 		return "jobGradeWiseLeaves";
 	}
+
+	@RequestMapping(value = "/getLeaveStatistics", method = RequestMethod.GET)
+	public ResponseEntity<String> getLeaveStatistics() {
+		// need to get emp id from the session
+		Employee employee = employeeDAO.getEmployee(1);
+
+		System.out.println(employee.getEmplId());
+		System.out.println(employee.getEmplJbgrId());
+
+		JobGradeWiseLeaves leavesProvidedStatistics = leaveRequestDAO
+				.getJobGradeWiseLeaves(employee.getEmplJbgrId().trim());
+		System.out.println(leavesProvidedStatistics);
+		List<EmployeeLeaveRequest> leaves = leaveRequestDAO.getApprovedLeaveRequests(employee.getEmplId(),
+				Year.now().getValue());
+		LeaveValidationModel validation = employeeService.calculateLeavesTaken(leaves, leavesProvidedStatistics);
+
+		return ResponseEntity.ok(gson.toJson(validation));
+	}
+
 }

@@ -44,7 +44,7 @@
     <%@ page import="java.util.List, java.util.ArrayList" %>
     <%@ page import="models.input.output.JobGradeLeavesOutModel" %>
     
-    <h1>Job Grade Leaves</h1>
+    <h1>Job Grade Wise Leaves</h1>
     
     <table>
         <tr>

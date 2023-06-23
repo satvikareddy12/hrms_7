@@ -24,4 +24,6 @@ public interface EmployeeLeaveRequestDAO {
 	List<EmployeeLeaveRequest> getLeaveRequestHistory(int id);
 
 	List<JobGradeWiseLeaves> getJobGradeWiseLeaves();
+
+	List<EmployeeLeaveRequest> getApprovedLeaveRequests(int id, int year);
 }

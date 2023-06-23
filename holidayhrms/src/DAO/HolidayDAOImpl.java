@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -11,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import models.GradeHoliday;
 import models.Holiday;
 
 @Repository
@@ -31,27 +33,16 @@ public class HolidayDAOImpl implements HolidayDAO {
 	}
 
 	@Override
-	public Holiday findHolidayById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public GradeHoliday findHolidayById(String id) {
+		return entityManager.find(GradeHoliday.class, id);
 	}
 
 	@Override
-	public void saveHoliday(Holiday holiday) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateHoliday(Holiday holiday) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteHoliday(Holiday holiday) {
-		// TODO Auto-generated method stub
-
+	@Transactional
+	public List<GradeHoliday> findAllGradeHolidays() {
+		TypedQuery<GradeHoliday> query = entityManager.createQuery("SELECT gh FROM GradeHoliday gh",
+				GradeHoliday.class);
+		return query.getResultList();
 	}
 
 }

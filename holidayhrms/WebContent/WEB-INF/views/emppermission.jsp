@@ -79,12 +79,20 @@
 
     function permissionApplied() {
       // Prevent default form submission
+      
+      $("#msg").text("Applying....");
 
       var validationData = {
-        permissionsCount: <%= (Long)request.getAttribute("PermissionCount")%>
+        permissionsDayCount: <%= (Long)request.getAttribute("PermissionDayCount")%>,
+        permissionsMonthCount : <%= (Long)request.getAttribute("PermissionMonthCount")%>
       };
 
-      if (validationData.permissionsCount > 0) {
+      if (validationData.permissionsMonthCount >= 2) {
+          alert("Maximum permissions applied for this Month");
+          return;
+        }
+      
+      if (validationData.permissionsDayCount > 0) {
         alert("Maximum permissions applied for today");
         return;
       }
@@ -94,8 +102,8 @@
         url: "applyPermission",
         data: $("#permissionForm").serialize(), // Serialize form data
         success: function(response) {
-          var containerDiv = $(".main");
-          containerDiv.html(response);
+          var containerDiv = $("#msg");
+          containerDiv.text("successfully Applied");
         },
         error: function() {
           alert("Error occurred. Please try again later.");
@@ -107,7 +115,7 @@
 <body>
   <h1>Permission Form</h1>
   <div class="container">
-    <form id="permissionForm" action="applyPermission" method="get">
+    <form id="permissionForm">
       <label for="id">ID:</label>
       <input type="number" id="id" name="id" required>
 
@@ -126,6 +134,9 @@
 
       <button type="button" onclick="permissionApplied();">Apply</button>
     </form>
+    
+    <div id="msg"></div>
+    
   </div>
   <div class="main"></div>
 </body>

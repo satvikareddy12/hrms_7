@@ -45,9 +45,9 @@ public class EmployeeLeaveRequestDAOImpl implements EmployeeLeaveRequestDAO {
 
 	@Override
 	public List<EmployeeLeaveRequest> getApprovedAndPendingEmployeeAndLeaveRequestData(int id, int year) {
-		String jpqlQuery = "SELECT elrq FROM EmployeeLeaveRequest elrq "
-				+ "WHERE elrq.leaveRequestId.employeeId = :employeeIds " + "AND elrq.approvedBy != -1 "
-				+ "AND EXTRACT(YEAR FROM elrq.requestDateTime) = :year";
+		String jpqlQuery = "SELECT elrq FROM EmployeeLeaveRequest elrq"
+				+ " WHERE elrq.leaveRequestId.employeeId = :employeeIds" + " AND elrq.approvedBy != -1"
+				+ " AND EXTRACT(YEAR FROM elrq.requestDateTime) = :year";
 		TypedQuery<EmployeeLeaveRequest> query = entityManager.createQuery(jpqlQuery, EmployeeLeaveRequest.class);
 		query.setParameter("employeeIds", id);
 		query.setParameter("year", year);
@@ -90,6 +90,20 @@ public class EmployeeLeaveRequestDAOImpl implements EmployeeLeaveRequestDAO {
 		String jpqlQuery = "SELECT jgwl FROM JobGradeWiseLeaves jgwl ";
 		TypedQuery<JobGradeWiseLeaves> query = entityManager.createQuery(jpqlQuery, JobGradeWiseLeaves.class);
 		List<JobGradeWiseLeaves> result = query.getResultList();
+		return result;
+	}
+
+	@Override
+	public List<EmployeeLeaveRequest> getApprovedLeaveRequests(int id, int year) {
+
+		String jpqlQuery = "SELECT elrq FROM EmployeeLeaveRequest elrq "
+				+ "WHERE elrq.leaveRequestId.employeeId = :employeeId" + " AND elrq.approvedBy > 0"
+				+ " AND EXTRACT(YEAR FROM elrq.requestDateTime) = :year";
+
+		TypedQuery<EmployeeLeaveRequest> query = entityManager.createQuery(jpqlQuery, EmployeeLeaveRequest.class);
+		query.setParameter("employeeId", id);
+		query.setParameter("year", year);
+		List<EmployeeLeaveRequest> result = query.getResultList();
 		return result;
 	}
 

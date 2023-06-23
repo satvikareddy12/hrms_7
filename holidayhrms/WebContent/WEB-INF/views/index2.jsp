@@ -267,10 +267,7 @@ canvas {
               </li>
               <li class="item">
                 <a onclick="viewAttendance()"><i class="ri-time-line"></i> Attendance</a>
-              </li>
-              <li class="item">
-                <a href="#"><i class="ri-check-line"></i> Approvals</a>
-              </li>
+              </li>             
             </ul>
           </li>
 
@@ -278,13 +275,7 @@ canvas {
             <a href="#"><span class="icon"><i class="ri-booklet-line"></i></span> Ref Documents</a>
           </li>
           <li class="item">
-            <a href="#"><span class="icon"><i class="ri-file-line"></i></span> Payslips</a>
-          </li>
-          <li class="item">
-            <a href="#"><span class="icon"><i class="ri-settings-3-line"></i></span> Settings</a>
-          </li>
-           <li class="item">
-            <a href="#"> <span class="icon"><i class="ri-question-line"></i></span> Help</a>
+            <a onclick="getPayslip()"><span class="icon"><i class="ri-file-line"></i></span> Payslips</a>
           </li>
            <li class="item">
             <a href="#"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>
@@ -371,12 +362,7 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 	 field.append(fieldMessage);
 	 dataFields.append(field);
 	 
-	 
-	// field 2
-	  field = $('<div class="col right"><div class="field" id="field2">3</div></div>');
-	  fieldMessage = $('<div class="field-message" id="msg2">No of paid leaves since joining</div>');
-	  field.append(fieldMessage);
-		 dataFields.append(field);
+
 		 
 		// field 3
 		  field = $('<div class="col right"><div class="field" id="field3">4</div></div>');
@@ -384,21 +370,15 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 		  field.append(fieldMessage);
 			 dataFields.append(field);
 			 
-			// field 4
-			  field = $('<div class="col right"><div class="field" id="field4">2</div></div>');
-			  fieldMessage = $('<div class="field-message" id="msg4">no of Earned Leaves</div>');
-			  field.append(fieldMessage);
-				 dataFields.append(field);
-				 
-				// field 5 
-				 field = $('<div class="col right"><div class="field" id="field5">6</div></div>');
+
+				 field = $('<div class="col right"><div class="field" id="field5"></div></div>');
 				  fieldMessage = $('<div class="field-message" id="msg5">Average Punch in</div>');
 				  field.append(fieldMessage);
 					 dataFields.append(field);
 			   
 				
 					// field 6
-					 field = $('<div class="col right"><div class="field" id="field6">6</div></div>');
+					 field = $('<div class="col right"><div class="field" id="field6"></div></div>');
 					  fieldMessage = $('<div class="field-message" id="msg6">Average punch out</div>');
 					  field.append(fieldMessage);
 						 dataFields.append(field);
@@ -421,24 +401,57 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 
 	 
 
+	 $.ajax({
+		 url:"getAvgPunchInAndOut",
+		 type:"GET",
+		 success:function(response){
+			 var punchData = JSON.parse(response);
+			 console.log(punchData[0]);
+			 var punchhrs = Math.floor(punchData[0]/60);
+			 var remainingMinutes = punchData[0] % 60; 
+			 
+			 $('#field5').text(punchhrs + " hrs " + remainingMinutes + " mins");
+			 
+			 punchhrs = Math.floor(punchData[1]/60);
+			 remainingMinutes = punchData[1] % 60; 
+			 
+			$('#field6').text(punchhrs + " hrs " + remainingMinutes + " mins");
+		 },
+		 error:function(error){
+			 console.log(error);
+		 }
+		 
+	 });
 	 
-
-
 	 createPunchGraph();
-	 createPieGraph();
+	 
+	 
+	 var piegraphdata;
+	 
+	 $.ajax({
+		 url:"getLeaveStatistics",
+		 type:"GET",
+		 success:function(response){
+			 console.log(JSON.parse(response));
+			 var piegraphdata = JSON.parse(response);
+			 $('#field1').text(piegraphdata.takenTotalLeaves);
+			 createPieGraph(piegraphdata.allowedTotalLeaves,piegraphdata.takenTotalLeaves,24,8);
+		 },
+		 error:function(error){
+			 console.log(error);
+		 }
+		 
+	 });
+	 
+	 
 	  
 	}
 
  
- function createPieGraph(){
-	 // data
-	 var totalLeaves = 20;
-	    var leavesUsed = 5;
-	    var totalPermissions = 10;
-	    var permissionsUsed = 2;
+ function createPieGraph(totalLeaves,leavesUsed,totalPermissions,permissionsUsed){
 
 	    var data = {
-	      labels: ["Leaves Available", "Leaves Used", "Permissions Available", "Permissions Used"],
+	      labels: ["Leaves Available (per Year)", "Leaves Used", "Permissions Available (per Year)", "Permissions Used"],
 	      datasets: [
 	        {
 	          data: [totalLeaves - leavesUsed, leavesUsed, totalPermissions - permissionsUsed, permissionsUsed],
@@ -460,63 +473,73 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 	    });
  }
  
- 
- function createPunchGraph(){
-	  
-	 const punchData = [
-		  { time: '08:30 AM', event: 'Punch In' },
-		  { time: '09:45 AM', event: 'Punch Out' },
-		  { time: '11:20 AM', event: 'Punch In' },
-		  { time: '01:00 PM', event: 'Punch Out' },
-		  { time: '02:40 PM', event: 'Punch In' },
-		  { time: '04:15 PM', event: 'Punch Out' }
-		];
 
-		const times = punchData.map(data => data.time);
-		const events = punchData.map(data => (data.event === 'Punch In' ? { value: 1, label: 'Punch In' } : { value: -1, label: 'Punch Out' }));
-
-		const ctx = document.getElementById('punch').getContext('2d');
-		new Chart(ctx, {
-		  type: 'bar',
-		  data: {
-		    labels: times,
-		    datasets: [{
-		      label: 'Punch In/Punch Out',
-		      data: events.map(event => event.value),
-		      backgroundColor: 'rgba(54, 162, 235, 0.5)',
-		      borderColor: 'rgba(54, 162, 235, 1)',
-		      borderWidth: 1
-		    }]
-		  },
-		  options: {
-		    responsive: true,
-		    maintainAspectRatio: false,
-		    scales: {
-		      x: {
-		        grid: {
-		          display: false
-		        }
-		      },
-		      y: {
-		        ticks: {
-		          stepSize: 1
-		        }
-		      }
-		    },
-		    plugins: {
-		      tooltip: {
-		        callbacks: {
-		          label: function (context) {
-		            const event = events[context.dataIndex];
-		            return event.label;
-		          }
-		        }
-		      }
-		    }
-		  }
-		});
- }
  
+ 
+ function createPunchGraph() {
+	  $.ajax({
+	    url: "punchData",
+	    type: "GET",
+	    success: function(response) {
+	      console.log(response);
+	      const punchData = JSON.parse(response);
+
+	      const times = punchData.map(data => data.time);
+	      const events = punchData.map(data =>
+	        data.event === "Punch In"
+	          ? { value: 1, label: "Punch In" }
+	          : { value: -1, label: "Punch Out" }
+	      );
+
+	      const ctx = document.getElementById("punch").getContext("2d");
+	      new Chart(ctx, {
+	        type: "bar",
+	        data: {
+	          labels: times,
+	          datasets: [
+	            {
+	              label: "Punch In/Punch Out",
+	              data: events.map(event => event.value),
+	              backgroundColor: "rgba(54, 162, 235, 0.5)",
+	              borderColor: "rgba(54, 162, 235, 1)",
+	              borderWidth: 1
+	            }
+	          ]
+	        },
+	        options: {
+	          responsive: true,
+	          maintainAspectRatio: false,
+	          scales: {
+	            x: {
+	              grid: {
+	                display: false
+	              }
+	            },
+	            y: {
+	              ticks: {
+	                stepSize: 1
+	              }
+	            }
+	          },
+	          plugins: {
+	            tooltip: {
+	              callbacks: {
+	                label: function(context) {
+	                  const event = events[context.dataIndex];
+	                  return event.label;
+	                }
+	              }
+	            }
+	          }
+	        }
+	      });
+	    },
+	    error: function(error) {
+	      console.log(error);
+	    }
+	  });
+	}
+
 
 
  function getHolidays() {
@@ -632,6 +655,21 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
     	    }
     	  });
     	}
+    
+    function getPayslip() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "EmployeeSidePaySlip",
+  	    success: function(response) {
+  	      var containerDiv = $(".main");
+  	      containerDiv.html(response);
+  	     
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
     
     
     

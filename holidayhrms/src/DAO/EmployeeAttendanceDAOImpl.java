@@ -42,7 +42,7 @@ public class EmployeeAttendanceDAOImpl implements EmployeeAttendanceDAO {
 		// query to get punch data from the 00:00 to 23:59:59 of yesterday
 		String queryString = "SELECT ea.punchIn, ea.punchOut FROM EmployeeAttendance ea "
 				+ "WHERE ea.attendanceId.employeeId = :employeeId " + "AND ea.punchIn >= :startOfDay "
-				+ "AND ea.punchOut <= :endOfDay";
+				+ "AND ea.punchOut <= :endOfDay order by ea.punchIn";
 
 		TypedQuery<Object[]> query = entityManager.createQuery(queryString, Object[].class);
 		query.setParameter("employeeId", employeeId);
@@ -60,7 +60,7 @@ public class EmployeeAttendanceDAOImpl implements EmployeeAttendanceDAO {
 			int selectedMonth) {
 		String queryString = "SELECT ea.punchIn, ea.punchOut FROM EmployeeAttendance ea "
 				+ "WHERE ea.attendanceId.employeeId = :employeeId " + "AND YEAR(ea.punchIn) = :selectedYear "
-				+ "AND MONTH(ea.punchIn) = :selectedMonth";
+				+ "AND MONTH(ea.punchIn) = :selectedMonth order by ea.punchIn";
 
 		Query query = entityManager.createQuery(queryString);
 		query.setParameter("employeeId", employeeId);
