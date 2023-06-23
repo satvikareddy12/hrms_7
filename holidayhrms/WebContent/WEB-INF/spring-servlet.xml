@@ -112,6 +112,9 @@
     <bean id="empdao" class="DAO.EmpDAO" />
     <bean id="payRollservice" class="service.PayRollServiceImpl" autowire="byName"/>
     <bean id="payRollOutput" class="models.input.output.EmployeePayRollOutputModel" autowire="byName"/>
+    <bean id="payRollInput" class="models.input.output.EmployeePayRollInputModel" autowire="byName"/>
+    <bean id="payrollDAO" class="DAO.PayRollDAOImpl" autowire="byName"/>
+    <bean id="empPaySlip" class="models.EmployeePayslip" autowire="byName"/>
    
     
      <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

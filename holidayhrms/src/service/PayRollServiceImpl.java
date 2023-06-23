@@ -2,63 +2,101 @@ package service;
 
 public class PayRollServiceImpl implements PayRollService {
 
-	private double gross;
-	private double deductions_sal;
+	private double total, basicpay, netpay, hra, ta, da, additions;
+	private double deductions_sal, pf, esi, gratuity;
+	private double ptax = 200;
+	private double tax = 0;
 
 	@Override
-	public double grossPay(double basicPay, double fixedpay, double variablePay) {
-
-		this.gross = basicPay + fixedpay + variablePay + ((basicPay * 0.008));
-
-		return basicPay + fixedpay + variablePay + ((basicPay * 0.008));
-
-	}
-
-	@Override
-	public double deductions(double basicPay, double esi, double gratuity, double pf, int unpaidLeave, double tds) {
-
-		this.deductions_sal = gratuity + esi + pf + ((basicPay * 0.005) * unpaidLeave);
-
-		return gratuity + esi + pf + ((basicPay * 0.005) * unpaidLeave);
-
-	}
-
-	@Override
-	public double totalsal(double basicPay, double fixedpay, double variablePay, double esi, double gratuity, double pf,
-			int earnedLeave, int unpaidLeave, double tds) {
-
-		return grossPay(basicPay, fixedpay, variablePay) - deductions(basicPay, esi, gratuity, pf, unpaidLeave, tds);
-
+	public double basicPay(double basicpay) {
+		// TODO Auto-generated method stub
+		this.basicpay = basicpay;
+		return basicpay;
 	}
 
 	@Override
 	public double forHRA(double fixedpay) {
-
-		return fixedpay * 0.4;
+		this.hra = fixedpay * 0.4;
+		return hra;
 	}
 
 	@Override
 	public double forDA(double fixedpay) {
-
-		return fixedpay * 0.3;
+		this.da = fixedpay * 0.3;
+		return da;
 	}
 
 	@Override
 	public double forTA(double fixedpay) {
-
-		return fixedpay * 0.3;
+		this.ta = fixedpay * 0.3;
+		return ta;
 	}
 
 	@Override
 	public double additions(double additionalPay) {
+		this.additions = additionalPay;
+		return additions;
+	}
 
-		return 0;
+	@Override
+	public double pf(double ctc) {
+
+		this.pf = (0.6 * ctc) / 12;
+
+		return pf;
+	}
+
+	@Override
+	public double esi(double ctc) {
+
+		this.esi = (0.15 * ctc) / 12;
+
+		return esi;
+	}
+
+	@Override
+	public double gratuity(double ctc) {
+
+		this.gratuity = (0.25 * ctc) / 12;
+
+		return gratuity;
+	}
+
+	@Override
+	public double deductions() {
+
+		deductions_sal = gratuity + esi + pf + ptax + tax;
+		return deductions_sal;
 	}
 
 	@Override
 	public double calTax(double ctc) {
 
-		return 0;
+		if (ctc <= 500000) {
+			this.tax = 0;
+		} else if (ctc > 500000 && ctc <= 800000) {
+			this.tax = ((0.05 * (ctc - 500000)) / 12);
+		} else if (ctc > 800000 && ctc <= 1100000) {
+			this.tax = ((0.1 * (ctc - 800000)) / 12);
+		} else {
+			this.tax = ((0.2 * (ctc - 1100000)) / 12);
+		}
+
+		return this.tax;
+	}
+
+	@Override
+	public double netPay() {
+
+		this.netpay = (total + additions) - deductions_sal;
+
+		return netpay;
+	}
+
+	@Override
+	public double total() {
+		this.total = basicpay + hra + ta + da;
+		return total;
 	}
 
 }

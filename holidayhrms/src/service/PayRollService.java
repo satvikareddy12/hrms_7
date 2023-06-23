@@ -3,13 +3,7 @@ package service;
 public interface PayRollService {
 
 	// to calculate total
-
-	double deductions(double basicPay, double esi, double gratuity, double pf, int unpaidLeave, double tsd);
-
-	double totalsal(double basicPay, double fixedpay, double variablePay, double healthInsurance, double gratuity,
-			double pf, int earnedLeave, int unpaidLeave, double tds);
-
-	double grossPay(double basicPay, double fixedpay, double variablePay);
+	double basicPay(double basicpay);
 
 	double forHRA(double fixedpay);
 
@@ -20,5 +14,17 @@ public interface PayRollService {
 	double additions(double additionalPay);
 
 	double calTax(double ctc);
+
+	double pf(double ctc);
+
+	double esi(double ctc);
+
+	double gratuity(double ctc);
+
+	double deductions();
+
+	double netPay();
+
+	double total();
 
 }

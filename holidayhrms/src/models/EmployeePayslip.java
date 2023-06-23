@@ -1,17 +1,27 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_employeepayslips")
-public class EmployeePayslip {
-	@EmbeddedId
-	private EmployeePayslipId id;
+@IdClass(EmployeePayslipId.class)
+public class EmployeePayslip implements Serializable {
+
+	@Id
+	@Column(name = "empl_id")
+	private int employeeId;
+
+	@Id
+	@Column(name = "empl_monthyear")
+	private String monthYear;
 
 	@Column(name = "empl_basic")
 	private double basicSalary;
@@ -57,10 +67,11 @@ public class EmployeePayslip {
 	public EmployeePayslip() {
 	}
 
-	public EmployeePayslip(EmployeePayslipId id, double basicSalary, double hra, double da, double ta, double additions,
-			double deductions, double ptax, double pf, double esi, double gratuity, double tds,
+	public EmployeePayslip(int employeeId, String monthYear, double basicSalary, double hra, double da, double ta,
+			double additions, double deductions, double ptax, double pf, double esi, double gratuity, double tds,
 			Timestamp lastUpdatedDate, int lastUpdatedUser) {
-		this.id = id;
+		this.employeeId = employeeId;
+		this.monthYear = monthYear;
 		this.basicSalary = basicSalary;
 		this.hra = hra;
 		this.da = da;
@@ -76,14 +87,20 @@ public class EmployeePayslip {
 		this.lastUpdatedUser = lastUpdatedUser;
 	}
 
-	// Getters and setters
-
-	public EmployeePayslipId getId() {
-		return id;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setId(EmployeePayslipId id) {
-		this.id = id;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getMonthYear() {
+		return monthYear;
+	}
+
+	public void setMonthYear(String monthYear) {
+		this.monthYear = monthYear;
 	}
 
 	public double getBasicSalary() {
@@ -188,5 +205,22 @@ public class EmployeePayslip {
 
 	public void setLastUpdatedUser(int lastUpdatedUser) {
 		this.lastUpdatedUser = lastUpdatedUser;
+	}
+
+	// Equals and hashCode methods
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		EmployeePayslip that = (EmployeePayslip) o;
+		return employeeId == that.employeeId && Objects.equals(monthYear, that.monthYear);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(employeeId, monthYear);
 	}
 }

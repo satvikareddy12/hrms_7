@@ -9,11 +9,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EmployeePayslipId implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Column(name = "empl_id")
 	private int employeeId;
 
@@ -29,8 +24,6 @@ public class EmployeePayslipId implements Serializable {
 		this.employeeId = employeeId;
 		this.monthYear = monthYear;
 	}
-
-	// Getters and setters
 
 	public int getEmployeeId() {
 		return employeeId;

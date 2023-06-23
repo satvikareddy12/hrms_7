@@ -3,25 +3,67 @@ package models.input.output;
 public class EmployeePayRollOutputModel {
 
 	private int id;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String designation;
+	private String monthYear;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
 	private double basicPay;
 	private double fixedPay;
 	private double variablePay;
 	private double gratuity;
 	private double esi; // health insurance
 	private double pf;
-	private int unpaidLeave;
-	private double gp;
 	private double deduction;
-	private double total;
 	private double hra;
 	private double ta;
 	private double da;
-	private String monthYear;
 	private double additions;
 	private double ptax;
 	private double tds;
+
+	private double total;
+	private double netpay;
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public double getNetpay() {
+		return netpay;
+	}
+
+	public void setNetpay(double netpay) {
+		this.netpay = netpay;
+	}
 
 	public double getEsi() {
 		return esi;
@@ -79,22 +121,6 @@ public class EmployeePayRollOutputModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
 	public double getBasicPay() {
 		return basicPay;
 	}
@@ -143,36 +169,12 @@ public class EmployeePayRollOutputModel {
 		this.pf = pf;
 	}
 
-	public int getUnpaidLeave() {
-		return unpaidLeave;
-	}
-
-	public void setUnpaidLeave(int unpaidLeave) {
-		this.unpaidLeave = unpaidLeave;
-	}
-
-	public double getGp() {
-		return gp;
-	}
-
-	public void setGp(double gp) {
-		this.gp = gp;
-	}
-
 	public double getDeduction() {
 		return deduction;
 	}
 
 	public void setDeduction(double deduction) {
 		this.deduction = deduction;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
 	}
 
 	public double getHra() {

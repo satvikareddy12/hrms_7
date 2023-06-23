@@ -572,22 +572,7 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
   	  });
   	}
 
-    function donePermissions() {
-    	  $.ajax({
-    	    type: "POST",
-    	    url: "applyPermission",
-    	    data: {},
-    	    success: function(response) {
-    	      var containerDiv = $(".main");
-    	      containerDiv.html(response);
-    	     
-    	    },
-    	    error: function() {
-    	      alert("Error occurred. Please try again later.");
-    	    }
-    	  });
-    	}
-    
+   
     function applyLeaves() {
   	  $.ajax({
   	    type: "GET",

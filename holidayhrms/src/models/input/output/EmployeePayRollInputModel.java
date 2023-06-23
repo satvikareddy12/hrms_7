@@ -3,22 +3,24 @@ package models.input.output;
 public class EmployeePayRollInputModel {
 
 	private int id;
-	private String name;
-	private String designation;
+	private String monthYear;
 	private double basicPay;
 	private double fixedPay;
 	private double variablePay;
 	private double gratuity;
 	private double healthInsurance;
 	private double pf;
-	private int earnedLeave;
-	private int unpaidLeave;
+	private double hra;
+	private double da;
+	private double ta;
+	private double additions;
+	private double deductions;
+	private double ptax;
+	private double esi;
+	private double tds;
 
-	// Default constructor
 	public EmployeePayRollInputModel() {
 	}
-
-	// Getters and setters for the fields
 
 	public int getId() {
 		return id;
@@ -28,20 +30,12 @@ public class EmployeePayRollInputModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getmonthYear() {
+		return monthYear;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
+	public void setmonthYear(String monthYear) {
+		this.monthYear = monthYear;
 	}
 
 	public double getBasicPay() {
@@ -92,19 +86,67 @@ public class EmployeePayRollInputModel {
 		this.pf = pf;
 	}
 
-	public int getEarnedLeave() {
-		return earnedLeave;
+	public double getHra() {
+		return hra;
 	}
 
-	public void setEarnedLeave(int earnedLeave) {
-		this.earnedLeave = earnedLeave;
+	public void setHra(double hra) {
+		this.hra = hra;
 	}
 
-	public int getUnpaidLeave() {
-		return unpaidLeave;
+	public double getDa() {
+		return da;
 	}
 
-	public void setUnpaidLeave(int unpaidLeave) {
-		this.unpaidLeave = unpaidLeave;
+	public void setDa(double da) {
+		this.da = da;
+	}
+
+	public double getTa() {
+		return ta;
+	}
+
+	public void setTa(double ta) {
+		this.ta = ta;
+	}
+
+	public double getAdditions() {
+		return additions;
+	}
+
+	public void setAdditions(double additions) {
+		this.additions = additions;
+	}
+
+	public double getDeductions() {
+		return deductions;
+	}
+
+	public void setDeductions(double deductions) {
+		this.deductions = deductions;
+	}
+
+	public double getPtax() {
+		return ptax;
+	}
+
+	public void setPtax(double ptax) {
+		this.ptax = ptax;
+	}
+
+	public double getEsi() {
+		return esi;
+	}
+
+	public void setEsi(double esi) {
+		this.esi = esi;
+	}
+
+	public double getTds() {
+		return tds;
+	}
+
+	public void setTds(double tds) {
+		this.tds = tds;
 	}
 }
