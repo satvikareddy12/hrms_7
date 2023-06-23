@@ -80,7 +80,7 @@
     function permissionApplied() {
       // Prevent default form submission
       
-      $("#msg").text("Applying....");
+     
 
       var validationData = {
         permissionsDayCount: <%= (Long)request.getAttribute("PermissionDayCount")%>,
@@ -96,6 +96,9 @@
         alert("Maximum permissions applied for today");
         return;
       }
+      
+      
+      $("#msg").text("Applying....");
 
       $.ajax({
         type: "POST",

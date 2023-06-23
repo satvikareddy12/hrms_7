@@ -213,9 +213,8 @@
     
     function referenceDoc() {
   	  $.ajax({
-  	    type: "POST",
+  	    type: "GET",
   	    url: "viewDocuments",
-  	    data: {},
   	    success: function(response) {
   	      var containerDiv = $("#main");
   	      containerDiv.html(response);
@@ -405,6 +404,8 @@
     	    }
     	  });
     	} 
+    
+    
     
     
     </script>

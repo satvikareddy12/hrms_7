@@ -1,19 +1,16 @@
 package models;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "EmployeeRefDocuments")
+@Table(name = "hrms_employeerefdocuments")
 public class EmployeeRefDocuments {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "erfd_id")
 	private int id;
 
@@ -27,7 +24,7 @@ public class EmployeeRefDocuments {
 	private String description;
 
 	@Column(name = "erfd_ludate")
-	private Date lastUpdatedDate;
+	private LocalDate lastUpdatedDate;
 
 	@Column(name = "erfd_luser")
 	private int lastUpdatedUser;
@@ -60,16 +57,16 @@ public class EmployeeRefDocuments {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String filePath) {
+		this.description = filePath;
 	}
 
-	public Date getLastUpdatedDate() {
+	public LocalDate getLastUpdatedDate() {
 		return lastUpdatedDate;
 	}
 
-	public void setLastUpdatedDate(Date lastUpdatedDate) {
-		this.lastUpdatedDate = lastUpdatedDate;
+	public void setLastUpdatedDate(LocalDate dt) {
+		this.lastUpdatedDate = dt;
 	}
 
 	public int getLastUpdatedUser() {

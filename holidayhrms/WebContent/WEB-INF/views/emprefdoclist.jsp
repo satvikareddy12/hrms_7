@@ -123,7 +123,7 @@
       if (doc != null && doc.getCategory().equals(m)) { %>
         <div class="document">      
       <a href="OpenDocument?docname=<%= doc.getDocName() %>"><%= doc.getDocName() %></a>&nbsp;&nbsp;
-           <a href="deleteReferenceDocument?docname=<%= doc.getDocName() %>">Delete</a>
+           
         </div>
       <% } 
     } %>
@@ -137,7 +137,7 @@
       if (doc != null && doc.getCategory().equals(n)) { %>
         <div class="document">
                <a href="OpenDocument?docname=<%= doc.getDocName() %>"><%= doc.getDocName() %></a>&nbsp;&nbsp;
-           <a href="deleteReferenceDocument?docname=<%= doc.getDocName() %>">Delete</a>
+           
         </div>
       <% } 
     } %>
@@ -151,7 +151,7 @@
     if (doc != null && doc.getCategory().trim().equals(p)) { %>
       <div class="document">
           <a href="OpenDocument?docname=<%= doc.getDocName() %>"><%= doc.getDocName() %></a>&nbsp;&nbsp;
-          <a href="deleteReferenceDocument?docname=<%= doc.getDocName() %>">Delete</a>
+          
       </div>
     <% } 
   } %>
@@ -165,7 +165,7 @@
       if (doc != null && doc.getCategory().equals(q)) { %>
         <div class="document">
          <a href="OpenDocument?docname=<%= doc.getDocName() %>"><%= doc.getDocName() %></a>&nbsp;&nbsp;
-          <a href="deleteReferenceDocument?docname=<%= doc.getDocName() %>">Delete</a>
+         
         </div>
       <% } 
     } %>
@@ -179,15 +179,12 @@
       if (doc != null && doc.getCategory().equals(r)) { %>
         <div class="document">
         <a href="OpenDocument?docname=<%= doc.getDocName() %>"><%= doc.getDocName() %></a>&nbsp;&nbsp;
-        <a href="deleteReferenceDocument?docname=<%= doc.getDocName() %>">Delete</a>
+       
         </div>
       <% } 
     } %>
   </div>
 
-  <div class="add-button">
-    <a href="addReferenceDocument">Add Document</a>
-  </div>
 
   <script>
     function filterDocumentsByCategory() {
@@ -209,20 +206,6 @@
 
 
 
-    function deleteDocument(documentId) {
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = '/deleteReferenceDocument'; // Replace with the appropriate URL for your delete endpoint
-
-      const documentIdInput = document.createElement('input');
-      documentIdInput.type = 'hidden';
-      documentIdInput.name = 'documentId';
-      documentIdInput.value = documentId;
-
-      form.appendChild(documentIdInput);
-      document.body.appendChild(form);
-      form.submit();
-    }
 
     function showMessage(message) {
       // Assuming you have a message element in your HTML, e.g., <div id="message"></div>

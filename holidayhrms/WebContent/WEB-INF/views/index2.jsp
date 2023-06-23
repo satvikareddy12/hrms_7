@@ -272,7 +272,7 @@ canvas {
           </li>
 
           <li class="item">
-            <a href="#"><span class="icon"><i class="ri-booklet-line"></i></span> Ref Documents</a>
+            <a onclick="getRefdoc()"><span class="icon"><i class="ri-booklet-line"></i></span> Ref Documents</a>
           </li>
           <li class="item">
             <a onclick="getPayslip()"><span class="icon"><i class="ri-file-line"></i></span> Payslips</a>
@@ -660,6 +660,22 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
   	  $.ajax({
   	    type: "GET",
   	    url: "EmployeeSidePaySlip",
+  	    success: function(response) {
+  	      var containerDiv = $(".main");
+  	      containerDiv.html(response);
+  	     
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	}
+    
+    
+    function getRefdoc() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "emprefDocuments",
   	    success: function(response) {
   	      var containerDiv = $(".main");
   	      containerDiv.html(response);

@@ -1,4 +1,3 @@
-
 package DAO;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import models.EmployeeRefDocuments;
 
 @Repository
-public class ReferenceDAO implements ReferenceInterface {
+public class ReferenceDAOImpl implements ReferenceDAOInterface {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -31,7 +30,7 @@ public class ReferenceDAO implements ReferenceInterface {
 
 	@Override
 	@Transactional
-	public void deleteById(String id) {
+	public void deleteById(int id) {
 		EmployeeRefDocuments document = entityManager.find(EmployeeRefDocuments.class, id);
 		if (document != null) {
 			entityManager.remove(document);
@@ -44,4 +43,12 @@ public class ReferenceDAO implements ReferenceInterface {
 		String query = "SELECT doc FROM EmployeeRefDocuments doc";
 		return entityManager.createQuery(query).getResultList();
 	}
+
+	@Override
+	public int getIndex() {
+		String query = "SELECT MAX(doc.id) FROM EmployeeRefDocuments doc";
+		Integer maxId = entityManager.createQuery(query, Integer.class).getSingleResult();
+		return maxId != null ? maxId + 1 : 1;
+	}
+
 }

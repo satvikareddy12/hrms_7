@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="models.ApplyPermissions" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
@@ -33,11 +32,20 @@
     .action-buttons button {
         margin-right: 5px;
     }
-    h1
-    {
-      text-align:center;
+
+    .accept-button {
+        background-color: #4CAF50;
+        color: white;
     }
-    
+
+    .reject-button {
+        background-color: #f44336;
+        color: white;
+    }
+
+    h1 {
+        text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -63,8 +71,8 @@
                 <td align="center"><%= permi.getStart_time() %></td>
                 <td align="center"><%= permi.getEnd_time() %></td>
                 <td class="action-buttons">
-                    <button class="accept-button" onclick="acceptPermission(<%= permi.getId().getId() %>,<%=permi.getId().getEp_index()%>)">Accept</button>
-                    <button class="reject-button" onclick="rejectPermission(<%= permi.getId().getId() %>,<%=permi.getId().getEp_index()%>)">Reject</button>
+                    <button class="accept-button" onclick="acceptPermission(<%= permi.getId().getId() %>,<%= permi.getId().getEp_index() %>)">Accept</button>
+                    <button class="reject-button" onclick="rejectPermission(<%= permi.getId().getId() %>,<%= permi.getId().getEp_index() %>)">Reject</button>
                 </td>             
             </tr>
             <% }
@@ -73,9 +81,8 @@
         </tbody>
     </table>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-function acceptPermission(empId,index) {
+function acceptPermission(empId, index) {
     console.log("Accept permission for empId: " + empId);
 
     // Fetch the index for the given empId
@@ -83,7 +90,7 @@ function acceptPermission(empId,index) {
     $.ajax({
         url: "acceptpermissions",
         type: "POST",
-        data: { id: empId, eprq_status: 'accept',index: index },
+        data: { id: empId, eprq_status: 'accept', index: index },
         success: function(response) {
             console.log("Accept permission successful");
             location.reload();
@@ -97,7 +104,7 @@ function acceptPermission(empId,index) {
 
 }
 
-function rejectPermission(empId,index) {
+function rejectPermission(empId, index) {
     console.log("Reject permission for empId: " + empId);
 
     // Fetch the index for the given empId
@@ -105,7 +112,7 @@ function rejectPermission(empId,index) {
     $.ajax({
         url: "rejectpermissions",
         type: "POST",
-        data: { empId: empId, status: 'reject',index:index },
+        data: { empId: empId, status: 'reject', index: index },
         success: function(response) {
             console.log("Reject permission successful");
             // TODO: Handle the success response if needed
@@ -117,8 +124,6 @@ function rejectPermission(empId,index) {
         }
     });
 }
-
-
 </script>
 </body>
 </html>
