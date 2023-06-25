@@ -225,10 +225,24 @@
   	  });
   	}
     
-    function getInductions() {
+    function inductiondoc() {
     	  $.ajax({
     	    type: "GET",
     	    url: "getform",
+    	    success: function(response) {
+    	      var containerDiv = $("#main");
+    	      containerDiv.html(response);
+    	    },
+    	    error: function() {
+    	      alert("Error occurred. Please try again later.");
+    	    }
+    	  });
+    	}
+    
+    function getInductions() {
+    	  $.ajax({
+    	    type: "GET",
+    	    url: "inductioninsert",
     	    data: {},
     	    success: function(response) {
     	      var containerDiv = $("#main");
@@ -538,17 +552,20 @@
           
           <li class="item">
             <div class="submenu-item">
-              <span><i class="ri-user-line"></i> Reference Documents</span>
+              <span><i class="ri-user-line"></i> Documents</span>
               <i class="fa-solid fa-chevron-right"></i>
             </div>
 
             <ul class="menu-items submenu">
               <div class="menu-title">
                 <i class="fa-solid fa-chevron-left"></i>
-                Back to Reference Documents
+                Back to Documents
               </div>
               <li class="item">
                 <a onclick="referenceDoc();"><i class="ri-check-double-line"></i> Employee Reference</a>
+              </li>
+               <li class="item">
+                <a onclick="inductiondoc();"><i class="ri-check-double-line"></i> Induction Document</a>
               </li>
             </ul>
           </li>

@@ -6,6 +6,13 @@
 <html>
 <head>
   <style>
+  	   .container {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      max-width: 600px;
+      background-color: white;
+  
+    }
   
     h1 {
       font-size: 28px;
@@ -98,6 +105,7 @@
   </style>
 </head>
 <body>
+ <div class="container">
   <h1>Reference Documents</h1>
   <div class="category-select">
     <label for="category">Select Category:</label>
@@ -188,7 +196,7 @@
   <div class="add-button">
     <a href="addReferenceDocument">Add Document</a>
   </div>
-
+</div>
   <script>
     function filterDocumentsByCategory() {
       var category = document.getElementById("category").value;

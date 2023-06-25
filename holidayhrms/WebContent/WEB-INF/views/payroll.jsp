@@ -9,10 +9,7 @@
 <title>Insert title here</title>
 <style>
     /* Add some basic styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
+   
 
     label {
       display: block;

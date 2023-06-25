@@ -32,18 +32,18 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.itextpdf.html2pdf.HtmlConverter;
 
 @SuppressWarnings("deprecation")
-public class PaySlipMail {
-	public static void sendEmail(HttpServletRequest request, HttpServletResponse response,
-			models.input.output.EmployeePayRollOutputModel payRollOutput) throws Exception {
+public class offerlettermail {
+	public static void sendEmail(HttpServletRequest request, HttpServletResponse response, models.OfferModel offerModel)
+			throws Exception {
 		// Set up model attributes with the variables for JSP replacements
 
 		// Resolve JSP view
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
-		String viewName = "payslip";
-		System.out.println("cha...." + payRollOutput);
-		request.setAttribute("pay", payRollOutput);
+		String viewName = "emailsend";
+		System.out.println("cha...." + offerModel);
+		request.setAttribute("offerModel", offerModel);
 		// Render JSP
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/" + viewName + ".jsp");
 		StringWriter stringWriter = new StringWriter();
@@ -55,7 +55,7 @@ public class PaySlipMail {
 		};
 		requestDispatcher.include(request, responseWrapper);
 		String renderedHtml = stringWriter.toString();
-		OutputStream file = new FileOutputStream(new File("Payslip.pdf"));
+		OutputStream file = new FileOutputStream(new File("offerletter.pdf"));
 
 		HtmlConverter.convertToPdf(renderedHtml, file);
 		file.close();
@@ -74,9 +74,9 @@ public class PaySlipMail {
 			MimeMessage mm = new MimeMessage(s);
 			mm.setFrom(new InternetAddress("sambangichandrasekhar340@gmail.com"));
 			mm.setRecipient(Message.RecipientType.TO, new InternetAddress("bhaskar.p@pennanttech.com"));
-			mm.setSubject("Payslip Details");
+			mm.setSubject("Offer Letter Details");
 			// mm.setContent(renderedHtml, "text/html");
-			mm.setContent("This is payslip email...........\n", "text/html");
+			mm.setContent("This is Your Offer ...........\n", "text/html");
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText("Congratulations You are the new CEO of Google");
 
@@ -84,7 +84,7 @@ public class PaySlipMail {
 			multipart.addBodyPart(messageBodyPart);
 
 			messageBodyPart = new MimeBodyPart();
-			String filename = "Payslip.pdf";
+			String filename = "offerletter.pdf";
 			DataSource source = new FileDataSource(filename);
 			messageBodyPart.setDataHandler(new DataHandler(source));
 			messageBodyPart.setFileName(filename);
@@ -93,6 +93,7 @@ public class PaySlipMail {
 			mm.setContent(multipart);
 
 			Transport.send(mm);
+			System.out.println("sent");
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -10,15 +10,9 @@ import models.EmploymentInductionDocument;
 import models.input.output.EmploymentInductionDocumentViewModel;
 
 @Service
-public class EmploymentInductionDocumentService {
-
-	private final EmploymentInductionDocumentDAO docDAO;
-
-	// Use constructor injection to inject the DAO bean
+public class EmploymentInductionDocumentService implements EmploymentInductionDocumentServiceInterface {
 	@Autowired
-	public EmploymentInductionDocumentService(EmploymentInductionDocumentDAO docDAO) {
-		this.docDAO = docDAO;
-	}
+	private EmploymentInductionDocumentDAO docDAO;
 
 	public void addEmploymentInductionDocument(EmploymentInductionDocument document) {
 		docDAO.addEmploymentInductionDocument(document);

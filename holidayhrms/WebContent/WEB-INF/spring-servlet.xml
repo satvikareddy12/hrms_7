@@ -86,8 +86,9 @@
     <bean id="cd" class="DAO.CandidateDAOImpl" />
     <bean id="mp" class="org.modelmapper.ModelMapper" />
     <bean id="idao" class="DAO.InductionDAOImpl" />
-    <bean id="j" class="models.Induction" />
+     <bean id="induction" class="models.Induction" />
     <bean id="docServ" class="service.EmploymentInductionDocumentService" />
+    <bean id="indServ" class="service.EmploymentInductionService" />
     <bean id="docDAO" class="DAO.EmploymentInductionDocDAOImpl" />
     <bean id="document" class="models.EmploymentInductionDocument" />
     <bean id="employeeLeaveModel" class="models.EmployeeLeaveModel" scope="prototype"/>

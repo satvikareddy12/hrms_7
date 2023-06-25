@@ -6,11 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Employee Payslip</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f4f4f4;
-    }
+
 
     h1 {
         text-align: center;
@@ -140,7 +136,7 @@
         </div>
     </div>
     <div class="center-align">
-        <button class="button">Print</button>
+        
     </div>
 </body>
 </html>

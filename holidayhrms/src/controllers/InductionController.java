@@ -20,82 +20,84 @@ import DAO.InductionDAO;
 import models.EmploymentInductionDocument;
 import models.Induction;
 import models.input.output.EmploymentInductionDocumentViewModel;
+import models.input.output.SaveInductioninput;
 import models.input.output.addinductionDOC;
-import service.EmploymentInductionDocumentService;
+import service.EmploymentInductionDocumentServiceInterface;
+import service.EmploymentInductionServiceInterface;
 
 @Controller
 public class InductionController {
 
 	@Autowired
-	private EmploymentInductionDocumentService docServ;
+	private EmploymentInductionDocumentServiceInterface docServ; // injecting service class object
 
 	@Autowired
-	private EmploymentInductionDocument document;
+	private EmploymentInductionServiceInterface indServ; // injecting service class object
 
 	@Autowired
-	private InductionDAO idao;
+	private EmploymentInductionDocument document; // injecting Document Entity Model class object
 
 	@Autowired
-	private Induction j;
+	private InductionDAO idao;// injecting DAO class object
 
-	@RequestMapping("/inductionlist")
+	@Autowired
+	private Induction induction;// injecting induction class object
+
+	@RequestMapping("/inductionlist") // view the list of inductions conducted
 	public String showEmployees(Model model) {
 		List<Integer> inductions = idao.getAllInductions();
 		model.addAttribute("inductions", inductions);
 		return "inductions";
 	}
 
-	@RequestMapping("/get-induction-details")
+	@RequestMapping("/get-induction-details") // shows the data regarding selected induction
 	public String getEmployeeDetails(@RequestParam("id") int indid, Model model) {
+		System.out.println(indid);
 		List<Induction> i = idao.getInductionById(indid);
 		model.addAttribute("indid", i);
 		model.addAttribute("ID", indid);
 		return "inductiondetails";
 	}
 
-	@RequestMapping(value = "/inductioninsert", method = RequestMethod.GET)
+	@RequestMapping(value = "/inductioninsert", method = RequestMethod.GET) // to insert into induction
 	public String createInduction(Model model) {
 		List<Integer> hd = idao.getAllEmploymentOffers();
 		model.addAttribute("employmentOffers", hd);
 		return "createInduction";
 	}
 
-	@RequestMapping(value = "/inductionsave", method = RequestMethod.POST)
-	public String saveInduction(@RequestParam("inductionId") int inductionId,
-			@RequestParam("employeeOffers") List<Integer> employeeOffers,
-			@RequestParam("inductionDate") String inductionDate, @RequestParam("authorizedId") int authorizedId,
-			@RequestParam("status") String status, Model model) {
-		// Perform any necessary data processing or validations
-
-		// Create the Induction objects
-		List<Induction> inductions = new ArrayList<>();
+	@RequestMapping(value = "/inductionsave", method = RequestMethod.POST) // for saving the induction
+	public String saveInduction(@ModelAttribute SaveInductioninput request, Model model) {
+		// Map the properties from the input model to the entity model
+		List<Induction> inductions = new ArrayList<>(); // Create the Induction objects
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		for (Integer indcEmofId : employeeOffers) {
-			Induction induction = new Induction();
-			induction.setIndcId(inductionId);
-			induction.setIndcEmofId(indcEmofId);
-
-			try {
-				Date date = (Date) dateFormat.parse(inductionDate);
-				induction.setIndcDate(new java.sql.Date(date.getTime()));
-			} catch (ParseException e) {
-				// Handle the parse exception appropriately
+		for (Integer indcEmofId : request.getIndcEmofId()) {
+			if (request.getIndcId().equals("same")) {
+				induction.setIndcId(indServ.getid());
+			} else {
+				induction.setIndcId(indServ.getidNext());
 			}
+			induction.setIndcEmofId(indcEmofId);
+			induction.setIndcProcessedAusrId(request.getIndcProcessedAusrId());
+			induction.setIndcStatus(request.getIndcStatus());
+			try {
+				Date date = dateFormat.parse(request.getIndcDate());
+				induction.setIndcDate(new java.sql.Date(date.getTime()));
 
-			induction.setIndcProcessedAusrId(authorizedId);
-			induction.setIndcStatus(status);
-
+			} catch (ParseException e) {
+				System.out.println("Causing Error");
+			}
 			inductions.add(induction);
-			idao.insertEmployee(induction);
+			idao.insertEmployee(induction);//
 			idao.updateEmploymentOfferStatus(indcEmofId, "INDC");
-
 		}
-
+		List<Integer> induc = idao.getAllInductions();
+		model.addAttribute("inductions", induc);
 		return "inductions";
 	}
 
-	@GetMapping("/getform")
+	@GetMapping("/getform") // previews the form to fill and upload document
 	public String getform(Model model) {
 		List<EmploymentInductionDocumentViewModel> doc = docServ.getAllDocuments();
 		System.out.println(doc);
@@ -103,9 +105,8 @@ public class InductionController {
 		return "InductionDocument";
 	}
 
-	@GetMapping("/add")
+	@GetMapping("/add") // to save the induction documents
 	public String addDocument(@ModelAttribute addinductionDOC input) {
-
 		document.setEmplid(input.getEmploymentOfferId());// employee offer id
 		System.out.println(input.getEmploymentOfferId());
 		document.setEmplidty(input.getDocumentTypeId());// employee offer document type setting

@@ -3,60 +3,69 @@
 <html>
 <head>
   <title>Permission Application</title>
+
   <style>
+    /* Add modern CSS styles for formatting */
     .container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    form {
-      width: 400px;
-      margin: 0 auto;
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-top: 0;
     }
 
     label {
       display: block;
-      margin-top: 10px;
-      text-align: center;
+      margin-bottom: 5px;
     }
 
-    input[type="text"],
+    input[type="number"],
     input[type="date"],
     input[type="time"],
-    input[type="number"],
     textarea {
       width: 100%;
-      padding: 5px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
 
     textarea {
-      resize: vertical;
       height: 100px;
     }
 
     button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 20px;
-      background-color: #358eb8;
+      background-color: #4CAF50;
       color: white;
+      padding: 10px 20px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     button:hover {
       background-color: #45a049;
     }
-    h1{
-     text-align: center;
+
+    #msg {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #555;
     }
   </style>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
@@ -79,9 +88,6 @@
 
     function permissionApplied() {
       // Prevent default form submission
-      
-     
-
       var validationData = {
         permissionsDayCount: <%= (Long)request.getAttribute("PermissionDayCount")%>,
         permissionsMonthCount : <%= (Long)request.getAttribute("PermissionMonthCount")%>
@@ -90,13 +96,12 @@
       if (validationData.permissionsMonthCount >= 2) {
           alert("Maximum permissions applied for this Month");
           return;
-        }
+      }
       
       if (validationData.permissionsDayCount > 0) {
         alert("Maximum permissions applied for today");
         return;
       }
-      
       
       $("#msg").text("Applying....");
 
@@ -131,7 +136,6 @@
       <label for="end-time">Permission End Time:</label>
       <input type="time" id="end-time" name="end_time"  required >
 
-
       <label for="reason">Reason:</label>
       <textarea id="reason" name="reason" required></textarea>
 
@@ -139,7 +143,6 @@
     </form>
     
     <div id="msg"></div>
-    
   </div>
   <div class="main"></div>
 </body>

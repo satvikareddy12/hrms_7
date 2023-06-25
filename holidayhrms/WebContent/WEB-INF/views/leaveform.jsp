@@ -4,64 +4,67 @@
 <html>
 <head>
 <title>Leave Form</title>
-<style>
+  <style>
+    /* Add modern CSS styles for formatting */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-top: 0;
+    }
 
-h1 {
-	font-size: 24px;
-	margin-bottom: 10px;
-}
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
-.form-group {
-	margin-bottom: 20px;
-	margin-left :20px;
-	text-align: center;
-}
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
 
-.form-group label {
-	font-weight: bold;
-	display: block;
-}
+    textarea {
+      height: 100px;
+    }
 
-.form-group input[type="text"], .form-group input[type="date"],
-	.form-group select {
-	width: 300px;
-	padding: 5px;
-}
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
 
-.form-group textarea {
-	width: 300px;
-	height: 100px;
-	padding: 5px;
-}
+    .submit-button:hover {
+      background-color: #45a049;
+    }
 
-.submit-button {
-	margin-top: 10px;
-	font-size: 16px;
-	padding: 10px 20px;
-	margin: 0 auto;
-	display: block;
-	text-align: center;
-	background-color: #4CAF50;
-	color: #fff;
-}
-
-
-.process-msg {
-	color: #1F6E8C;
-	font-weight: bold;
-}
-
-.leave-success-msg {
-	color: #609966;
-	font-weight: bold;
-}
-
-.leave-error-msg {
-	color: #ff7b7b;
-	font-weight: bold;
-}
-</style>
+    #info-msg {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
 	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -77,9 +80,9 @@ h1 {
 	session.setAttribute("employeeid", 1);
 	LeaveValidationModel validationData = (LeaveValidationModel)request.getAttribute("validationData");
 	%>
-
+	 <div class="container">
 	<form id="leave-form" method="post">
-
+	
 		<div class="form-group">
 			<label for="employee-id">Employee ID:</label> <input type="number"
 				id="employee-id" name="employeeId"
@@ -115,6 +118,7 @@ h1 {
 
 		<div id="info-msg"></div>
 	</form>
+	</div>
 	<script>
 		function submitLeave() {
 

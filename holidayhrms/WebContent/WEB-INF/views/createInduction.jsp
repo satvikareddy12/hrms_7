@@ -9,14 +9,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Induction</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+   
+   <style>
+        
 
         .container {
             width: 400px;
@@ -24,6 +19,7 @@
             background-color: #f4f4f4;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
         }
 
         h1 {
@@ -31,9 +27,19 @@
             margin-top: 0;
         }
 
-        label, input, select {
-            display: block;
-            margin-bottom: 10px;
+        label {
+            font-weight: bold;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select[multiple] {
+            height: 100px;
         }
 
         input[type="submit"] {
@@ -45,17 +51,21 @@
             cursor: pointer;
         }
     </style>
+   
 </head>
 <body>
     <div class="container">
         <h1>Create Induction</h1>
 
-        <form action="/documents/add" method="post">
-            <label for="inductionId">Induction ID:</label>
-            <input type="text" id="inductionId" name="inductionId" required>
+        <form action="inductionsave" method="post">
+			<label for="IndcId">Induction ID:</label>
+        <select id="IndcId" name="IndcId" required>
+    <option value="same">Same</option>
+    <option value="next">Next</option>
+</select>
 
-            <label for="employeeOffers">Employee Offers:</label>
-          <select id="employeeOffers" name="employeeOffers" multiple required>
+            <label for="IndcEmofId">Employee Offers:</label>
+          <select id="IndcEmofId" name="IndcEmofId" multiple required>
                 <% List<Integer> employmentOffers = (List<Integer>) request.getAttribute("employmentOffers"); %>
                 <% if (employmentOffers != null && !employmentOffers.isEmpty()) { %>
                     <% for (Integer offer : employmentOffers) { %>
@@ -73,18 +83,25 @@
 
                 // Format the current date as a string
                 String formattedDate = dateFormat.format(currentDate);
+                
+                int user = 123;
             %>
-            <label for="inductionDate">Induction Date:</label>
-            <input type="text" id="inductionDate" name="inductionDate" value="<%= formattedDate %>" readonly>
+          <label for="inductionDate">Induction Date:</label>
+			<input type="text" id="inductionDate" name="IndcDate" value="<%= formattedDate %>" readonly>
+
 
             <label for="authorizedId">Authorized ID:</label>
-            <input type="text" id="authorizedId" name="authorizedId" required>
+			<input type="text" id="authorizedId" name="IndcProcessedAusrId" value="<%= user %>" required>
 
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status" required>
-
+            <label for="IndcStatus">Status:</label>
+              <select id="IndcStatus" name="IndcStatus" required>
+   			 <option value="PCMP">PCMP</option>
+    	    <option value="SUPD">SUPD</option>
+   			 <option value="CMPD">CMPD</option>
+</select>
             <input type="submit" value="Save">
         </form>
     </div>
+   
 </body>
 </html>

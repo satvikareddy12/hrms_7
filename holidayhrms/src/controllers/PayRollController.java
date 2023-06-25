@@ -1,5 +1,7 @@
 package controllers;
 
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,8 +46,9 @@ public class PayRollController {
 	}
 
 	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
-	public String getPayroll(@RequestParam("empl_id") int id, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String getPayroll(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(month);
 
 		Employee employee = ed.getEmployeeById(id);
 		String firstName = employee.getEmplFirstname();
@@ -57,8 +60,13 @@ public class PayRollController {
 		double variablesal = employee.getEmpl_variablesal();
 
 		// for setting values into input model
+		int year = LocalDate.now().getYear();
+
+		System.out.println(year);
+		System.out.println(month + "-" + year);
+
 		payRollInput.setId(id);
-		payRollInput.setmonthYear("02-2023");
+		payRollInput.setmonthYear(month + "-" + year);
 		payRollInput.setBasicPay(payRollservice.basicPay(basicsal / 12));
 		payRollInput.setFixedPay(fixedsal / 12);
 		payRollInput.setVariablePay(variablesal / 12);
@@ -141,38 +149,55 @@ public class PayRollController {
 		return "payrollemp";
 	}
 
-	@RequestMapping(value = "/EmployeeSidePaySlip", method = RequestMethod.GET)
-	public String getEmployeePayslip(Model model) {
+	@RequestMapping(value = "/getemppayslip", method = RequestMethod.GET)
+	public String getemppayslip(Model model) {
+		return "payslipEmpSide";
+	}
+
+	@RequestMapping(value = "/EmployeeSidePaySlip", method = RequestMethod.POST)
+	public String getEmployeePayslip(@RequestParam("month") int month, Model model) {
 
 		Employee employee = ed.getEmployeeById(102);
-		EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeId(102);
-		String firstName = employee.getEmplFirstname();
-		String lastName = employee.getEmplLastname();
-		String designation = employee.getEmplDesignation();
-		payRollOutput.setId(102);
-		payRollOutput.setMonthYear(eps.getMonthYear());
-		payRollOutput.setFirstName(firstName);
-		payRollOutput.setLastName(lastName);
-		payRollOutput.setDesignation(designation);
-		payRollOutput.setBasicPay(eps.getBasicSalary());
-		payRollOutput.setDa(eps.getDa());
-		payRollOutput.setAdditions(eps.getAdditions());
-		payRollOutput.setDeduction(eps.getDeductions());
-		payRollOutput.setEsi(eps.getEsi());
-		payRollOutput.setGratuity(eps.getGratuity());
-		payRollOutput.setHra(eps.getHra());
-		payRollOutput.setPf(eps.getPf());
-		payRollOutput.setPtax(eps.getPtax());
-		payRollOutput.setTa(eps.getTa());
-		payRollOutput.setTds(eps.getTds());
+		int year = LocalDate.now().getYear();
 
-		payRollOutput.setTotal(eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions());
-		payRollOutput.setNetpay((eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions())
-				- eps.getDeductions());
+		try {
+			EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeIdAndMonthYear(102, month + "-" + year);
 
-		model.addAttribute("output", payRollOutput);
+			String firstName = employee.getEmplFirstname();
+			String lastName = employee.getEmplLastname();
+			String designation = employee.getEmplDesignation();
+			payRollOutput.setId(102);
+			payRollOutput.setMonthYear(eps.getMonthYear());
+			payRollOutput.setFirstName(firstName);
+			payRollOutput.setLastName(lastName);
+			payRollOutput.setDesignation(designation);
+			payRollOutput.setBasicPay(eps.getBasicSalary());
+			payRollOutput.setDa(eps.getDa());
+			payRollOutput.setAdditions(eps.getAdditions());
+			payRollOutput.setDeduction(eps.getDeductions());
+			payRollOutput.setEsi(eps.getEsi());
+			payRollOutput.setGratuity(eps.getGratuity());
+			payRollOutput.setHra(eps.getHra());
+			payRollOutput.setPf(eps.getPf());
+			payRollOutput.setPtax(eps.getPtax());
+			payRollOutput.setTa(eps.getTa());
+			payRollOutput.setTds(eps.getTds());
+
+			payRollOutput
+					.setTotal(eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions());
+			payRollOutput
+					.setNetpay((eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions())
+							- eps.getDeductions());
+
+			model.addAttribute("output", payRollOutput);
+		} catch (Exception e) {
+			String errorMessage = "Please select a valid month.";
+			model.addAttribute("errorMessage", errorMessage);
+			return "errorPageforpayslip";
+		}
 
 		return "EmployeeSidePaySlip";
+
 	}
 
 }

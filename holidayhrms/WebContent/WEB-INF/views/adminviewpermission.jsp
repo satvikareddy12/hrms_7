@@ -27,10 +27,19 @@
 
     .action-buttons {
         display: flex;
+        gap: 5px;
     }
 
     .action-buttons button {
         margin-right: 5px;
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
     .accept-button {

@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,7 @@ import models.HRDepartment;
 import models.Inductiondocuments;
 import models.OfferModel;
 import models.empoffdocuments;
+import service.offerlettermail;
 
 @Controller
 public class OfferController {
@@ -69,7 +73,8 @@ public class OfferController {
 
 	@RequestMapping("/sendOfferLetter")
 
-	public String redirectedFromOfferLetter(Eofr eofr, empoffdocuments eod, Model model) {
+	public String redirectedFromOfferLetter(Eofr eofr, empoffdocuments eod, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 		eofr.setEofr_id(cd.getLatestEofrIdFromDatabase() + 1);
 		eofr.setEofr_ref_id("ref " + eofr.getEofr_id());
 		eofr.eofr_cand_id = can.getCandId();
@@ -80,6 +85,13 @@ public class OfferController {
 		eofr.setEofr_offerjobe(of.getOfferedJob());
 		eofr.setEofr_reportingdate(Date.valueOf(LocalDate.parse(of.getReportingDate())));
 		eofr.setEofr_status("INPR");
+
+		try {
+			offerlettermail.sendEmail(request, response, of);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 
 		cd.insertEofrInto(eofr);
 

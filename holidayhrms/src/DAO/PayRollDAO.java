@@ -8,4 +8,6 @@ public interface PayRollDAO {
 
 	public EmployeePayslip getEmployeePayslipsByEmployeeId(int employeeId);
 
+	public EmployeePayslip getEmployeePayslipsByEmployeeIdAndMonthYear(int employeeId, String monthYear);
+
 }

@@ -659,7 +659,7 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
     function getPayslip() {
   	  $.ajax({
   	    type: "GET",
-  	    url: "EmployeeSidePaySlip",
+  	    url: "getemppayslip",
   	    success: function(response) {
   	      var containerDiv = $(".main");
   	      containerDiv.html(response);

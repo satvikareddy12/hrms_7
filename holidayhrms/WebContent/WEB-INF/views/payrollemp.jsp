@@ -34,6 +34,30 @@
             cursor: pointer;
             margin: 0 auto;
         }
+        
+        
+        select {
+            width: 15%;
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+           .payroll-button {
+            width: 15%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .payroll-button:hover {
+            background-color: #45a049;
+        }
+        
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -41,19 +65,26 @@
   
 
     function payroll() {
+    	
+    	$("#msg").text("Generating...........");
 
       $.ajax({
         type: "POST",
         url: "getpayslip", 
         data: $("#payrollemp").serialize(),
         success: function(response) {
+        	
+        	$("#msg").empty();
           var containerDiv = $(".main");
           containerDiv.html(response);
         },
         error: function() {
+        	$("#msg").text("Error Occured")
           alert("Error occurred. Please try again later.");
         }
       });
+    	
+  
     }
  
   </script>
@@ -66,10 +97,29 @@
     <form id="payrollemp" method="post">
         <label for="employeeeId">Employee ID:</label>
         <input type="text" id="empl_id" name="empl_id" required><br><br>
-        <input type="button" onclick="payroll();" value="Get Details">
+        <label for="month">Month:</label>
+    	<select id="month" name="month">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select><br><br>
+        <input type="button" onclick="payroll();" value="Generate Pay Slip" class="payroll-button">
     </form>
+    <center>
+    <div id="msg"></div>
+    </center>
      </div>
-  <div class="main"></div>
+     
+    
   
 </body>
 </html>

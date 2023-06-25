@@ -27,4 +27,14 @@ public class PayRollDAOImpl implements PayRollDAO {
 		return query.getSingleResult();
 	}
 
+	@Override
+	@Transactional
+	public EmployeePayslip getEmployeePayslipsByEmployeeIdAndMonthYear(int employeeId, String monthYear) {
+		String jpql = "SELECT p FROM EmployeePayslip p WHERE p.employeeId = :employeeId AND p.monthYear = :monthYear";
+		TypedQuery<EmployeePayslip> query = entityManager.createQuery(jpql, EmployeePayslip.class);
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("monthYear", monthYear);
+		return query.getSingleResult();
+	}
+
 }

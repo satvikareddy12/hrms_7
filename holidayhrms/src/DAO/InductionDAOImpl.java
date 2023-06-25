@@ -29,7 +29,8 @@ public class InductionDAOImpl implements InductionDAO {
 	public List<Induction> getInductionById(int id) {
 		Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.id = :id");
 		query.setParameter("id", id);
-		return query.getResultList();
+
+		return (List<Induction>) query.getResultList();
 	}
 
 	@Override
@@ -52,6 +53,13 @@ public class InductionDAOImpl implements InductionDAO {
 		String query = "UPDATE HrmsEmploymentOffer SET eofr_status = :status WHERE candidateId = :offerId";
 		entityManager.createQuery(query).setParameter("status", status).setParameter("offerId", offerId)
 				.executeUpdate();
+	}
+
+	@Override
+	public int getIndex() {
+		String query = "SELECT MAX(ind.id) FROM Induction ind";
+		Integer maxId = entityManager.createQuery(query, Integer.class).getSingleResult();
+		return maxId != null ? maxId + 1 : 1;
 	}
 
 }
