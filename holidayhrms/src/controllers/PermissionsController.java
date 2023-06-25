@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import DAO.ApplyPermissionDaoImpl;
+import DAO.ApplyPermissionDao;
 import models.ApplyPermissions;
 import models.Employee;
 import models.PermissionAdminModel;
@@ -26,12 +26,12 @@ import models.PermissionInputModel;
 @Controller
 public class PermissionsController {
 
-	private ApplyPermissionDaoImpl apd;
+	private ApplyPermissionDao apd;
 	private ApplyPermissions ap;
 	private PermissionCompositeKey pcompositeKey;
 
 	@Autowired
-	public PermissionsController(ApplyPermissionDaoImpl apdi, ApplyPermissions app, PermissionCompositeKey cKey) {
+	public PermissionsController(ApplyPermissionDao apdi, ApplyPermissions app, PermissionCompositeKey cKey) {
 		apd = apdi;
 		ap = app;
 		pcompositeKey = cKey;

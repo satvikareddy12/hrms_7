@@ -18,7 +18,7 @@ import models.Employee;
 
 @Component
 @Transactional
-public class ApplyPermissionDaoImpl {
+public class ApplyPermissionDaoImpl implements ApplyPermissionDao {
 
 	@PersistenceContext
 	@Qualifier("sessionFactory")
