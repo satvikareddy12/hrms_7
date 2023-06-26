@@ -24,7 +24,7 @@ public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 	private LeaveValidationModel leaveValidation;
 
 	public static long calculateLeavesTakenBetwwenDates(LocalDate startDate, LocalDate endDate) {
-		System.out.println(startDate + "  / " + endDate);
+	    // Calculate the number of days between the start and end dates, inclusive of both dates
 		return ChronoUnit.DAYS.between(startDate, endDate) + 1;
 	}
 
@@ -32,7 +32,6 @@ public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 	public LeaveValidationModel calculateLeavesTaken(List<EmployeeLeaveRequest> leaves,
 			JobGradeWiseLeaves leavesProvidedStatistics) {
 
-		System.out.println(leavesProvidedStatistics);
 
 		if (leavesProvidedStatistics != null) {
 
@@ -49,7 +48,7 @@ public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 			for (EmployeeLeaveRequest leave : leaves) {
 
 				if (leave.getApprovedLeaveStartDate() == null || leave.getApprovedLeaveEndDate() == null) {
-
+	                // Calculate leaves count for pending leave requests
 					long leavesCount = EmployeeLeaveService.calculateLeavesTakenBetwwenDates(leave.getLeaveStartDate(),
 							leave.getLeaveEndDate());
 					pendingTotalNoOfLeaves += leavesCount;
@@ -62,6 +61,7 @@ public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 					}
 
 				} else {
+	                // Calculate leaves count for approved leave requests
 					long leavesCount = EmployeeLeaveService.calculateLeavesTakenBetwwenDates(
 							leave.getApprovedLeaveStartDate(), leave.getApprovedLeaveEndDate());
 					totalNoOfLeaves += leavesCount;
@@ -75,6 +75,7 @@ public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 				}
 			}
 
+	        // Set the calculated leaves information in the leave validation model
 			leaveValidation.setTakenCasualLeaves(casualLeaves);
 			leaveValidation.setTakenOtherLeaves(otherLeaves);
 			leaveValidation.setTakenSickLeaves(sickLeaves);

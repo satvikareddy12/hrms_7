@@ -67,12 +67,17 @@ public class AttendanceController {
 	// gets the attendance form the employee
 	@RequestMapping(value = "/employeeAttendance", method = RequestMethod.GET)
 	public String employeeAttendanceForm(HttpSession session, Model model) {
+		
+		try {
 
 		int id = (int) session.getAttribute("employeeId");
 		// Retrieves the employee ID from the session
 
 		Employee employee = employeeDAO.getEmployee(id);
 		// Retrieves the employee information from the DAO using the employee ID
+		
+		if(employee == null)
+			return "error";
 
 		Date joinDate = employee.getEmplJondate();
 		// Retrieves the join date of the employee
@@ -85,10 +90,14 @@ public class AttendanceController {
 
 		return "employeeAttendance";
 		// Returns the view name "employeeAttendance" to render the employee attendance form
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 
 	}
 
-	// Admin side attendance
+	// gets Admin side attendance form
 	@RequestMapping(value = "/adminAttendance", method = RequestMethod.GET)
 	public String adminAttendanceForm() {
 
@@ -98,32 +107,58 @@ public class AttendanceController {
 	// to get attendance data
 	@RequestMapping(value = "/attendance", method = RequestMethod.POST)
 	public ResponseEntity<String> attendanceData(@ModelAttribute AttendanceRequest attendanceRequest) {
+	    try {
+	        int year = attendanceRequest.getYear();
+	        int month = attendanceRequest.getMonth();
+	        int id = attendanceRequest.getEmployeeid();
+	        // Retrieves the year, month, and employee ID from the attendance request object
 
-		int year = attendanceRequest.getYear();
-		int month = attendanceRequest.getMonth();
-		int id = attendanceRequest.getEmployeeid();
-		// Retrieves the year, month, and employee ID from the attendance request object
+	        List<Object[]> results = employeeAttendanceDAO.getPunchInAndPunchOutDataForYearAndMonthAndEmployee(id, year, month);
+	        // Retrieves the punch in and punch out data for the specified year, month, and employee ID from the DAO
 
-		List<Object[]> results = employeeAttendanceDAO.getPunchInAndPunchOutDataForYearAndMonthAndEmployee(id, year,
-				month);
-		// Retrieves the punch in and punch out data for the specified year, month, and employee ID from the DAO
+	        if (results == null || results.isEmpty()) {
+	            // Handle case where no attendance data is found
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No attendance data found.");
+	        }
 
-		EmployeeRequestResult response = employeeAttendanceService.calculateAttendance(results);
-		// Calls the service method to calculate the attendance based on the retrieved results
+	        EmployeeRequestResult response = employeeAttendanceService.calculateAttendance(results);
+	        // Calls the service method to calculate the attendance based on the retrieved results
 
-		return ResponseEntity.ok(gson.toJson(response));
-		// Returns a response entity with the calculated attendance result serialized as JSON
+	        return ResponseEntity.ok(gson.toJson(response));
+	        // Returns a response entity with the calculated attendance result serialized as JSON
+	    } catch (Exception e) {
+	        // Handle any other exceptions that may occur
+	    	e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
+	    }
 	}
+
 
 	// to get punch data for graphs
 	@RequestMapping(value = "/punchData", method = RequestMethod.GET)
 	public ResponseEntity<String> getPunchData(HttpSession session) {
-		int id = (int) session.getAttribute("employeeId");
-		// gets yesterday punchin and punchout data for a particular employee based on id
-		List<AttendanceEvent> punchData = employeeAttendanceService.getYesterdayPunchData(id);
-		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(punchData));
+	    try {
+	        int id = (int) session.getAttribute("employeeId");
+	        // Gets the employee ID from the session
+
+	        List<AttendanceEvent> punchData = employeeAttendanceService.getYesterdayPunchData(id);
+	        // Retrieves yesterday's punch-in and punch-out data for the employee ID
+
+	        if (punchData == null || punchData.isEmpty()) {
+	            // Handle case where no punch data is found
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No punch data found for yesterday.");
+	        }
+
+	        return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(punchData));
+	        // Returns a response entity with the punch data serialized as JSON
+	    } catch (Exception e) {
+	        // Handle any other exceptions that may occur
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
+	    }
 	}
 
+   // uploads the attendance from excel to the database
 	@RequestMapping(value = "/uploadAttendance", method = RequestMethod.POST)
 	public ResponseEntity<String> uploadEmployeeAttendance(@RequestParam("file") MultipartFile file) {
 		try (Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
@@ -167,7 +202,7 @@ public class AttendanceController {
 		} catch (IOException e) {
 			// print the stack trace of IO Exception
 			e.printStackTrace();
-			String errorMessage = "Internal Server Error";
+			String errorMessage = "File Parsing Error";
 			// return 500 error for any internal errors
 			return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -176,41 +211,55 @@ public class AttendanceController {
 		return ResponseEntity.ok("succesfully updated");
 	}
 
+	// gets the list of years starting from the employee join date
 	@RequestMapping(value = "/getYearsList", method = RequestMethod.POST)
 	public ResponseEntity<String> getYearsOfEmployee(@ModelAttribute AttendanceRequest attendanceRequest) {
+	    try {
+	        int id = attendanceRequest.getEmployeeid();
+	        // Retrieves the employee ID from the attendance request object
 
-		int id = attendanceRequest.getEmployeeid();
-		// Retrieves the employee ID from the attendance request object
+	        Employee employee = employeeDAO.getEmployee(id);
+	        // Retrieves the employee information from the DAO using the employee ID
 
-		Employee employee = employeeDAO.getEmployee(id);
-		// Retrieves the employee information from the DAO using the employee ID
+	        if (employee == null) {
+	            // Handle case where employee is not found
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found.");
+	        }
 
-		if (employee == null)
-			return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-		// Checks if the employee is null, and if so, returns an error response indicating an internal server error
+	        Date joinDate = employee.getEmplJondate();
+	        // Retrieves the join date of the employee
 
-		Date joinDate = employee.getEmplJondate();
-		// Retrieves the join date of the employee
+	        List<Integer> yearsList = employeeAttendanceService.getYears(joinDate);
+	        // Retrieves a list of years based on the employee's join date using the service method
 
-		List<Integer> yearsList = employeeAttendanceService.getYears(joinDate);
-		// Retrieves a list of years based on the employee's join date using the service method
-
-		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(yearsList));
-		// Returns a response entity with the yearsList serialized as JSON and an HTTP status code indicating a
-		// successful request
+	        return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(yearsList));
+	        // Returns a response entity with the yearsList serialized as JSON and an HTTP status code indicating a successful request
+	    } catch (Exception e) {
+	        // Handle any other exceptions that may occur
+	        e.printStackTrace();
+	        String errorMessage = "Internal Server Error";
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+	    }
 	}
+
 
 	@RequestMapping(value = "/getAvgPunchInAndOut", method = RequestMethod.GET)
 	public ResponseEntity<String> getAvgPunchInAndOut(HttpSession session) {
+	    try {
+	        int id = (int) session.getAttribute("employeeId");
+	        // Retrieves the employee ID from the session
 
-		int id = (int) session.getAttribute("employeeId");
-		// Retrieves the employee ID from the session
+	        List<Long> result = employeeAttendanceService.getAvgPunchInAndOut(id);
+	        // Retrieves the average punch in and punch out time for the employee ID using the service method
 
-		List<Long> result = employeeAttendanceService.getAvgPunchInAndOut(id);
-		// Retrieves the average punch in and punch out time for the employee ID using the service method
-
-		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(result));
-		// Returns a response entity with the average punch in and punch out time serialized as JSON and an HTTP status
-		// code indicating a successful request
+	        return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(result));
+	        // Returns a response entity with the average punch in and punch out time serialized as JSON and an HTTP status code indicating a successful request
+	    } catch (Exception e) {
+	        // Handle any exceptions that may occur
+	        e.printStackTrace();
+	        String errorMessage = "Internal Server Error";
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+	    }
 	}
+
 }

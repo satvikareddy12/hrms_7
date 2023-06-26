@@ -11,16 +11,53 @@ import models.EmployeeAttendance;
 import models.EmployeeRequestResult;
 
 public interface EmployeeAttendanceServiceInterface {
-	void insertEmployeeAttendance(EmployeeAttendance attendance);
 
-	List<AttendanceEvent> getYesterdayPunchData(int employeeId);
+    /**
+     * Inserts the employee attendance data into the system.
+     * 
+     * @param attendance The employee attendance to be inserted.
+     */
+    void insertEmployeeAttendance(EmployeeAttendance attendance);
 
-	EmployeeRequestResult calculateAttendance(List<Object[]> punchData);
+    /**
+     * Retrieves the punch data for yesterday for the given employee ID.
+     * 
+     * @param employeeId The ID of the employee.
+     * @return A list of attendance events for yesterday.
+     */
+    List<AttendanceEvent> getYesterdayPunchData(int employeeId);
 
-	LocalDateTime convertToDateTime(Cell cell);
+    /**
+     * Calculates the attendance result based on the provided punch data.
+     * 
+     * @param punchData The punch data.
+     * @return The attendance result.
+     */
+    EmployeeRequestResult calculateAttendance(List<Object[]> punchData);
 
-	List<Integer> getYears(Date joinDate);
+    /**
+     * Converts the given cell value to a LocalDateTime object.
+     * 
+     * @param cell The cell value.
+     * @return The LocalDateTime object.
+     */
+    LocalDateTime convertToDateTime(Cell cell);
 
-	List<Long> getAvgPunchInAndOut(int id);
+    /**
+     * Retrieves a list of years based on the employee's join date.
+     * 
+     * @param joinDate The employee's join date.
+     * @return A list of years.
+     */
+    List<Integer> getYears(Date joinDate);
+
+    /**
+     * Retrieves the average punch in and punch out times for the given employee ID.
+     * 
+     * @param id The ID of the employee.
+     * @return A list containing the average punch in and punch out times.
+     */
+    List<Long> getAvgPunchInAndOut(int id);
 
 }
+
