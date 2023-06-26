@@ -1,4 +1,4 @@
-package DAO_Interfaces;
+package DAO;
 
 import java.util.List;
 

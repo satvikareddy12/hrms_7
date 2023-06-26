@@ -72,18 +72,26 @@ public class LeaveController {
 	public String leaverequest(HttpSession session, Model model) {
 
 		int id = (int) session.getAttribute("employeeId");
-		Employee employee = employeeDAO.getEmployee(id);
+		// Retrieves the employee ID from the session
 
-		System.out.println(employee.getEmplId());
-		System.out.println(employee.getEmplJbgrId());
+		Employee employee = employeeDAO.getEmployee(id);
+		// Retrieves the employee information from the DAO using the employee ID
 
 		JobGradeWiseLeaves leavesProvidedStatistics = leaveRequestDAO
 				.getJobGradeWiseLeaves(employee.getEmplJbgrId().trim());
-		System.out.println(leavesProvidedStatistics);
+		// Retrieves the leaves provided statistics based on the job grade ID of the employee from the DAO
+
 		List<EmployeeLeaveRequest> leaves = leaveRequestDAO
 				.getApprovedAndPendingEmployeeAndLeaveRequestData(employee.getEmplId(), Year.now().getValue());
+		// Retrieves the approved and pending leave request data for the employee ID and the current year from the DAO
+
 		LeaveValidationModel validation = employeeService.calculateLeavesTaken(leaves, leavesProvidedStatistics);
+		// Calculates the leaves taken based on the retrieved leave request data and leaves provided statistics using
+		// the service method
+
 		model.addAttribute("validationData", validation);
+		// Adds the validation data as an attribute named "validationData" to the model
+
 		return "leaveform";
 	}
 

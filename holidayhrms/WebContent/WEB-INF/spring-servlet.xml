@@ -78,10 +78,11 @@
     </bean>
   
     <!-- Dependency Injection Configuration -->
-    <bean id="apdi" class="DAO.ApplyPermissionDaoImpl" />
+  <bean id="holidayDAO" class="DAO.HolidayDAOImpl" />
     <bean id="app" class="models.ApplyPermissions" />
     <bean id="cKey" class="models.PermissionCompositeKey" />
-    <bean id="holidayDAO" class="DAO.HolidayDAOImpl" />
+      <bean id="apdi" class="DAO.ApplyPermissionDaoImpl" />
+    
     <bean id="ed" class="DAO.EmployeeDAOImpl" />
     <bean id="cd" class="DAO.CandidateDAOImpl" />
     <bean id="mp" class="org.modelmapper.ModelMapper" />
