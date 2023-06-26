@@ -27,7 +27,7 @@ public class InductionDAOImpl implements InductionDAO {
 	@Override
 	@Transactional
 	public List<Induction> getInductionById(int id) {
-		Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.id = :id");
+		Query query = entityManager.createQuery("SELECT i FROM Induction i WHERE i.indcId = :id");
 		query.setParameter("id", id);
 
 		return (List<Induction>) query.getResultList();

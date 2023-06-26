@@ -16,13 +16,18 @@ public interface EmployeeDAO {
 	// To insert the employee details into database
 	void insertEmployee(Employee employee);
 
+	// To implement employee soft delete
 	void updateEmployeeStatus(int id, String newStatus);
 
+	// To update the details of the employee
 	void updateEmployee(Employee employee);
 
+	// To display employee parameter list
 	List<EmployeeParameter> getEmployeeParametersById(Integer employeeId);
 
+	// To display employee list grouped by HR and Manager
 	List<Employee> getEmployeesByHRAndManager(int employeeId);
 
+	// To get employee details by id
 	Employee getEmployee(int employeeId);
 }

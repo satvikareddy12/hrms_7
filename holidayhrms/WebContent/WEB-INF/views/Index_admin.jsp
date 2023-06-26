@@ -423,6 +423,8 @@
     
     
     </script>
+    
+  
 
     
   </head>
@@ -588,7 +590,9 @@
    <!--  <main class="main" id="main"  height="600px" width="600px">
       <h1>Welcome Admin to Pennant Technologies....</h1>
     </main> -->
+    
 </div>
+
    
   </body>
        <script>
@@ -619,5 +623,7 @@
        });
 
 </script>
+
+ 
 </html>
 

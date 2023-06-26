@@ -28,6 +28,7 @@ public class CandidateController {
 
 	}
 
+	// To view list of candidates
 	@RequestMapping("/viewcandidates")
 	public String showCandidates(Model model) {
 		List<Candidate> candidates = candidateDAO.getAllCandidates();
@@ -37,11 +38,7 @@ public class CandidateController {
 		return "candidateview";
 	}
 
-	@GetMapping("/candid")
-	public String showEmployeeDocumentsPage() {
-		return "getcandidate";
-	}
-
+	// To display candidate details by id
 	@GetMapping("/viewcandidate")
 	public String getCandidateDetails(@RequestParam("id") int candidateId, Model model) {
 		Candidate candidate = candidateDAO.getCandidateById(candidateId);
@@ -55,11 +52,13 @@ public class CandidateController {
 		return "viewcandidate";
 	}
 
+	// To insert a new candidate
 	@RequestMapping(value = "/candidate", method = RequestMethod.GET)
 	public String showCandidateForm() {
 		return "candidate";
 	}
 
+	// To display the list of candidates after insertion of new candidate
 	@RequestMapping(value = "/candidateadded", method = RequestMethod.POST)
 	public String saveCandidate(@ModelAttribute Candidate cand, Model model) {
 

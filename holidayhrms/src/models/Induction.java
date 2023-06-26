@@ -6,17 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_induction")
+@IdClass(InductionId.class)
 public class Induction {
 	@Id
 	@Column(name = "indc_id")
 	private int indcId;
 
+	@Id
 	@Column(name = "indc_emof_id")
 	private int indcEmofId;
 
@@ -24,7 +27,7 @@ public class Induction {
 	private Date indcDate;
 
 	@Column(name = "indc_processes_ausr_id")
-	private int indcProcessedAusrId;
+	private Integer indcProcessedAusrId;
 
 	@Column(name = "indc_status")
 	private String indcStatus;
@@ -61,11 +64,11 @@ public class Induction {
 		this.indcDate = indcDate;
 	}
 
-	public int getIndcProcessedAusrId() {
+	public Integer getIndcProcessedAusrId() {
 		return indcProcessedAusrId;
 	}
 
-	public void setIndcProcessedAusrId(int indcProcessedAusrId) {
+	public void setIndcProcessedAusrId(Integer indcProcessedAusrId) {
 		this.indcProcessedAusrId = indcProcessedAusrId;
 	}
 

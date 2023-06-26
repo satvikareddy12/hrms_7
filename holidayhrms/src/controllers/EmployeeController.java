@@ -86,7 +86,7 @@ public class EmployeeController {
 		return "delempl";
 	}
 
-	// To display list of employees after insertion of an employee
+	// To display list of employees after deletion of an employee
 	@PostMapping(value = "/employeeListDelete")
 	public String deletedEmployeeList(@RequestParam("emplId") int emplId, Model model) {
 		emp.updateEmployeeStatus(emplId, "deleted");
