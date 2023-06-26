@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +40,11 @@ public class PermissionsController {
 	}
 
 	@RequestMapping(value = "/getpermissions")
-	public String applypermission(Model model) {
+	public String applypermission(Model model, HttpSession session) {
 		// set employee id from session
-		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(102, Date.valueOf(LocalDate.now()));
-		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(102, LocalDate.now().getMonthValue(),
+		int id = (int) session.getAttribute("employeeId");
+		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(id, Date.valueOf(LocalDate.now()));
+		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(id, LocalDate.now().getMonthValue(),
 				LocalDate.now().getYear());
 		System.out.println(daycount);
 		System.out.println(monthcount);
@@ -81,11 +84,12 @@ public class PermissionsController {
 	}
 
 	@RequestMapping(value = "/adminviewpermissions")
-	public String adminViewpermission(Model model) {
+	public String adminViewpermission(Model model, HttpSession session) {
 
 		// List<ApplyPermissions> permissions = apd.adminViewPermission();
 
-		List<Employee> employees = apd.getEmployeesByHRAndManager(301);
+		int id = (int) session.getAttribute("adminId");
+		List<Employee> employees = apd.getEmployeesByHRAndManager(id);
 		List<ApplyPermissions> outputmodel = new ArrayList<>();
 		for (Employee employee : employees) {
 			System.out.println(employee.getEmplId());

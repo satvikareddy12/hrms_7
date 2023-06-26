@@ -72,9 +72,7 @@ public class AttendanceController {
 	@RequestMapping(value = "/employeeAttendance", method = RequestMethod.GET)
 	public String employeeAttendanceForm(HttpSession session, Model model) {
 
-		// should handle the employee id
-		session.setAttribute("employeeid", 1);
-		int id = (int) session.getAttribute("employeeid");
+		int id = (int) session.getAttribute("employeeId");
 		Employee employee = employeeDAO.getEmployee(id);
 		System.out.println(employee);
 		Date joinDate = employee.getEmplJondate();
@@ -120,8 +118,9 @@ public class AttendanceController {
 
 	// to get punch data for graphs
 	@RequestMapping(value = "/punchData", method = RequestMethod.GET)
-	public ResponseEntity<String> getPunchData() {
-		List<AttendanceEvent> punchData = employeeAttendanceService.getYesterdayPunchData(1);
+	public ResponseEntity<String> getPunchData(HttpSession session) {
+		int id = (int) session.getAttribute("employeeId");
+		List<AttendanceEvent> punchData = employeeAttendanceService.getYesterdayPunchData(id);
 		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(punchData));
 	}
 
@@ -187,9 +186,10 @@ public class AttendanceController {
 	}
 
 	@RequestMapping(value = "/getAvgPunchInAndOut", method = RequestMethod.GET)
-	public ResponseEntity<String> getAvgPunchInAndOut() {
-		// need to get the employee id
-		List<Long> result = employeeAttendanceService.getAvgPunchInAndOut(1);
+	public ResponseEntity<String> getAvgPunchInAndOut(HttpSession session) {
+
+		int id = (int) session.getAttribute("employeeId");
+		List<Long> result = employeeAttendanceService.getAvgPunchInAndOut(id);
 		return ResponseEntity.status(HttpStatus.OK).body(gson.toJson(result));
 	}
 }

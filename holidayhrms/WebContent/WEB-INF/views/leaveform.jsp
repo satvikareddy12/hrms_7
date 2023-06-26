@@ -77,7 +77,6 @@
 	<h1>Leave Form</h1><br>
 
 	<%
-	session.setAttribute("employeeid", 1);
 	LeaveValidationModel validationData = (LeaveValidationModel)request.getAttribute("validationData");
 	%>
 	 <div class="container">
@@ -86,7 +85,7 @@
 		<div class="form-group">
 			<label for="employee-id">Employee ID:</label> <input type="number"
 				id="employee-id" name="employeeId"
-				value="<%=(Integer) session.getAttribute("employeeid")%>" readonly>
+				value="<%=(Integer) session.getAttribute("employeeId")%>" readonly>
 		</div>
 
 

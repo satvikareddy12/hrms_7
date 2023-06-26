@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +67,10 @@ public class LeaveController {
 	private ApplicationContext context;
 
 	@RequestMapping(value = "/leaveform", method = RequestMethod.GET)
-	public String leaverequest(HttpServletRequest request, Model model) {
-		// should have the employee id in session ( pending )
+	public String leaverequest(HttpSession session, Model model) {
 
-		Employee employee = employeeDAO.getEmployee(1);
+		int id = (int) session.getAttribute("employeeId");
+		Employee employee = employeeDAO.getEmployee(id);
 
 		System.out.println(employee.getEmplId());
 		System.out.println(employee.getEmplJbgrId());
@@ -122,8 +121,8 @@ public class LeaveController {
 	@RequestMapping(value = "/leaveRequests", method = RequestMethod.GET)
 	public String leaveRequests(HttpSession session, Model model) {
 
-		// need to get the Admin Id
-		List<Employee> employees = employeeDAO.getEmployeesByHRAndManager(123);
+		int id = (int) session.getAttribute("adminId");
+		List<Employee> employees = employeeDAO.getEmployeesByHRAndManager(id);
 		List<EmployeeLeaveModel> outputmodel = new ArrayList<>();
 		for (Employee employee : employees) {
 			List<EmployeeLeaveRequest> leaves = leaveRequestDAO.getEmployeeAndLeaveRequestData(employee.getEmplId());
@@ -187,7 +186,6 @@ public class LeaveController {
 
 			EmployeeLeaveRequest employeeLeaveRequest = leaveRequestDAO.getEmployeeLeaveRequest(leaveRequestId);
 
-			// should take care of it
 			int adminId = (int) session.getAttribute("adminId");
 
 			if (employeeLeaveRequest != null) {
@@ -208,10 +206,11 @@ public class LeaveController {
 	}
 
 	@RequestMapping(value = "/AdminapprovedLeaves", method = RequestMethod.GET)
-	public String adminApprovedLeaves(Model model) {
-		// should get the admin id (pending)
-		List<ApprovedLeaveModel> approvedOutModel = new ArrayList();
-		List<EmployeeLeaveRequest> approvedLeaves = leaveRequestDAO.getApprovedEmployeeAndLeaveRequestData(123);
+	public String adminApprovedLeaves(Model model, HttpSession session) {
+
+		int id = (int) session.getAttribute("adminId");
+		List<ApprovedLeaveModel> approvedOutModel = new ArrayList<>();
+		List<EmployeeLeaveRequest> approvedLeaves = leaveRequestDAO.getApprovedEmployeeAndLeaveRequestData(id);
 		for (EmployeeLeaveRequest leave : approvedLeaves) {
 			Employee employee = employeeDAO.getEmployee(leave.getLeaveRequestId().getEmployeeId());
 			ApprovedLeaveModel approvedLeaveModel = context.getBean(ApprovedLeaveModel.class);
@@ -229,10 +228,11 @@ public class LeaveController {
 	}
 
 	@RequestMapping(value = "/geEmployeeLeaves", method = RequestMethod.GET)
-	public String getEmployeeLeavesHistory(Model model) {
-		// need to change the emoloyee id : pending - sessions
+	public String getEmployeeLeavesHistory(Model model, HttpSession session) {
+
+		int id = (int) session.getAttribute("employeeId");
 		List<EmployeeLeaveModel> history = new ArrayList<>();
-		List<EmployeeLeaveRequest> employeeLeavesData = leaveRequestDAO.getLeaveRequestHistory(1);
+		List<EmployeeLeaveRequest> employeeLeavesData = leaveRequestDAO.getLeaveRequestHistory(id);
 		for (EmployeeLeaveRequest leave : employeeLeavesData) {
 			EmployeeLeaveModel leavemodel = context.getBean(EmployeeLeaveModel.class);
 			leavemodel.setLeaveRequestIndex(leave.getLeaveRequestId().getLeaveRequestIndex());
@@ -272,9 +272,9 @@ public class LeaveController {
 	}
 
 	@RequestMapping(value = "/getLeaveStatistics", method = RequestMethod.GET)
-	public ResponseEntity<String> getLeaveStatistics() {
-		// need to get emp id from the session
-		Employee employee = employeeDAO.getEmployee(1);
+	public ResponseEntity<String> getLeaveStatistics(HttpSession session) {
+		int id = (int) session.getAttribute("employeeId");
+		Employee employee = employeeDAO.getEmployee(id);
 
 		System.out.println(employee.getEmplId());
 		System.out.println(employee.getEmplJbgrId());

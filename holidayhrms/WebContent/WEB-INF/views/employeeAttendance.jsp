@@ -151,7 +151,7 @@ th {
 			$.ajax({
 			    url: "attendance",
 			    type: "POST",
-			    data: {"year":selectedYear,"month":selectedMonth,"employeeid":<%=session.getAttribute("employeeid")%>},
+			    data: {"year":selectedYear,"month":selectedMonth,"employeeid":<%=session.getAttribute("employeeId")%>},
 			    contentType: "application/x-www-form-urlencoded",
 			    dataType:"json",
 			    success: function(response) {

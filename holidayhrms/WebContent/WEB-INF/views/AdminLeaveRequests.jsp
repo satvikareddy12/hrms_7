@@ -200,9 +200,7 @@ tr:nth-child(even) {
 	<%@ page
 		import="java.util.List,java.util.ArrayList,models.EmployeeLeaveModel"%>
 
-	<%
-	session.setAttribute("adminId", 123);
-	%>
+	
 	<h1>Leave Requests</h1><br>
 	<table>
 		<tr>

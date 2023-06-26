@@ -14,6 +14,7 @@ models\EmployeeParameter.class
 models\PermissionAdminModel.class
 controllers\OfferController.class
 DAO\EmployeeAttendanceDAOImpl.class
+controllers\LoginController.class
 models\EmployeeLeaveRequest.class
 models\JobGrade.class
 service\EmploymentInductionDocumentServiceInterface.class
@@ -31,6 +32,7 @@ models\ApplyPermissions.class
 service\PaySlipMail$1.class
 models\Employee.class
 controllers\EmployeeController$3.class
+DAO\ApplyPermissionDao.class
 models\Candidate.class
 models\empoffdocuments.class
 controllers\AttendanceController.class
@@ -44,6 +46,7 @@ service\EmploymentInductionServiceInterface.class
 DAO\InductionDAOImpl.class
 models\input\output\EmployeeOutput.class
 DAO\EmployeeAttendanceDAO.class
+models\Admin.class
 service\EmploymentInductionService.class
 models\adminusers.class
 controllers\EmployeeController$4.class
@@ -59,6 +62,7 @@ models\EmploymentInductionDocument.class
 models\empoffdocscomposite.class
 controllers\EmployeeController$5.class
 models\AttendanceRequest.class
+service\HashGenerator.class
 controllers\InductionController.class
 models\input\output\EmploymentInductionDocumentViewModel.class
 models\AttendanceEvent.class
@@ -67,6 +71,7 @@ controllers\CandidateController$1.class
 models\EmployeeRequestResult.class
 DAO\EmpDAO.class
 DAO\EmployeeDAOImpl.class
+models\InductionId.class
 AppConfig\AppConfig.class
 controllers\EmployeeController.class
 controllers\ReferenceDocumentController.class
@@ -79,16 +84,18 @@ models\EmployeePayslip.class
 models\input\output\EmployeeParameterIO.class
 models\input\output\addinductionDOC.class
 models\HRDepartment.class
-controllers\DashboardController.class
 models\input\output\EmployeePayRollOutputModel.class
+service\offerlettermail$2.class
 models\EmployeeLeaveModel.class
 models\PermissionAdminOutputModel.class
+service\offerlettermail.class
 controllers\EmployeeController$7.class
 DAO\ApplyPermissionDaoImpl.class
 controllers\CandidateController$3.class
 models\HrmsJobGrade.class
 models\input\output\JobGradeLeavesOutModel.class
 DAO\EmployeeLeaveRequestDAO.class
+service\EmployeeLoginService.class
 controllers\LeaveController.class
 service\ReferenceServiceInterface.class
 models\EmployeeLeaveRequestId.class
@@ -105,6 +112,7 @@ models\OfferModel.class
 DAO\HolidayDAO.class
 controllers\CandidateController$2.class
 models\LeaveValidationModel.class
+service\offerlettermail$1.class
 controllers\PayRollController.class
 models\EmployeeRefDocuments.class
 service\EmploymentInductionDocumentService.class

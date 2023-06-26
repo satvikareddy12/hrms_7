@@ -278,7 +278,7 @@ canvas {
             <a onclick="getPayslip()"><span class="icon"><i class="ri-file-line"></i></span> Payslips</a>
           </li>
            <li class="item">
-            <a href="#"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>
+            <a onclick="logout()"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>
           </li>
         </ul>
       </div>
@@ -365,7 +365,7 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 
 		 
 		// field 3
-		  field = $('<div class="col right"><div class="field" id="field3">4</div></div>');
+		  field = $('<div class="col right"><div class="field" id="field3">8</div></div>');
 		  fieldMessage = $('<div class="field-message" id="msg3">No of permissions taken</div>');
 		  field.append(fieldMessage);
 			 dataFields.append(field);
@@ -686,6 +686,21 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
   	    }
   	  });
   	}
+    
+    
+    function logout(){
+    	$.ajax({
+    		url:"logout",
+    		type:"GET",
+    		success:function(response){
+    			window.location.href='./';
+    		},
+    		error:function(error){
+    			console.log(error);
+    		}
+    		
+    	});
+    }
     
     
     

@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import models.Admin;
 import models.Employee;
 
 @Component
@@ -46,6 +47,13 @@ public class EmpDAO {
 			employee.setEmplAddress(newAddress);
 			em.merge(employee);
 		}
+	}
+
+	@Transactional
+	public Admin getDetailsByEmail_admin(String emailId) {
+		TypedQuery<Admin> query = em.createQuery("SELECT e FROM Admin e WHERE e.ausr_email = :emailId", Admin.class);
+		query.setParameter("emailId", emailId);
+		return query.getSingleResult();
 	}
 
 }

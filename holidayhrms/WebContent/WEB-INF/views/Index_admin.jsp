@@ -422,6 +422,21 @@
     
     
     
+    function logout(){
+    	$.ajax({
+    		url:"logout",
+    		type:"GET",
+    		success:function(response){
+    			window.location.href='./';
+    		},
+    		error:function(error){
+    			console.log(error);
+    		}
+    		
+    	});
+    }
+    
+    
     </script>
     
   
@@ -576,7 +591,7 @@
             <a onclick="generatePayroll();"><span class="icon"><i class="ri-booklet-line"></i></span> Payrolls</a>
           </li>
           <li class="item">
-            <a href="#"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>
+            <a onclick="logout()"><span class="icon"><i class="ri-logout-box-r-line"></i></span> Logout</a>
           </li>
         </ul>
       </div>

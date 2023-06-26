@@ -90,7 +90,18 @@ public class Employee {
 	@Column(name = "empl_status")
 	private String empl_status;
 
+	@Column(name = "password")
+	private String password;
+
 	// Constructors, getters, and setters
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Double getEmpl_ctc() {
 		return empl_ctc;
