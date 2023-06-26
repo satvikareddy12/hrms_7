@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.time.LocalDate;
@@ -5,7 +6,6 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.EmployeeDAO;
-import DAO.PayRollDAO;
+import DAO_Interfaces.EmployeeDAO;
+import DAO_Interfaces.PayRollDAO;
 import models.Employee;
 import models.EmployeePayslip;
 import models.input.output.EmployeePayRollInputModel;
 import models.input.output.EmployeePayRollOutputModel;
-import service.PayRollService;
 import service.PaySlipMail;
+import service_interfaces.PayRollService;
 
 @Controller
 public class PayRollController {
@@ -31,22 +31,21 @@ public class PayRollController {
 	private EmployeePayRollInputModel payRollInput;
 	private EmployeePayslip empPaySlip;
 	private PayRollDAO payrollDAO;
-	private final ModelMapper modelMapper;
 
 	@Autowired
 	PayRollController(PayRollService payRollservice, EmployeeDAO ed, EmployeePayRollOutputModel payRollOutput,
-			EmployeePayRollInputModel payRollInput, EmployeePayslip empPaySlip, PayRollDAO payrollDAO, ModelMapper mp) {
+			EmployeePayRollInputModel payRollInput, EmployeePayslip empPaySlip, PayRollDAO payrollDAO) {
 		this.payRollservice = payRollservice;
 		this.ed = ed;
 		this.payRollOutput = payRollOutput;
 		this.payRollInput = payRollInput;
 		this.empPaySlip = empPaySlip;
 		this.payrollDAO = payrollDAO;
-		modelMapper = mp;
 	}
 
+	// Display the generated payslip
 	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
-	public String getPayroll(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
+	public String getPayslip(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 		System.out.println(month);
 
@@ -130,30 +129,19 @@ public class PayRollController {
 		return "payslip";
 	}
 
-	@RequestMapping(value = "/getpayroll", method = RequestMethod.POST)
-	public String getPayslip(@RequestParam("empl_id") int id, Model model) {
-
-		// for fetching details of an employee based on id
-		Employee employee = ed.getEmployeeById(id);
-
-		if (employee != null) {
-			model.addAttribute("employee", employee);
-		} else {
-			model.addAttribute("error", "No employee found with the provided ID.");
-		}
-		return "payroll";
-	}
-
-	@RequestMapping(value = "/getemppay", method = RequestMethod.GET)
-	public String getPayslip2(Model model) {
+	// Enter employee id to generate payroll
+	@RequestMapping(value = "/getemppayroll", method = RequestMethod.GET)
+	public String getPayRoll(Model model) {
 		return "payrollemp";
 	}
 
+	// Get month wise pay slip
 	@RequestMapping(value = "/getemppayslip", method = RequestMethod.GET)
-	public String getemppayslip(Model model) {
+	public String getMonthWisePaySlip(Model model) {
 		return "payslipEmpSide";
 	}
 
+	// Display payslip for an employee
 	@RequestMapping(value = "/EmployeeSidePaySlip", method = RequestMethod.POST)
 	public String getEmployeePayslip(@RequestParam("month") int month, Model model) {
 

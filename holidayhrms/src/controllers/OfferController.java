@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.CandidateDAO;
+import DAO_Interfaces.CandidateDAO;
 import models.Candidate;
 import models.Eofr;
 import models.HRDepartment;
@@ -47,6 +47,8 @@ public class OfferController {
 	@RequestMapping("/get-candidate-details")
 	public String getEmployeeDetails(@RequestParam("id") int candidateId, Inductiondocuments indocm, Model model) {
 		Candidate candidate = cd.getCandidateById(candidateId);
+
+		// set admin session variable
 		int HR_id = 123;
 		HRDepartment emp = cd.getHrById(HR_id);
 		System.out.println("mobileno" + emp.getMobileNumber());

@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import DAO_Interfaces.PayRollDAO;
 import models.EmployeePayslip;
 
 public class PayRollDAOImpl implements PayRollDAO {

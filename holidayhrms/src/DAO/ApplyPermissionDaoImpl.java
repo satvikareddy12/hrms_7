@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAO_Interfaces.ApplyPermissionDao;
 import models.ApplyPermissions;
 import models.Employee;
 

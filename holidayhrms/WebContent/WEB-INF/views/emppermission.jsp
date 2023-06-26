@@ -125,7 +125,7 @@
   <div class="container">
     <form id="permissionForm">
       <label for="id">ID:</label>
-      <input type="number" id="id" name="id" required>
+      <input type="number" id="id" name="id" value="<%=(Integer) session.getAttribute("employeeId")%>" readonly>
 
       <label for="current-date">Current Date:</label>
       <input type="date" id="current-date" name="current_date" required>

@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.sql.Date;
@@ -5,8 +6,6 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import DAO.ApplyPermissionDao;
+import DAO_Interfaces.ApplyPermissionDao;
 import models.ApplyPermissions;
 import models.Employee;
 import models.PermissionAdminModel;
@@ -39,12 +38,12 @@ public class PermissionsController {
 		pcompositeKey = cKey;
 	}
 
+	// To apply a permission
 	@RequestMapping(value = "/getpermissions")
-	public String applypermission(Model model, HttpSession session) {
+	public String applyPermission(Model model) {
 		// set employee id from session
-		int id = (int) session.getAttribute("employeeId");
-		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(id, Date.valueOf(LocalDate.now()));
-		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(id, LocalDate.now().getMonthValue(),
+		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(102, Date.valueOf(LocalDate.now()));
+		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(102, LocalDate.now().getMonthValue(),
 				LocalDate.now().getYear());
 		System.out.println(daycount);
 		System.out.println(monthcount);
@@ -53,8 +52,9 @@ public class PermissionsController {
 		return "emppermission";
 	}
 
+	// To check the status of the the applied permission
 	@RequestMapping(value = "/applyPermission", method = RequestMethod.POST)
-	public ResponseEntity<String> applyPermission(@ModelAttribute PermissionInputModel permissionInput) {
+	public ResponseEntity<String> applyPermissionStatus(@ModelAttribute PermissionInputModel permissionInput) {
 		try {
 
 			ap.setCurrent_date(Date.valueOf(permissionInput.getCurrent_date()));
@@ -83,13 +83,11 @@ public class PermissionsController {
 		}
 	}
 
+	// To view permission requests by the admin
 	@RequestMapping(value = "/adminviewpermissions")
-	public String adminViewpermission(Model model, HttpSession session) {
+	public String adminViewPermissionRequests(Model model) {
 
-		// List<ApplyPermissions> permissions = apd.adminViewPermission();
-
-		int id = (int) session.getAttribute("adminId");
-		List<Employee> employees = apd.getEmployeesByHRAndManager(id);
+		List<Employee> employees = apd.getEmployeesByHRAndManager(301);
 		List<ApplyPermissions> outputmodel = new ArrayList<>();
 		for (Employee employee : employees) {
 			System.out.println(employee.getEmplId());
@@ -104,6 +102,7 @@ public class PermissionsController {
 		return "adminviewpermission";
 	}
 
+	// If admin accept the permission request
 	@RequestMapping(value = "/acceptpermissions")
 	@Transactional
 	public ResponseEntity<String> acceptPermission(@ModelAttribute PermissionAdminModel pm) {
@@ -128,6 +127,7 @@ public class PermissionsController {
 		}
 	}
 
+	// If admin reject the permission request
 	@RequestMapping(value = "/rejectpermissions")
 	@Transactional
 	public ResponseEntity<String> rejectPermission(@ModelAttribute PermissionAdminModel pm) {

@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAO_Interfaces.EmploymentInductionDocumentDAO;
 import models.EmploymentInductionDocument;
 import models.input.output.EmploymentInductionDocumentViewModel;
 

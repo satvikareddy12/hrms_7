@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import DAO.HolidayDAO;
+import DAO_Interfaces.HolidayDAO;
 import models.GradeHoliday;
 import models.Holiday;
 
@@ -21,6 +21,7 @@ public class HolidayController {
 		this.hd = holidayDAO;
 	}
 
+	// to get list of holidays
 	@RequestMapping("/holidaysupd")
 	public String showHolidays(Model model) {
 		List<Holiday> holidays = hd.findAllHolidays();
@@ -28,6 +29,7 @@ public class HolidayController {
 		return "holidays";
 	}
 
+	// to get list of grade wise holidays
 	@RequestMapping("/getgradewiseholidays")
 	public String getgradewiseHolidays(Model model) {
 		List<GradeHoliday> gradeholidays = hd.findAllGradeHolidays();

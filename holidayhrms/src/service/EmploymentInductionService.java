@@ -2,8 +2,8 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import DAO.InductionDAO;
-import service.EmploymentInductionServiceInterface;
+import DAO_Interfaces.InductionDAO;
+import service_interfaces.EmploymentInductionServiceInterface;
 
 public class EmploymentInductionService implements EmploymentInductionServiceInterface {
 

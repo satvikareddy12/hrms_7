@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import DAO_Interfaces.EmployeeAttendanceDAO;
 import models.EmployeeAttendance;
 
 @Repository

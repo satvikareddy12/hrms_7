@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAO_Interfaces.CandidateDAO;
 import models.Candidate;
 import models.Eofr;
 import models.HRDepartment;

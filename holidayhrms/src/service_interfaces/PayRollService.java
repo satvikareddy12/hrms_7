@@ -1,4 +1,4 @@
-package service;
+package service_interfaces;
 
 public interface PayRollService {
 

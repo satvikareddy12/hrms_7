@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.InductionDAO;
+import DAO_Interfaces.InductionDAO;
 import models.EmploymentInductionDocument;
 import models.Induction;
 import models.input.output.EmploymentInductionDocumentViewModel;
 import models.input.output.SaveInductioninput;
 import models.input.output.addinductionDOC;
-import service.EmploymentInductionDocumentServiceInterface;
-import service.EmploymentInductionServiceInterface;
+import service_interfaces.EmploymentInductionDocumentServiceInterface;
+import service_interfaces.EmploymentInductionServiceInterface;
 
 @Controller
 public class InductionController {

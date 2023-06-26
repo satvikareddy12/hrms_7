@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.CandidateDAO;
+import DAO_Interfaces.CandidateDAO;
 import models.Candidate;
 import models.input.output.CandidateIO;
 
@@ -30,7 +31,7 @@ public class CandidateController {
 
 	// To view list of candidates
 	@RequestMapping("/viewcandidates")
-	public String showCandidates(Model model) {
+	public String showCandidateList(Model model) {
 		List<Candidate> candidates = candidateDAO.getAllCandidates();
 		List<CandidateIO> candidateOutputs = modelMapper.map(candidates, new TypeToken<List<CandidateIO>>() {
 		}.getType());
@@ -54,13 +55,13 @@ public class CandidateController {
 
 	// To insert a new candidate
 	@RequestMapping(value = "/candidate", method = RequestMethod.GET)
-	public String showCandidateForm() {
+	public String addCandidates() {
 		return "candidate";
 	}
 
 	// To display the list of candidates after insertion of new candidate
 	@RequestMapping(value = "/candidateadded", method = RequestMethod.POST)
-	public String saveCandidate(@ModelAttribute Candidate cand, Model model) {
+	public String listOfCandidatesAfterInsertion(@ModelAttribute Candidate cand, Model model) {
 
 		candidateDAO.saveCandidate(cand);
 		List<Candidate> candidates = candidateDAO.getAllCandidates();

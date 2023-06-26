@@ -1,5 +1,7 @@
 package service;
 
+import service_interfaces.PayRollService;
+
 public class PayRollServiceImpl implements PayRollService {
 
 	private double total, basicpay, netpay, hra, ta, da, additions;

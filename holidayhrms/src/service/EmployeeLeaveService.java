@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import models.EmployeeLeaveRequest;
 import models.JobGradeWiseLeaves;
 import models.LeaveValidationModel;
+import service_interfaces.EmployeeLeaveServiceInterface;
 
-public class EmployeeLeaveService {
+public class EmployeeLeaveService implements EmployeeLeaveServiceInterface {
 
 	public EmployeeLeaveService() {
 	}
@@ -27,6 +28,7 @@ public class EmployeeLeaveService {
 		return ChronoUnit.DAYS.between(startDate, endDate) + 1;
 	}
 
+	@Override
 	public LeaveValidationModel calculateLeavesTaken(List<EmployeeLeaveRequest> leaves,
 			JobGradeWiseLeaves leavesProvidedStatistics) {
 

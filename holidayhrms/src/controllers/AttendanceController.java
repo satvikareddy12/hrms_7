@@ -25,15 +25,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import DAO.EmployeeAttendanceDAO;
-import DAO.EmployeeDAO;
+import DAO_Interfaces.EmployeeAttendanceDAO;
+import DAO_Interfaces.EmployeeDAO;
 import models.AttendanceEvent;
 import models.AttendanceRequest;
 import models.Employee;
 import models.EmployeeAttendance;
 import models.EmployeeAttendanceId;
 import models.EmployeeRequestResult;
-import service.EmployeeAttendanceService;
+import service_interfaces.EmployeeAttendanceServiceInterface;
 
 @Controller
 public class AttendanceController {
@@ -53,7 +53,7 @@ public class AttendanceController {
 	}
 
 	@Autowired
-	private EmployeeAttendanceService employeeAttendanceService;
+	private EmployeeAttendanceServiceInterface employeeAttendanceService;
 
 	@Autowired
 	private EmployeeAttendanceDAO employeeAttendanceDAO;

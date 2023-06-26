@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
-import DAO.EmployeeDAO;
-import DAO.EmployeeLeaveRequestDAO;
+import DAO_Interfaces.EmployeeDAO;
+import DAO_Interfaces.EmployeeLeaveRequestDAO;
 import models.ApprovedLeaveModel;
 import models.Employee;
 import models.EmployeeLeaveInputModel;
@@ -36,6 +36,7 @@ import models.JobGradeWiseLeaves;
 import models.LeaveValidationModel;
 import models.input.output.JobGradeLeavesOutModel;
 import service.EmployeeLeaveService;
+import service_interfaces.EmployeeLeaveServiceInterface;
 
 @Controller
 public class LeaveController {
@@ -52,7 +53,7 @@ public class LeaveController {
 	private EmployeeLeaveRequest leaveRequest;
 	private EmployeeLeaveRequestId leaveRequestId;
 	private Gson gson;
-	private EmployeeLeaveService employeeService;
+	private EmployeeLeaveServiceInterface employeeService;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -66,6 +67,7 @@ public class LeaveController {
 	@Autowired
 	private ApplicationContext context;
 
+	// to get the leave form
 	@RequestMapping(value = "/leaveform", method = RequestMethod.GET)
 	public String leaverequest(HttpSession session, Model model) {
 
@@ -85,6 +87,7 @@ public class LeaveController {
 		return "leaveform";
 	}
 
+	// to submit leave
 	@Transactional
 	@RequestMapping(value = "/submitleave", method = RequestMethod.POST)
 	public ResponseEntity<String> submitLeaveRequest(@ModelAttribute EmployeeLeaveInputModel employeeLeaveInputModel) {
@@ -118,6 +121,7 @@ public class LeaveController {
 		return ResponseEntity.ok("Success");
 	}
 
+	// to get leave requests at admin side
 	@RequestMapping(value = "/leaveRequests", method = RequestMethod.GET)
 	public String leaveRequests(HttpSession session, Model model) {
 
@@ -147,6 +151,7 @@ public class LeaveController {
 
 	}
 
+	// to reject leave
 	@RequestMapping(value = "/rejectLeave", method = RequestMethod.POST)
 	@Transactional
 	public ResponseEntity<String> rejectLreave(@ModelAttribute EmployeeLeaveModel employeeLeaveModel) {
@@ -172,6 +177,7 @@ public class LeaveController {
 		return ResponseEntity.ok("successfully status updated");
 	}
 
+	// to accept leave
 	@RequestMapping(value = "/acceptLeave", method = RequestMethod.POST)
 	@Transactional
 	public ResponseEntity<String> acceptLeave(@ModelAttribute EmployeeLeaveInputModel employeeLeaveInputModel,
@@ -205,6 +211,7 @@ public class LeaveController {
 		return ResponseEntity.ok("successfully status updated");
 	}
 
+	// to get admin approved leaves
 	@RequestMapping(value = "/AdminapprovedLeaves", method = RequestMethod.GET)
 	public String adminApprovedLeaves(Model model, HttpSession session) {
 
@@ -227,6 +234,7 @@ public class LeaveController {
 		return "AdminApprovedLeaves";
 	}
 
+	// to get employee leave history
 	@RequestMapping(value = "/geEmployeeLeaves", method = RequestMethod.GET)
 	public String getEmployeeLeavesHistory(Model model, HttpSession session) {
 
@@ -250,6 +258,8 @@ public class LeaveController {
 		return "employeeLeaveHistory";
 	}
 
+	// get jobgradewise leaves
+
 	@RequestMapping(value = "/getJobGradeWiseLeaves", method = RequestMethod.GET)
 	public String getJobGradeWiseLeaves(Model model) {
 		List<JobGradeWiseLeaves> jobGradeLeaves = leaveRequestDAO.getJobGradeWiseLeaves();
@@ -271,6 +281,7 @@ public class LeaveController {
 		return "jobGradeWiseLeaves";
 	}
 
+	// get leave statistics for dashboard
 	@RequestMapping(value = "/getLeaveStatistics", method = RequestMethod.GET)
 	public ResponseEntity<String> getLeaveStatistics(HttpSession session) {
 		int id = (int) session.getAttribute("employeeId");

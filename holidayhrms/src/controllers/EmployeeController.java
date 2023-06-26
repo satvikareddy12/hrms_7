@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import DAO.EmployeeDAO;
+import DAO_Interfaces.EmployeeDAO;
 import models.Employee;
 import models.EmployeeParameter;
 import models.input.output.EmployeeOutput;

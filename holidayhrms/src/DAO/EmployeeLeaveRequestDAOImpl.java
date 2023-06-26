@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import DAO_Interfaces.EmployeeLeaveRequestDAO;
 import models.EmployeeLeaveRequest;
 import models.EmployeeLeaveRequestId;
 import models.JobGradeWiseLeaves;

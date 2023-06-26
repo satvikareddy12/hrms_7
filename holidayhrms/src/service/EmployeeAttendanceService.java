@@ -18,13 +18,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import DAO.EmployeeAttendanceDAO;
+import DAO_Interfaces.EmployeeAttendanceDAO;
 import models.AttendanceEvent;
 import models.EmployeeAttendance;
 import models.EmployeeRequestResult;
+import service_interfaces.EmployeeAttendanceServiceInterface;
 
 @Service
-public class EmployeeAttendanceService {
+public class EmployeeAttendanceService implements EmployeeAttendanceServiceInterface {
 	@Autowired
 	private EmployeeAttendanceDAO employeeAttendanceDAO;
 
@@ -39,11 +40,13 @@ public class EmployeeAttendanceService {
 	}
 
 	@Transactional
+	@Override
 	public void insertEmployeeAttendance(EmployeeAttendance attendance) {
 		employeeAttendanceDAO.save(attendance);
 
 	}
 
+	@Override
 	public List<AttendanceEvent> getYesterdayPunchData(int employeeId) {
 		List<Object[]> results = employeeAttendanceDAO.getYesterdayPunchInAndPunchOut(employeeId);
 
@@ -74,6 +77,7 @@ public class EmployeeAttendanceService {
 		return formattedEvents;
 	}
 
+	@Override
 	public EmployeeRequestResult calculateAttendance(List<Object[]> punchData) {
 		int daysWithMinimumHours = 0;
 
@@ -127,6 +131,7 @@ public class EmployeeAttendanceService {
 
 	}
 
+	@Override
 	public LocalDateTime convertToDateTime(Cell cell) {
 		if (cell.getCellType() == CellType.NUMERIC) {
 			// Assuming the cell contains a date/time value
@@ -137,6 +142,7 @@ public class EmployeeAttendanceService {
 		}
 	}
 
+	@Override
 	public List<Integer> getYears(Date joinDate) {
 
 		LocalDate join = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(joinDate));
@@ -156,6 +162,7 @@ public class EmployeeAttendanceService {
 
 	}
 
+	@Override
 	public List<Long> getAvgPunchInAndOut(int id) {
 
 		int i;

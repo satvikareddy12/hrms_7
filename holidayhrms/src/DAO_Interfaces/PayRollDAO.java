@@ -1,4 +1,4 @@
-package DAO;
+package DAO_Interfaces;
 
 import models.EmployeePayslip;
 

@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import DAO_Interfaces.EmployeeDAO;
 import models.Employee;
 import models.EmployeeParameter;
 
