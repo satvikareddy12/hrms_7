@@ -1,26 +1,36 @@
 package models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hrms_adminusers")
-public class adminusers {
+
+public class adminusers implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ausr_id")
 	private int userId;
 
 	@Column(name = "ausr_name")
-	private String username;
+	private String userName;
 
 	@Column(name = "ausr_empl_id")
 	private int employeeId;
-
-	@Column(name = "ausr_empl_jbgr")
-	private String employeeJobGroup;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Induction> induction;
 
 	@Column(name = "ausr_email")
 	private String email;
@@ -28,22 +38,16 @@ public class adminusers {
 	@Column(name = "ausr_password")
 	private String password;
 
-	// Constructors, getters, and setters
+	@Column(name = "ausr_empl_jbgr")
+	private String employeeJobGrade;
 
-	public adminusers() {
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ausr_empl_id", referencedColumnName = "empl_id", insertable = false, updatable = false)
+	private Employee employee;
 
-	public adminusers(int userId, String username, int employeeId, String employeeJobGroup, String email,
-			String password) {
-		this.userId = userId;
-		this.username = username;
-		this.employeeId = employeeId;
-		this.employeeJobGroup = employeeJobGroup;
-		this.email = email;
-		this.password = password;
-	}
-
-	// Getters and setters
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ausr_empl_jbgr", referencedColumnName = "jbgr_id", insertable = false, updatable = false)
+	private HrmsJobGrade employeeJobGradeEntity;
 
 	public int getUserId() {
 		return userId;
@@ -53,12 +57,12 @@ public class adminusers {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getEmployeeId() {
@@ -67,14 +71,6 @@ public class adminusers {
 
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
-	}
-
-	public String getEmployeeJobGroup() {
-		return employeeJobGroup;
-	}
-
-	public void setEmployeeJobGroup(String employeeJobGroup) {
-		this.employeeJobGroup = employeeJobGroup;
 	}
 
 	public String getEmail() {
@@ -91,5 +87,29 @@ public class adminusers {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmployeeJobGrade() {
+		return employeeJobGrade;
+	}
+
+	public void setEmployeeJobGrade(String employeeJobGrade) {
+		this.employeeJobGrade = employeeJobGrade;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public HrmsJobGrade getEmployeeJobGradeEntity() {
+		return employeeJobGradeEntity;
+	}
+
+	public void setEmployeeJobGradeEntity(HrmsJobGrade employeeJobGradeEntity) {
+		this.employeeJobGradeEntity = employeeJobGradeEntity;
 	}
 }

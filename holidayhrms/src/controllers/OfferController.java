@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,12 +46,13 @@ public class OfferController {
 	}
 
 	@RequestMapping("/get-candidate-details")
-	public String getEmployeeDetails(@RequestParam("id") int candidateId, Inductiondocuments indocm, Model model) {
+	public String getEmployeeDetails(@RequestParam("id") int candidateId, Inductiondocuments indocm, Model model,
+			HttpSession session) {
 		Candidate candidate = cd.getCandidateById(candidateId);
 
 		// set admin session variable
-		int HR_id = 123;
-		HRDepartment emp = cd.getHrById(HR_id);
+		int id = (int) session.getAttribute("adminId");
+		HRDepartment emp = cd.getHrById(id);
 		System.out.println("mobileno" + emp.getMobileNumber());
 		indoc = indocm;
 		can = candidate;

@@ -1,3 +1,4 @@
+
 package models;
 
 import java.sql.Date;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 public class Induction {
 	@Id
 	@Column(name = "indc_id")
-	private int indcId;
+	private Integer indcId;
 
 	@Id
 	@Column(name = "indc_emof_id")
@@ -26,7 +27,7 @@ public class Induction {
 	@Column(name = "indc_date")
 	private Date indcDate;
 
-	@Column(name = "indc_processes_ausr_id")
+	@Column(name = "indc_processes_ausr_id", nullable = true)
 	private Integer indcProcessedAusrId;
 
 	@Column(name = "indc_status")
@@ -38,13 +39,13 @@ public class Induction {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "indc_processes_ausr_id", referencedColumnName = "ausr_empl_id", insertable = false, updatable = false)
-	private HrmsAdminUser adminUser;
+	private adminusers adminUser;
 
-	public int getIndcId() {
+	public Integer getIndcId() {
 		return indcId;
 	}
 
-	public void setIndcId(int indcId) {
+	public void setIndcId(Integer indcId) {
 		this.indcId = indcId;
 	}
 
@@ -54,6 +55,13 @@ public class Induction {
 
 	public void setIndcEmofId(int indcEmofId) {
 		this.indcEmofId = indcEmofId;
+	}
+
+	@Override
+	public String toString() {
+		return "Induction [indcId=" + indcId + ", indcEmofId=" + indcEmofId + ", indcDate=" + indcDate
+				+ ", indcProcessedAusrId=" + indcProcessedAusrId + ", indcStatus=" + indcStatus + ", employmentOffer="
+				+ employmentOffer + ", adminUser=" + adminUser + "]";
 	}
 
 	public Date getIndcDate() {
@@ -88,15 +96,12 @@ public class Induction {
 		this.employmentOffer = employmentOffer;
 	}
 
-	public HrmsAdminUser getAdminUser() {
+	public adminusers getAdminUser() {
 		return adminUser;
 	}
 
-	public void setAdminUser(HrmsAdminUser adminUser) {
+	public void setAdminUser(adminusers adminUser) {
 		this.adminUser = adminUser;
 	}
-
-	// Constructors, getters, and setters
-	// ...
 
 }

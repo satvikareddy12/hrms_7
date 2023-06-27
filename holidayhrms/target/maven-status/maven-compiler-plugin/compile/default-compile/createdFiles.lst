@@ -104,7 +104,6 @@ controllers\EmployeeController$1.class
 controllers\CandidateController.class
 models\EmployeeLeaveInputModel.class
 service\PaySlipMail.class
-models\HrmsAdminUser.class
 service\PaySlipMail$2.class
 controllers\EmployeeController$8.class
 models\EmploymentOffer.class

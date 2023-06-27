@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name = "hrms_inductiondocumenttypes")
 public class Inductiondocuments {
 	@Id
-
 	private int idty_id;
 	private String idty_title;
 

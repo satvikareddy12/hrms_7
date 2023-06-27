@@ -1,10 +1,12 @@
 
 package controllers;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,11 +45,19 @@ public class PayRollController {
 		this.payrollDAO = payrollDAO;
 	}
 
-	// Display the generated payslip
+	// get admin side pay roll form to select employee id and month
+	@RequestMapping(value = "/getemppayroll", method = RequestMethod.GET)
+	public String getPayRoll(Model model) {
+		return "payrollemp";
+	}
+
+	// Display the generated payslip at admin side for that particular employee in that month
 	@RequestMapping(value = "/getpayslip", method = RequestMethod.POST)
-	public String getPayslip(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String getAdminSidePaySlip(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println(month);
+
+		int Adminid = (int) session.getAttribute("adminId");
 
 		Employee employee = ed.getEmployeeById(id);
 		String firstName = employee.getEmplFirstname();
@@ -59,7 +69,8 @@ public class PayRollController {
 		double variablesal = employee.getEmpl_variablesal();
 
 		// for setting values into input model
-		int year = LocalDate.now().getYear();
+
+		int year = LocalDate.now().getYear(); // to get current year
 
 		System.out.println(year);
 		System.out.println(month + "-" + year);
@@ -94,6 +105,8 @@ public class PayRollController {
 		empPaySlip.setPtax(payRollInput.getPtax());
 		empPaySlip.setTa(payRollInput.getTa());
 		empPaySlip.setTds(payRollInput.getTds());
+		empPaySlip.setLastUpdatedUser(Adminid);
+		empPaySlip.setLastUpdatedDate(new Timestamp(System.currentTimeMillis()));
 
 		payrollDAO.insertEmployeePayslip(empPaySlip);
 
@@ -129,32 +142,27 @@ public class PayRollController {
 		return "payslip";
 	}
 
-	// Enter employee id to generate payroll
-	@RequestMapping(value = "/getemppayroll", method = RequestMethod.GET)
-	public String getPayRoll(Model model) {
-		return "payrollemp";
-	}
-
-	// Get month wise pay slip
+	// employe sie pay slip form
 	@RequestMapping(value = "/getemppayslip", method = RequestMethod.GET)
 	public String getMonthWisePaySlip(Model model) {
 		return "payslipEmpSide";
 	}
 
-	// Display payslip for an employee
+	// Display payslip for an employee based on the selected month
 	@RequestMapping(value = "/EmployeeSidePaySlip", method = RequestMethod.POST)
-	public String getEmployeePayslip(@RequestParam("month") int month, Model model) {
+	public String getEmployeePayslip(@RequestParam("month") int month, Model model, HttpSession session) {
 
-		Employee employee = ed.getEmployeeById(102);
+		int id = (int) session.getAttribute("employeeId");
+		Employee employee = ed.getEmployeeById(id);
 		int year = LocalDate.now().getYear();
 
 		try {
-			EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeIdAndMonthYear(102, month + "-" + year);
+			EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeIdAndMonthYear(id, month + "-" + year);
 
 			String firstName = employee.getEmplFirstname();
 			String lastName = employee.getEmplLastname();
 			String designation = employee.getEmplDesignation();
-			payRollOutput.setId(102);
+			payRollOutput.setId(id);
 			payRollOutput.setMonthYear(eps.getMonthYear());
 			payRollOutput.setFirstName(firstName);
 			payRollOutput.setLastName(lastName);
@@ -179,7 +187,8 @@ public class PayRollController {
 
 			model.addAttribute("output", payRollOutput);
 		} catch (Exception e) {
-			String errorMessage = "Please select a valid month.";
+			String errorMessage = "Please select a valid month."; // incase employee selects the month for which pay
+																	// slip haven't been generated
 			model.addAttribute("errorMessage", errorMessage);
 			return "errorPageforpayslip";
 		}

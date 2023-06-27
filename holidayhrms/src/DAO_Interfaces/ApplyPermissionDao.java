@@ -21,4 +21,6 @@ public interface ApplyPermissionDao {
 
 	ApplyPermissions getEmployeeAndPermissionRequestData(int id, Date current);
 
+	long getEmployeeApprovedPermissionsCount(int id, int year);
+
 }

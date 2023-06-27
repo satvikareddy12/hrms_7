@@ -18,7 +18,7 @@ public class EmploymentInductionDocument {
 	@Column(name = "emid_docindex")
 	private int documentIndex;
 
-	@Column(name = "empl_id") // , insertable = false, updatable = false)
+	@Column(name = "empl_id")
 	private int emplid;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -4,8 +4,11 @@ package controllers;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.google.gson.Gson;
 
 import DAO_Interfaces.ApplyPermissionDao;
 import models.ApplyPermissions;
@@ -30,23 +35,25 @@ public class PermissionsController {
 	private ApplyPermissionDao apd;
 	private ApplyPermissions ap;
 	private PermissionCompositeKey pcompositeKey;
+	private Gson gson;
 
 	@Autowired
-	public PermissionsController(ApplyPermissionDao apdi, ApplyPermissions app, PermissionCompositeKey cKey) {
+	public PermissionsController(ApplyPermissionDao apdi, ApplyPermissions app, PermissionCompositeKey cKey,
+			Gson gson) {
 		apd = apdi;
 		ap = app;
 		pcompositeKey = cKey;
+		this.gson = gson;
 	}
 
 	// To apply a permission
 	@RequestMapping(value = "/getpermissions")
-	public String applyPermission(Model model) {
+	public String applyPermission(Model model, HttpSession session) {
 		// set employee id from session
-		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(102, Date.valueOf(LocalDate.now()));
-		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(102, LocalDate.now().getMonthValue(),
+		int id = (int) session.getAttribute("employeeId");
+		Long daycount = apd.getEmployeeAndPermissionRequestDataCountPerDay(id, Date.valueOf(LocalDate.now()));
+		Long monthcount = apd.getEmployeeAndPermissionRequestDataCountPerMonth(id, LocalDate.now().getMonthValue(),
 				LocalDate.now().getYear());
-		System.out.println(daycount);
-		System.out.println(monthcount);
 		model.addAttribute("PermissionDayCount", daycount);
 		model.addAttribute("PermissionMonthCount", monthcount);
 		return "emppermission";
@@ -85,16 +92,13 @@ public class PermissionsController {
 
 	// To view permission requests by the admin
 	@RequestMapping(value = "/adminviewpermissions")
-	public String adminViewPermissionRequests(Model model) {
-
-		List<Employee> employees = apd.getEmployeesByHRAndManager(301);
+	public String adminViewPermissionRequests(Model model, HttpSession session) {
+		int id = (int) session.getAttribute("adminId");
+		List<Employee> employees = apd.getEmployeesByHRAndManager(id);
 		List<ApplyPermissions> outputmodel = new ArrayList<>();
 		for (Employee employee : employees) {
-			System.out.println(employee.getEmplId());
 			ApplyPermissions permission = apd.getEmployeeAndPermissionRequestData(employee.getEmplId(),
 					Date.valueOf(LocalDate.now()));
-
-			System.out.println(permission);
 			if (permission != null)
 				outputmodel.add(permission);
 		}
@@ -105,16 +109,14 @@ public class PermissionsController {
 	// If admin accept the permission request
 	@RequestMapping(value = "/acceptpermissions")
 	@Transactional
-	public ResponseEntity<String> acceptPermission(@ModelAttribute PermissionAdminModel pm) {
+	public ResponseEntity<String> acceptPermission(@ModelAttribute PermissionAdminModel pm, HttpSession session) {
 		try {
-			System.out.println(pm.getId());
+			int id = (int) session.getAttribute("adminId");
 			ApplyPermissions permission = apd.getPermissionByIdAndIndex(pm.getId(), pm.getIndex());
-
-			System.out.println(permission);
 			if (permission != null) {
 				permission.setEprq_status("accept");
 				// Set other properties if needed
-				permission.setEprq_approvedby(123 + "");
+				permission.setEprq_approvedby(id + "");
 				apd.persist(permission);
 				return ResponseEntity.ok("success");
 			} else {
@@ -147,6 +149,16 @@ public class PermissionsController {
 			String errorMessage = "Internal Server Error";
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 		}
+	}
+
+	@RequestMapping(value = "/permissionStatistics")
+	public ResponseEntity<String> getPermissionsCount(HttpSession session) {
+		int id = (int) session.getAttribute("employeeId");
+		long count = apd.getEmployeeApprovedPermissionsCount(id, Year.now().getValue());
+
+		System.out.println(count);
+
+		return ResponseEntity.ok(gson.toJson(count));
 	}
 
 }

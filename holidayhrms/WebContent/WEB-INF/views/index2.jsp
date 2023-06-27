@@ -423,6 +423,21 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 		 
 	 });
 	 
+	 $.ajax({
+		 url:"permissionStatistics",
+		 type:"GET",
+		 success:function(response){
+			 console.log(response);
+			 
+			 $('#field3').text(response);
+			 
+		 },
+		 error:function(error){
+			 console.log(error);
+		 }
+		 
+	 });
+	 
 	 createPunchGraph();
 	 
 	 
@@ -435,7 +450,7 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
 			 console.log(JSON.parse(response));
 			 var piegraphdata = JSON.parse(response);
 			 $('#field1').text(piegraphdata.takenTotalLeaves);
-			 createPieGraph(piegraphdata.allowedTotalLeaves,piegraphdata.takenTotalLeaves,24,8);
+			 createPieGraph(piegraphdata.allowedTotalLeaves,piegraphdata.takenTotalLeaves,24, $('#field3').val());
 		 },
 		 error:function(error){
 			 console.log(error);

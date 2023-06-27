@@ -21,7 +21,7 @@ public class EmploymentOfferDocument implements Serializable {
 	@Column(name = "eofd_docindex")
 	private int documentIndex;
 
-	@Column(name = "eofd_idty_id", insertable = false, updatable = false)
+	@Column(name = "eofd_idty_id")
 	private int offeridentity;
 
 	@ManyToOne
