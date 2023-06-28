@@ -3,6 +3,7 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -50,10 +51,15 @@ public class EmpDAO {
 	}
 
 	@Transactional
-	public Admin getDetailsByEmail_admin(String emailId) {
-		TypedQuery<Admin> query = em.createQuery("SELECT e FROM Admin e WHERE e.ausr_email = :emailId", Admin.class);
-		query.setParameter("emailId", emailId);
-		return query.getSingleResult();
+	public Admin getAdminDetailsById(int id) {
+		TypedQuery<Admin> query = em.createQuery("SELECT e FROM Admin e WHERE e.ausr_empl_id = :Id", Admin.class);
+		query.setParameter("Id", id);
+		try {
+			Admin a = query.getSingleResult();
+			return a;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 }

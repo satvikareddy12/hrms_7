@@ -104,8 +104,6 @@
     <bean id="attendanceEvent" class="models.AttendanceEvent" scope="prototype"></bean>
 	<bean id="attendanceId" class="models.EmployeeAttendanceId" autowire="byName" />
 	<bean id="response" class="models.EmployeeRequestResult" autowire="byName" />
-	<bean id="employeeAttendanceService" class="service.EmployeeAttendanceService" />
-	<bean id="employeeAttendanceDAO" class="DAO.EmployeeAttendanceDAOImpl"  />
 	<bean id="jobGradeLeavesOutModel" class="models.input.output.JobGradeLeavesOutModel" scope="prototype" />
 	<bean id="empserv" class="service.EmpService" /> 
     <bean id="empauto" class="models.Employee" /> 
@@ -126,6 +124,12 @@
     <!-- Set the maximum allowed size for a request (in bytes) -->
     <property name="maxUploadSizePerFile" value="5242880"/> <!-- 5MB -->
     </bean>
+    
+    
+  <!-- updated -->
+  
+  <bean id="employeeAttendanceService" class="service.EmployeeAttendanceService" autowire="byName"/>
+	<bean id="employeeAttendanceDAO" class="DAO.EmployeeAttendanceDAOImpl" autowire="byName" />
     
     
 </beans>

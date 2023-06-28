@@ -19,11 +19,6 @@ public class EmployeeLoginService {
 		return empdao.getDetailsByEmail(email);
 	}
 
-	public Admin getAdmin(String email) {
-		Admin user = empdao.getDetailsByEmail_admin(email);
-		return user;
-	}
-
 	@Transactional
 	public boolean authenticateUser(String email, String password) {
 		Employee user = empdao.getDetailsByEmail(email);
@@ -36,9 +31,17 @@ public class EmployeeLoginService {
 
 	@Transactional
 	public boolean authenticateUser_admin(String email, String password) {
-		Admin user = empdao.getDetailsByEmail_admin(email);
 
-		if (user != null && user.getAusr_password().equals(hashPassword(password))) {
+		Employee user = empdao.getDetailsByEmail(email);
+
+		int userid = user.getEmplId();
+
+		Admin admin = empdao.getAdminDetailsById(userid);
+
+		if (admin == null)
+			return false;
+
+		if (user != null && user.getPassword().equals(hashPassword(password))) {
 			return true;
 		}
 		return false;

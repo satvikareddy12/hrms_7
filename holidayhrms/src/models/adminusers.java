@@ -35,9 +35,6 @@ public class adminusers implements Serializable {
 	@Column(name = "ausr_email")
 	private String email;
 
-	@Column(name = "ausr_password")
-	private String password;
-
 	@Column(name = "ausr_empl_jbgr")
 	private String employeeJobGrade;
 
@@ -79,14 +76,6 @@ public class adminusers implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getEmployeeJobGrade() {
