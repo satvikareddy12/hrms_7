@@ -4,67 +4,7 @@
 <html>
 <head>
 <title>Leave Form</title>
-  <style>
-    /* Add modern CSS styles for formatting */
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input[type="number"],
-    input[type="date"],
-    input[type="time"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    textarea {
-      height: 100px;
-    }
-
-    .submit-button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .submit-button:hover {
-      background-color: #45a049;
-    }
-
-    #info-msg {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 16px;
-      color: #555;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="./css/leaveform.css">
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
 	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="

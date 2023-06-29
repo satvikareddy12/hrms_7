@@ -4,84 +4,10 @@
 <html>
 <head>
     <title>Employment Induction Documents</title>
-    <style>
-       
-        
-        h1, h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-        
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        label {
-            display: inline-block;
-            width: 150px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        input[type="text"],
-        input[type="file"] {
-            padding: 5px;
-            width: 300px;
-        }
-        
-        button[type="submit"] {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        
-        .add-document-form {
-            display: none;
-        }
-        
-        .show-form {
-            display: block;
-        }
-        button
-        {
-         background-color: #333;
-         padding: 10px 20px;
-         margin: 0 auto;
-         color: #fff;
-           
-        }
-        h1,h2
-        {
-         text-align: center;
-        }
-        form,label
-        {
-          text-align: center;
-        }
-    </style>
-    <script>
-        function showAddDocumentForm() {
-            var form = document.getElementById("addDocumentForm");
-            form.classList.toggle("show-form");
-        }
-    </script>
+
+	 <link rel="stylesheet" type="text/css" href="./css/InductionDocument.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/InductionDocument.js"></script>
 </head>
 <body>
     <h1>Employment Induction Documents</h1><br>

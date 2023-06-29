@@ -3,52 +3,8 @@
 <html>
 <head>
     <title>Approved Leaves</title>
-    <style>
-        /* Add your custom CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        
-        h1 {
-           
-            text-align: center;
-        }
-        
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-        }
-        
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .rejected {
-            background-color: #FFCCCC;
-        }
-        
-        .in-progress {
-            background-color: #FFFFCC;
-        }
-        
-        .approved {
-            background-color: #CCFFCC;
-        }
-    </style>
+ <link rel="stylesheet" type="text/css" href="./css/employeeLeaveHistory.css">
+ 
 </head>
 <body>
     <%@ page import="java.util.List, java.util.ArrayList" %>

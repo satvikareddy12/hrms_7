@@ -8,39 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>List of Holidays</title>
-
-    <style>
-        
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        table {
-            margin-top: 20px;
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-        }
-        
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
+     <link rel="stylesheet" type="text/css" href="./css/gradeHolidays.css">
+   
 </head>
 <body>
  <h1>Job Grade Wise Holidays</h1><br>

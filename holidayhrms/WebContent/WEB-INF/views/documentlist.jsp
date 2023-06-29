@@ -5,104 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-  	   .container {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      max-width: 600px;
-      background-color: white;
-  
-    }
-  
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #333333;
-    }
-
-    .category-select {
-      margin-bottom: 20px;
-    }
-
-    label {
-      font-weight: bold;
-      color: #333333;
-    }
-
-    select {
-      padding: 8px;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    .category {
-      margin-bottom: 30px;
-    }
-
-    .category-title {
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #333333;
-    }
-
-    .document {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .document-name {
-      margin-right: 10px;
-      color: #333333;
-      font-size: 16px;
-    }
-.document-name a {
-    color: #FF0000; /* Change the color to your preferred color */
-    text-decoration: none;
-  }
-
- .delete-button {
-    padding: 5px 10px;
-    background-color: #FF0000; /* Change the background color to your preferred color */
-    color: red;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px; /* Change the font size to your preferred size */
-    font-weight: bold; /* Add font weight if desired */
-    /* Add any other desired styles */
-  }
-
-  .delete-button:hover {
-    background-color:  #45a049; /* Change the background color on hover if desired */
-    text-decoration: none;
-  }
-    .add-button {
-      margin-top: 20px;
-    }
-
-    .add-button a {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    .add-button a:hover {
-      background-color: #45a049;
-    }
-
-    #message {
-      display: none;
-      font-size: 16px;
-      margin-top: 20px;
-      color: #333333;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="./css/documentlist.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/documentlist.js"></script>
 </head>
 <body>
  <div class="container">
@@ -197,60 +102,7 @@
     <a href="addReferenceDocument">Add Document</a>
   </div>
 </div>
-  <script>
-    function filterDocumentsByCategory() {
-      var category = document.getElementById("category").value;
 
-      // Show/hide the corresponding categories based on the selected option
-      var categories = ["code-of-conduct", "employee-handbook", "Anti-Harassment-Policy", "IT-Security-Policy", "Travel-and-Expense-Policy"];
-      for (var i = 0; i < categories.length; i++) {
-        var categoryId = categories[i];
-        if (category === "all" || category === categoryId) {
-          document.getElementById(categoryId).style.display = "block";
-        } else {
-          document.getElementById(categoryId).style.display = "none";
-        }
-      }
-    }
-
-
-
-
-
-    function deleteDocument(documentId) {
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = '/deleteReferenceDocument'; // Replace with the appropriate URL for your delete endpoint
-
-      const documentIdInput = document.createElement('input');
-      documentIdInput.type = 'hidden';
-      documentIdInput.name = 'documentId';
-      documentIdInput.value = documentId;
-
-      form.appendChild(documentIdInput);
-      document.body.appendChild(form);
-      form.submit();
-    }
-
-    function showMessage(message) {
-      // Assuming you have a message element in your HTML, e.g., <div id="message"></div>
-      const messageElement = document.getElementById('message');
-      messageElement.textContent = message;
-      messageElement.style.display = 'block';
-    }
-
-    function updateUI(documentId) {
-      const documentElement = document.getElementById(documentId); // Find the document element to be removed
-      if (documentElement) {
-        documentElement.remove(); // Remove the document element from the DOM
-        refreshPage();
-      }
-    }
-
-    function refreshPage() {
-      location.reload(); // Reload the current page
-    }
-  </script>
 </body>
 
 </html>

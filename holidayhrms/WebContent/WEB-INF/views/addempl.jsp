@@ -10,84 +10,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Form</title>
-     <style>
-        
-        h1 {
-            color: #333;
-        }
-        
-        form {
-            max-width: 500px;
-            margin: 0 auto; /* Center align the form */
-            margin-top: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        
-        button.back-button {
-    		 background-color: #4CAF50;
-             color: white;
-             border: none;
-             padding: 10px 20px;
-             margin-top: 10px;
-             cursor: pointer;
-             border-radius: 3px;
-		}
-		 .modal {
-        display: block;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 2% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 800px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Center the content */
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }		
-    </style>   
+      
+      <link rel="stylesheet" type="text/css" href="./css/addEmpl.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="./js/addEmpl.js"></script>
 </head>
 
 <body>
@@ -175,22 +102,7 @@
     <div id="employeeList">       
     </div>
     
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-        function loadEmployeeList() {
-    	$.ajax({
-        	url: "employeeList", 
-        	method: "GET",
-        	success: function(response) {
-            	$("#employeeList").html(response);
-        	},
-        	error: function(xhr, status, error) {
-            	console.log("Error loading employee list: " + error);
-        	}
-    	});
-	}
-    loadEmployeeList();
-    setInterval(loadEmployeeList, 2000);
-   </script>
+
+  
 </body>
 </html>

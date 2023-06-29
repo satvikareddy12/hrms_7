@@ -3,91 +3,10 @@
 <html>
 <head>
     <title>Enter Candidate ID</title>
-    <style>
-        
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        
-        form {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        
-        input[type="text"] {
-            padding: 5px;
-            width: 200px;
-        }
-        
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        
-        
-        select {
-            width: 15%;
-            padding: 5px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        
-           .payroll-button {
-            width: 15%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .payroll-button:hover {
-            background-color: #45a049;
-        }
-        
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-  <script>
   
-
-    function payroll() {
-    	
-    	$("#msg").text("Generating...........");
-
-      $.ajax({
-        type: "POST",
-        url: "getpayslip", 
-        data: $("#payrollemp").serialize(),
-        success: function(response) {
-        	
-        	$("#msg").empty();
-          var containerDiv = $(".main");
-          containerDiv.html(response);
-        },
-        error: function() {
-        	$("#msg").text("Error Occured")
-          alert("Error occurred. Please try again later.");
-        }
-      });
-    	
-  
-    }
- 
-  </script>
+ <link rel="stylesheet" type="text/css" href="./css/payRollEmp.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/payRollEmp.js"></script>
   
   
     

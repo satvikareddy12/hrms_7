@@ -3,91 +3,11 @@
 <html>
 <head>
 <title>Attendance Details</title>
-<style>
-/* Add modern CSS styles for formatting */
-.empattendance {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 20px;
-}
 
-.attendance-container {
-	max-width: 600px;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-h1 {
-	color: #333;
-	text-align: center;
-	margin-top: 0;
-}
+<link rel="stylesheet" type="text/css" href="./css/employeeAttendance.css">
+     
 
-h2 {
-	color: #555;
-}
-
-.attendance-info {
-	margin-bottom: 20px;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-th, td {
-	padding: 10px;
-	text-align: center;
-	border-bottom: 1px solid #ddd;
-}
-
-th {
-	background-color: #f2f2f2;
-	color: #333;
-}
-
-.month-select {
-	width: 150px; /* Adjust the width as needed */
-	margin-bottom: 10px;
-	appearance: none;
-	background-color: #f2f2f2;
-	border: none;
-	padding: 10px;
-	font-size: 14px;
-	color: #333;
-	border-radius: 5px;
-}
-
-.month-select option {
-	background-color: #fff;
-}
-
-.month-select:focus {
-	outline: none;
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
-
-.select-container {
-	position: relative;
-}
-
-/* Remove the triangles on the right side */
-.select-container::before,
-.select-container::after {
-	content: none;
-}
-
-.minimum-hours {
-	margin-top: 10px;
-	font-size: 14px;
-	color: #555;
-}
-
-</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>

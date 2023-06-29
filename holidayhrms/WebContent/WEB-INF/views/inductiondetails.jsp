@@ -6,56 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Induction Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        
-        h1 {
-            color: #333;
-        }
-        
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-        }
-        
-        .no-inductions {
-            color: #777;
-        }
-        
-        button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-     <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+ <link rel="stylesheet" type="text/css" href="./css/inductiondetails.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/inductiondetails.js"></script>
 </head>
 <body>
     <% 

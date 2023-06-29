@@ -3,54 +3,9 @@
 <html>
 <head>
     <title>Enter Candidate Details</title>
-    <style>
-        
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-    </style>
+ <link rel="stylesheet" type="text/css" href="./css/candidate.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/candidate.js"></script>
     
 </head>
 <body>
@@ -92,21 +47,6 @@
         <input type="submit" value="Submit">
     </form>
     
-     <script>
-        function loadEmployeeList() {
-    	$.ajax({
-        	url: "candidateadded", 
-        	method: "GET",
-        	success: function(response) {
-            	$("#candidateadded").html(response);
-        	},
-        	error: function(xhr, status, error) {
-            	console.log("Error loading employee list: " + error);
-        	}
-    	});
-	}
-    loadEmployeeList();
-    setInterval(loadEmployeeList, 2000);
-    </script>
+     
 </body>
 </html>

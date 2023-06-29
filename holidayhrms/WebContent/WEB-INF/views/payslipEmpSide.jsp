@@ -4,50 +4,9 @@
 <html>
 <head>
     <title>Select Payslips by Month</title>
-    <style>
-       
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+ 	 <link rel="stylesheet" type="text/css" href="./css/paySlipEmpSide.css">
+  
 
-        form {
-            width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        select {
-            width: 100%;
-            padding: 5px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #009933;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #008026;
-        }
-    </style>
 </head>
 <body>
     <h2>Select Payslips by Month</h2>

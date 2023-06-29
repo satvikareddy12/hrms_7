@@ -9,56 +9,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile Page</title>
-  <style>
-    .profile-picture {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 20px;
-      align-items: center;
-      margin: 0 auto;
-      background-color: #f2f2f2;
-      color: #666666;
-      font-size: 48px;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-top: 20px;
-    }
-
-    .form-group label {
-      font-weight: bold;
-    }
-
-    .form-group input[type="text"] {
-      background-color: #f2f2f2;
-      border: none;
-      color: #666666;
-    }
-
-    .form-group input[type="text"]:read-only {
-      background-color: #ffffff;
-    }
-
-    .form-group input[type="text"]:focus {
-      outline: none;
-    }
-
-    .form-group button {
-      margin-top: 10px;
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 10px;
-    }
-    form
-    {
-      text-align: center;
-    }
-    label
-    {
-      text-align: center;
-    }
-  </style>
+<link rel="stylesheet" type="text/css" href="./css/profile.css">
+ 
 </head>
 <body>
      <form action="update_address" method="POST">

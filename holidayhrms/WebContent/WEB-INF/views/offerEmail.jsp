@@ -8,91 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Offer Letter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        p {
-            margin-bottom: 10px;
-        }
-        
-        ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-        
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .send-button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 4px;
-        }
-               
- .popup{
-	width:400px;
-	background:#fff;
-	border-radius:6px;
-	position:absolute;
-	top:0;
-	left:50%;
-	transform:translate(-50%,-50%) scale(0.1);
-	text-align:center;
-	padding:0 30px 30px;
-	color:#333;	
-	visibility: hidden;
-	transition:transform 0.4s,top 0.4s;
-}
-
-.open-popup{
-	visibility: visible;
-	top:50%;
-	transform:translate(-50%,-50%) scale(1);
-}
-
-.popup img{
-	width:100px;
-	margin-top:-50px;
-	border-radius:50%;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.popup h2{
-	font-size:38px;
-	font-weight:500;
-	margin:30px 0px 10px;
-	
-}
-
-.popup button{
-	width:100%;
-	margin-top:50px;
-	padding:10px 0;
-	background:#6fd649;
-	color:#fff;
-	border:0;
-	outline:none;
-	font-size:18px;
-	border-radius:4px;
-	cursor:pointer;
-	box-shadow:0 5px 5px rgba(0,0,0,0.2);
-}       
-        
-    </style>
+ <link rel="stylesheet" type="text/css" href="./css/offerEmail.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="./js/offerEmail.js"></script>
 </head>
 <body>
 
@@ -137,25 +55,7 @@ Please note that the information provided in this offer letter is subject to the
     <button type="button" onclick="closePopup()">OK</button>
 </div>
 
-<script>
-    let popup = document.getElementById("popup");
 
-    function openPopup(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Show the pop-up
-        popup.classList.add("open-popup");
-
-        // Submit the form after a delay of 1 second (adjust the delay if needed)
-        setTimeout(() => {
-            document.getElementById("sendOfferForm").submit();
-        }, 1000);
-    }
-
-    function closePopup() {
-        popup.classList.remove("open-popup");
-    }
-</script>
 
 
     

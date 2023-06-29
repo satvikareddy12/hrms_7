@@ -10,47 +10,8 @@
     <meta charset="UTF-8">
     <title>Create Induction</title>
    
-   <style>
-        
+	 <link rel="stylesheet" type="text/css" href="./css/createInduction.css">
 
-        .container {
-            width: 400px;
-            padding: 20px;
-            background-color: #f4f4f4;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 0;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        select, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        select[multiple] {
-            height: 100px;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
    
 </head>
 <body>
