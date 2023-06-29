@@ -362,7 +362,7 @@
     function issueOffer() {
   	  $.ajax({
   	    type: "GET",
-  	    url: "abs",
+  	    url: "issue",
   	   
   	    success: function(response) {
   	      var containerDiv = $("#main");

@@ -127,9 +127,11 @@
     
     
   <!-- updated -->
-  
+  <bean id="offerLetterDAO" class="DAO.OfferLetterDAOImpl"  autowire="byName" />
   <bean id="employeeAttendanceService" class="service.EmployeeAttendanceService" autowire="byName"/>
 	<bean id="employeeAttendanceDAO" class="DAO.EmployeeAttendanceDAOImpl" autowire="byName" />
+	  <bean id="empoffdocComposite" class="models.EmploymentOfferDocComposite" scope="prototype"/>
+    <bean id="employmentofferdocument" class="models.EmploymentOfferDocument" scope="prototype"/>
     
     
 </beans>

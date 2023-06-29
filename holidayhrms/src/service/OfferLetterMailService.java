@@ -32,7 +32,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.itextpdf.html2pdf.HtmlConverter;
 
 @SuppressWarnings("deprecation")
-public class offerlettermail {
+public class OfferLetterMailService {
 	public static void sendEmail(HttpServletRequest request, HttpServletResponse response, models.OfferModel offerModel)
 			throws Exception {
 		// Set up model attributes with the variables for JSP replacements
@@ -78,7 +78,7 @@ public class offerlettermail {
 			// mm.setContent(renderedHtml, "text/html");
 			mm.setContent("This is Your Offer ...........\n", "text/html");
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("Congratulations You are the new CEO of Google");
+			messageBodyPart.setText("Congratulations You are Selected");
 
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBodyPart);

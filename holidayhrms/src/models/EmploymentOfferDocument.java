@@ -1,25 +1,18 @@
 package models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-
 @Table(name = "hrms_employmentofferdocuments")
-public class EmploymentOfferDocument implements Serializable {
+public class EmploymentOfferDocument {
 
-	@Id
-	@Column(name = "eofd_id", insertable = false, updatable = false)
-	private int offerid;
-
-	@Column(name = "eofd_docindex")
-	private int documentIndex;
+	@EmbeddedId
+	private EmploymentOfferDocComposite empoff;
 
 	@Column(name = "eofd_idty_id")
 	private int offeridentity;
@@ -32,20 +25,12 @@ public class EmploymentOfferDocument implements Serializable {
 	@JoinColumn(name = "eofd_idty_id", referencedColumnName = "idty_id", insertable = false, updatable = false)
 	private InductionDocumentTypes documentType;
 
-	public int getOfferid() {
-		return offerid;
+	public EmploymentOfferDocument(EmploymentOfferDocComposite comp, int idtyId) {
+		this.offeridentity = idtyId;
+		this.empoff = comp;
 	}
 
-	public void setOfferid(int offerid) {
-		this.offerid = offerid;
-	}
-
-	public int getDocumentIndex() {
-		return documentIndex;
-	}
-
-	public void setDocumentIndex(int documentIndex) {
-		this.documentIndex = documentIndex;
+	public EmploymentOfferDocument() {
 	}
 
 	public int getOfferidentity() {
@@ -72,14 +57,17 @@ public class EmploymentOfferDocument implements Serializable {
 		this.documentType = documentType;
 	}
 
-	// Constructors, getters, and setters
-	/**
-	 * // Override equals() and hashCode() methods
-	 * 
-	 * @Override public boolean equals(Object o) { if (this == o) { return true; } if (o == null || getClass() !=
-	 *           o.getClass()) { return false; } EmploymentOfferDocument that = (EmploymentOfferDocument) o; return
-	 *           Objects.equals(id, that.id); }
-	 * 
-	 * @Override public int hashCode() { return Objects.hash(id); }
-	 **/
+	public EmploymentOfferDocComposite getEmpoff() {
+		return empoff;
+	}
+
+	public void setEmpoff(EmploymentOfferDocComposite empoff) {
+		this.empoff = empoff;
+	}
+
+	@Override
+	public String toString() {
+		return "empoffdocuments [empoff=" + empoff + ", eofdIdtyId=" + offeridentity + "]";
+	}
+
 }

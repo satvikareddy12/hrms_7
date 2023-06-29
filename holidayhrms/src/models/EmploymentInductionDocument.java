@@ -25,17 +25,17 @@ public class EmploymentInductionDocument {
 	@JoinColumn(name = "empl_id", referencedColumnName = "eofr_cand_id", insertable = false, updatable = false)
 	private HrmsEmploymentOffer employmentOffer;
 
-	@Column(name = "emid_idty_id") // , insertable = false, updatable = false)
+	@Column(name = "emid_idty_id")
 	private int emplidty;
 
 	@ManyToOne
-	@JoinColumn(name = "emid_idty_id", referencedColumnName = "eofd_idty_id", insertable = false, updatable = false)
-	private EmploymentOfferDocument documentType;
+	@JoinColumn(name = "emid_idty_id", referencedColumnName = "idty_id", insertable = false, updatable = false)
+	private InductionDocumentTypes documentType;
 
 	@Column(name = "emid_document")
 	private String documentData;
 
-	@Column(name = "emid_processed_ausr_id") // , insertable = false, updatable = false)
+	@Column(name = "emid_processed_ausr_id")
 	private int indcProcessedAusrId;
 
 	@ManyToOne
@@ -115,11 +115,11 @@ public class EmploymentInductionDocument {
 		this.employmentOffer = employmentOffer;
 	}
 
-	public EmploymentOfferDocument getDocumentType() {
+	public InductionDocumentTypes getDocumentType() {
 		return documentType;
 	}
 
-	public void setDocumentType(EmploymentOfferDocument documentType) {
+	public void setDocumentType(InductionDocumentTypes documentType) {
 		this.documentType = documentType;
 	}
 

@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.time.LocalDate" %>
 <%@page import="models.Candidate" %>
-<%@page import="models.HRDepartment" %>
+<%@page import="models.Employee" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -84,23 +84,29 @@
 <form action="email" method="POST" >
 
   <h1>New Offer Letter</h1>
-           <%  Candidate candidate = (Candidate) request.getAttribute("candidate"); %> 
-           <%  HRDepartment hr = (HRDepartment) request.getAttribute("hr"); %> 
+           <%  Candidate candidate = (Candidate)request.getAttribute("candidate"); %> 
+           <%  Employee hr = (Employee)request.getAttribute("hr"); %> 
            <%  List <String> listOfDocuments =(List<String>) request.getAttribute("listOfDocuments"); %> 
+
+
+ <div class="form-group">
+    <label for="candidate-name">Candidate Name:</label>
+<input type="hidden" id="candidateId" name="candidateId" value="<%= candidate.getCandId() %>" readonly>
+  </div>
+  
 
    <div class="form-group">
     <label for="candidate-name">Candidate Name:</label>
 <input type="text" id="candidateName" name="candidateName" value="<%= candidate.getCandFirstName() + candidate.getCandLastName() %>" readonly>
   </div>
-  
 <div class="form-group">
     <label for="hr-mobile">Admin Mobile:</label>
-    <input type="text" id="adminMobile" name="adminMobile" value="<%= hr.getMobileNumber() %>" readonly>
+    <input type="text" id="adminMobile" name="adminMobile" value="<%= hr.getEmplMobile()%>" readonly>
   </div>
 
   <div class="form-group">
     <label for="hr-email">Admin Email:</label>
-    <input type="email" id="adminEmail" name="adminEmail" value="<%= hr.getEmail() %>"readonly>
+    <input type="email" id="adminEmail" name="adminEmail" value="<%= hr.getEmplOffemail() %>"readonly>
   </div>
 
   <div class="form-group">
@@ -127,7 +133,6 @@
   </div>
 
 <button class="add-component-button" onclick="addComponent(); event.preventDefault()">Add Component</button>
- 
   <br>
   
 
@@ -139,30 +144,26 @@
     let componentCount = 0;
 
     function addComponent() {
-        const componentsContainer = document.getElementById('components-container');
-        componentCount++;
+      const componentsContainer = document.getElementById('components-container');
+      componentCount++;
 
-        const component = document.createElement('div');
-        component.className = 'component';
-        component.innerHTML = `
-            <label for="component-input-${componentCount}"></label>
-            <label for="documents">Document:</label>
-            <select id="documents" name="documents">
-                <c:forEach var="document" items="${listOfDocuments}">
-                    <c:if test="${document != 'offer letter'}">
-                        <option value="${document}">${document}</option>
-                    </c:if>
-                </c:forEach>
-            </select>
-            <button class="delete-component-button" onclick="deleteComponent(this)">Delete</button>
-        `;
-        componentsContainer.appendChild(component);
+      const component = document.createElement('div');
+      component.className = 'component';
+      component.innerHTML = `
+        <label for="component-input-${componentCount}"></label>
+        <label for="documents">Document:</label>
+        <select id="documents" name="documents">
+            <c:forEach var="document" items="${listOfDocuments}">
+                <c:if test="${document != 'offer letter'}">
+                    <option value="${document}">${document}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+      `;
+      componentsContainer.appendChild(component);
     }
 
-    function deleteComponent(button) {
-        const component = button.parentNode;
-        component.parentNode.removeChild(component);
-    }
-</script>
+   
+  </script>
 </body>
 </html>

@@ -16,7 +16,7 @@ public class InductionDocumentTypes {
 	@Column(name = "idty_code")
 	private String idtyCode;
 
-	@Column(name = "idty_titly")
+	@Column(name = "idty_title")
 	private String idtyTitle;
 
 	@Column(name = "idty_desc")
