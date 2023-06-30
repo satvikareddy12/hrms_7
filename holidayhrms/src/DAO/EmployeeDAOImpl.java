@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +22,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	@Transactional
-	public List<Employee> getAllEmployees() {
-		String query = "SELECT e FROM Employee e WHERE e.emplHrEmplId=301";
-		return entityManager.createQuery(query, Employee.class).getResultList();
+	public List<Employee> getAllEmployees(HttpSession session) {
+		int adminId = (int) session.getAttribute("adminId");
+		String query = "SELECT e FROM Employee e WHERE e.emplHrEmplId = :adminId";
+		return entityManager.createQuery(query, Employee.class).setParameter("adminId", adminId).getResultList();
 	}
 
 	@Override

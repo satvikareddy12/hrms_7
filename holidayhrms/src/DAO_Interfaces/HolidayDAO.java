@@ -11,4 +11,10 @@ public interface HolidayDAO {
 	GradeHoliday findHolidayById(String id);
 
 	List<GradeHoliday> findAllGradeHolidays();
+
+	List<Holiday> findAlloptedHolidays();
+
+	int countMandHolidays();
+
+	long getEmployeeoptionalholidaysCount(int id, int year);
 }

@@ -46,4 +46,40 @@ public class HolidayDAOImpl implements HolidayDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	@Transactional
+	public List<Holiday> findAlloptedHolidays() {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Holiday> cq = cb.createQuery(Holiday.class);
+		Root<Holiday> root = cq.from(Holiday.class);
+		cq.select(root);
+		cq.where(cb.equal(root.get("hday_type"), "OPTN"));
+		TypedQuery<Holiday> query = entityManager.createQuery(cq);
+		return query.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public int countMandHolidays() {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		Root<Holiday> root = cq.from(Holiday.class);
+		cq.select(cb.count(root));
+		cq.where(cb.equal(root.get("hday_type"), "MAND"));
+		TypedQuery<Long> query = entityManager.createQuery(cq);
+		Long count = query.getSingleResult();
+		return count.intValue();
+	}
+
+	@Override
+	public long getEmployeeoptionalholidaysCount(int id, int year) {
+		String jpqlQuery = "SELECT COUNT(e) FROM EmployeeOptedLeaves e WHERE e.optedleavesId.employeeId = :employeeId AND  EXTRACT(YEAR FROM e.optedleavesId.holidayDate) = :year";
+		TypedQuery<Long> query = entityManager.createQuery(jpqlQuery, Long.class);
+		query.setParameter("employeeId", id);
+		query.setParameter("year", year);
+		Long count = query.getSingleResult();
+		System.out.println("dao count" + count);
+		return count;
+	}
+
 }

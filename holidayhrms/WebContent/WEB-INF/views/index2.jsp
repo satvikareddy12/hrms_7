@@ -246,6 +246,9 @@ canvas {
               <li class="item">
                 <a onclick="getLeaves()"><i class="ri-file-list-line"></i> Leaves</a>
               </li>
+               <li class="item">
+                <a onclick="optionalHolidays()"><i class="ri-calendar-line"></i>Choose Optional Holidays</a>
+              </li>
             </ul>
           </li>
           <li class="item">
@@ -717,6 +720,23 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
     	});
     }
     
+    function optionalHolidays() {
+   	 console.log("hello from optional holidays");
+   	 $(".main").empty();
+       	  $.ajax({
+       	    type: "GET",
+       	    url: "optionalHoliday",
+       	    data: {},
+       	    success: function(response) {
+       	      var containerDiv = $(".main");
+       	      containerDiv.html(response);
+       	     
+       	    },
+       	    error: function() {
+       	      alert("Error occurred. Please try again later.");
+       	    }
+       	  });
+       	}
     
     
  </script>

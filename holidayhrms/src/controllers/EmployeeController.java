@@ -3,6 +3,8 @@ package controllers;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +40,8 @@ public class EmployeeController {
 
 	// To display employees list
 	@RequestMapping("/employees")
-	public String showEmployeeList(Model model) {
-		List<Employee> employees = emp.getAllEmployees();
+	public String showEmployeeList(Model model, HttpSession session) {
+		List<Employee> employees = emp.getAllEmployees(session);
 		List<EmployeeOutput> employeeOutputs = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
 		}.getType());
 		model.addAttribute("employees", employeeOutputs);
@@ -65,14 +67,14 @@ public class EmployeeController {
 
 	// To display list of employees after insertion of a new employee
 	@RequestMapping(value = "/employeeList", method = RequestMethod.POST)
-	public String insertedEmployeeList(@ModelAttribute Employee emps, Model model) {
+	public String insertedEmployeeList(@ModelAttribute Employee emps, Model model, HttpSession session) {
 
 		emps.setEmplLuuser(301);
 		Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 		emps.setEmplLuudate(currentTimestamp);
 		emp.insertEmployee(emps);
 
-		List<Employee> employees = emp.getAllEmployees();
+		List<Employee> employees = emp.getAllEmployees(session);
 		List<EmployeeOutput> eout = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
 		}.getType());
 		model.addAttribute("employees", eout);
@@ -88,9 +90,9 @@ public class EmployeeController {
 
 	// To display list of employees after deletion of an employee
 	@PostMapping(value = "/employeeListDelete")
-	public String deletedEmployeeList(@RequestParam("emplId") int emplId, Model model) {
+	public String deletedEmployeeList(@RequestParam("emplId") int emplId, Model model, HttpSession session) {
 		emp.updateEmployeeStatus(emplId, "deleted");
-		List<Employee> employees = emp.getAllEmployees();
+		List<Employee> employees = emp.getAllEmployees(session);
 		List<EmployeeOutput> employeeOutputs = modelMapper.map(employees, new TypeToken<List<EmployeeOutput>>() {
 		}.getType());
 		model.addAttribute("employees", employeeOutputs);
@@ -110,9 +112,12 @@ public class EmployeeController {
 
 	// To show the status of the employee update
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updateStatus(@ModelAttribute EmployeeOutput empst, Model model) {
+	public String updateStatus(@ModelAttribute EmployeeOutput empst, Model model, HttpSession session) {
 		Employee erm = modelMapper.map(empst, new TypeToken<Employee>() {
 		}.getType());
+		erm.setEmplLuuser((int) session.getAttribute("adminId"));
+		Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+		erm.setEmplLuudate(currentTimestamp);
 		emp.updateEmployee(erm);
 		model.addAttribute("message", "Employee details updated successfully!");
 		return "update";
@@ -130,10 +135,23 @@ public class EmployeeController {
 
 	// To display the employee profile
 	@RequestMapping(value = "/toprofile", method = RequestMethod.GET)
-	public String showEmployeeProfile(Model model) {
+	public String showEmployeeProfile(Model model, HttpSession session) {
 
 		System.out.println("this is sp_orm controller getting employes method ");
-		Employee empdetails = empserv.getByEmail("akshay@pennant.com");
+		// System.out.println("");
+		Employee empdetails = emp.getEmployeeById((int) session.getAttribute("employeeId"));
+		EmployeeOutput eout = modelMapper.map(empdetails, new TypeToken<EmployeeOutput>() {
+		}.getType());
+		model.addAttribute("empdet", eout);
+		return "profile";
+	}
+
+	// To display the admin profile
+	@RequestMapping(value = "/toprofileadmin", method = RequestMethod.GET)
+	public String showAdminProfile(Model model, HttpSession session) {
+
+		System.out.println("this is sp_orm controller getting employes method ");
+		Employee empdetails = emp.getEmployeeById((int) session.getAttribute("adminId"));
 		EmployeeOutput eout = modelMapper.map(empdetails, new TypeToken<EmployeeOutput>() {
 		}.getType());
 		model.addAttribute("empdet", eout);

@@ -6,52 +6,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "JobGrades")
+@Table(name = "hrms_jobgrades")
 public class JobGrade {
-    
-    @Id
-    @Column(name = "jbgr_id", length = 2)
-    private String jbgrId;
-    
-    public JobGrade(String jbgrId, String jbgrName, String jbgrDescription) {
-		this.jbgrId = jbgrId;
-		this.jbgrName = jbgrName;
-		this.jbgrDescription = jbgrDescription;
+	@Id
+	@Column(name = "jbgr_id")
+	private String jbgr_id;
+
+	private String jbgr_name;
+	private String jbgr_desc;
+
+	// Other job grade properties
+	public String getJbgr_id() {
+		return jbgr_id;
 	}
 
-	public JobGrade() {
+	public void setJbgr_id(String jbgr_id) {
+		this.jbgr_id = jbgr_id;
 	}
 
-	@Column(name = "jbgr_name", length = 20)
-    private String jbgrName;
-    
-    @Column(name = "jbgr_desc", length = 100)
-    private String jbgrDescription;
-
-	public String getJbgrId() {
-		return jbgrId;
+	public String getJbgr_name() {
+		return jbgr_name;
 	}
 
-	public void setJbgrId(String jbgrId) {
-		this.jbgrId = jbgrId;
+	public void setJbgr_name(String jbgr_name) {
+		this.jbgr_name = jbgr_name;
 	}
 
-	public String getJbgrName() {
-		return jbgrName;
+	public String getJbgr_desc() {
+		return jbgr_desc;
 	}
 
-	public void setJbgrName(String jbgrName) {
-		this.jbgrName = jbgrName;
+	public void setJbgr_desc(String jbgr_desc) {
+		this.jbgr_desc = jbgr_desc;
 	}
 
-	public String getJbgrDescription() {
-		return jbgrDescription;
-	}
-
-	public void setJbgrDescription(String jbgrDescription) {
-		this.jbgrDescription = jbgrDescription;
-	}
-    
-    
+	// Getters and setters
 }
-

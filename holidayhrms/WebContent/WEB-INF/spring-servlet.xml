@@ -115,6 +115,10 @@
 	<bean id="rs" class="service.ReferenceServiceImpl" />
 	<bean id="doc" class="models.EmployeeRefDocuments" />
 	<bean id="empservice" class="service.EmployeeLoginService" />
+	 <bean id="employeeOptedLeavesDAO" class="DAO.EmployeeOptedLeavesDAOImpl" />
+	  <bean id="jobGradeHolidaysDAO" class="DAO.JobGradeHolidaysDAOImpl"/>
+     <bean id="employeeoptedleaves" class="models.EmployeeOptedLeaves"  scope="prototype"/>
+    <bean id="employeeoptedleavesId" class="models.EmployeeOptedLeavesId" scope="prototype" />
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- Set the maximum allowed file size (in bytes) -->
