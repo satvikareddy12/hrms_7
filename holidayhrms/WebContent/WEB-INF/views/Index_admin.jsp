@@ -329,6 +329,21 @@
     	  });
     	} 
     
+    function  getAdminProfile() {
+  	  $.ajax({
+  	    type: "GET",
+  	    url: "toprofileadmin",
+  	   
+  	    success: function(response) {
+  	      var containerDiv = $("#main");
+  	      containerDiv.html(response);
+  	    },
+  	    error: function() {
+  	      alert("Error occurred. Please try again later.");
+  	    }
+  	  });
+  	} 
+    
     function permissionsToBeApproved() {
   	  $.ajax({
   	    type: "POST",
@@ -454,7 +469,7 @@
           </div>
 
           <li class="item">
-            <a href="#"><i class="ri-bar-chart-line"></i> Profile</a>
+            <a onclick = "getAdminProfile();"><i class="ri-bar-chart-line"></i> Profile</a>
           </li>
           
  <li class="item">

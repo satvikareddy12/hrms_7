@@ -41,6 +41,7 @@ models\Holiday.class
 service\EmployeeLeaveService.class
 DAO_Interfaces\ApplyPermissionDao.class
 models\Induction.class
+controllers\EmployeeController$10.class
 controllers\HolidayController.class
 DAO_Interfaces\EmploymentInductionDocumentDAO.class
 models\JobGradeWiseLeaves.class
