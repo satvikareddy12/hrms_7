@@ -5,6 +5,8 @@
 		<Property name="basePath">D:/chandrasekhar/logs</Property>
 		<Property name="permissionLogsPath">${basePath}/permissions</Property>
 		<Property name="holidayLogsPath">${basePath}/holidays</Property>
+		<Property name="payRollLogsPath">${basePath}/payroll</Property>
+		<Property name="empLogsPath">${basePath}/employee</Property>
 	</Properties>
 
 	<Appenders>
@@ -47,6 +49,24 @@
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingFile>
+		<RollingFile name="payLogger" fileName="${payRollLogsPath}/payRoll.log"
+			filePattern="${payRollLogsPath}/payRoll-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${payRollLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
 
 
 		<RollingFile name="holidayLogger" fileName="${holidayLogsPath}/holidays.log"
@@ -66,6 +86,23 @@
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingFile>
+		<RollingFile name="empLogger" fileName="${empLogsPath}/emp.log"
+			filePattern="${empLogsPath}/holidays-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${empLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
 	</Appenders>
 
 	<Loggers>
@@ -79,7 +116,7 @@
 			<AppenderRef ref="console" />
 			<AppenderRef ref="holidayLogger" />
 		</Logger>
-		
+
 		<Logger name="DAO.HolidayDAOImpl" level="info" additivity="false">
 			<AppenderRef ref="fileLogger" />
 			<AppenderRef ref="console" />
@@ -91,11 +128,36 @@
 			<AppenderRef ref="permissionLogger" />
 			<AppenderRef ref="console" />
 		</Logger>
-			<Logger name="DAO.ApplyPermissionDaoImpl" level="info" additivity="false">
+		<Logger name="DAO.ApplyPermissionDaoImpl" level="info" additivity="false">
 			<AppenderRef ref="fileLogger" />
 			<AppenderRef ref="permissionLogger" />
 			<AppenderRef ref="console" />
 		</Logger>
-		
+		<Logger name="controllers.PayRollController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="payLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="DAO.PayRollDAOImpl" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="payLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="service.PayRollServiceImpl" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="payLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="controllers.EmployeeController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="empLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="DAO.EmployeeDAOImpl" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="empLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+
 	</Loggers>
 </Configuration>

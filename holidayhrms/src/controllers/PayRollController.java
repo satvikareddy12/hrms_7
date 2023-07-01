@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.sql.Timestamp;
@@ -8,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class PayRollController {
 	private EmployeePayRollInputModel payRollInput;
 	private EmployeePayslip empPaySlip;
 	private PayRollDAO payrollDAO;
+	private static final Logger logger = LoggerFactory.getLogger(PayRollController.class);
 
 	@Autowired
 	PayRollController(PayRollService payRollservice, EmployeeDAO ed, EmployeePayRollOutputModel payRollOutput,
@@ -48,7 +50,9 @@ public class PayRollController {
 	// get admin side pay roll form to select employee id and month
 	@RequestMapping(value = "/getemppayroll", method = RequestMethod.GET)
 	public String getPayRoll(Model model) {
+		logger.info("Entered into payroll at admin side");
 		return "payrollemp";
+
 	}
 
 	// Display the generated payslip at admin side for that particular employee in that month
@@ -56,7 +60,7 @@ public class PayRollController {
 	public String getAdminSidePaySlip(@RequestParam("empl_id") int id, @RequestParam("month") int month, Model model,
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		System.out.println(month);
-
+		logger.info("Generating payslip for an employee based on month");
 		int Adminid = (int) session.getAttribute("adminId");
 
 		Employee employee = ed.getEmployeeById(id);
@@ -71,25 +75,23 @@ public class PayRollController {
 		// for setting values into input model
 
 		int year = LocalDate.now().getYear(); // to get current year
-
-		System.out.println(year);
-		System.out.println(month + "-" + year);
-
+		logger.info("Setting values into input model");
 		payRollInput.setId(id);
 		payRollInput.setmonthYear(month + "-" + year);
-		payRollInput.setBasicPay(payRollservice.basicPay(basicsal / 12));
+		payRollInput.setBasicPay(payRollservice.calculateBasicPay(basicsal / 12));
 		payRollInput.setFixedPay(fixedsal / 12);
 		payRollInput.setVariablePay(variablesal / 12);
-		payRollInput.setGratuity(payRollservice.gratuity((ctc * 0.1) - 200));
-		payRollInput.setPf(payRollservice.pf((ctc * 0.1) - 200));
-		payRollInput.setHra(payRollservice.forHRA(fixedsal / 12));
-		payRollInput.setDa(payRollservice.forDA(fixedsal / 12));
-		payRollInput.setTa(payRollservice.forTA(fixedsal / 12));
-		payRollInput.setAdditions(payRollservice.additions(variablesal / 12));
-		payRollInput.setDeductions(payRollservice.deductions());
+		payRollInput.setGratuity(payRollservice.calculateGratuity((ctc * 0.1) - 200));
+		payRollInput.setPf(payRollservice.calculatePF((ctc * 0.1) - 200));
+		payRollInput.setHra(payRollservice.calculateHRA(fixedsal / 12));
+		payRollInput.setDa(payRollservice.calculateDA(fixedsal / 12));
+		payRollInput.setTa(payRollservice.calculateTA(fixedsal / 12));
+		payRollInput.setAdditions(payRollservice.calculateAdditions(variablesal / 12));
+		payRollInput.setDeductions(payRollservice.calculateDeductions());
 		payRollInput.setPtax(200);
-		payRollInput.setEsi(payRollservice.esi((ctc * 0.1) - 200));
-		payRollInput.setTds(payRollservice.calTax(ctc));
+		payRollInput.setEsi(payRollservice.calculateESI((ctc * 0.1) - 200));
+		payRollInput.setTds(payRollservice.calculateTax(ctc));
+		logger.info("fetching data from input model");
 
 		// for setting into entity model
 		empPaySlip.setEmployeeId(payRollInput.getId());
@@ -109,6 +111,7 @@ public class PayRollController {
 		empPaySlip.setLastUpdatedDate(new Timestamp(System.currentTimeMillis()));
 
 		payrollDAO.insertEmployeePayslip(empPaySlip);
+		logger.info("Payslip data inserted successfully!!");
 
 		// for setting into output model
 		payRollOutput.setId(id);
@@ -127,8 +130,11 @@ public class PayRollController {
 		payRollOutput.setPtax(empPaySlip.getPtax());
 		payRollOutput.setTa(empPaySlip.getTa());
 		payRollOutput.setTds(empPaySlip.getTds());
-		payRollOutput.setTotal(payRollservice.total());
-		payRollOutput.setNetpay(payRollservice.netPay());
+
+		payRollOutput.setTotal(payRollservice.calculateTotalPay());
+		payRollOutput.setNetpay(payRollservice.calculateNetPay());
+
+		logger.info("Payslip generated successfully!!");
 
 		model.addAttribute("pay", payRollOutput);
 
@@ -145,6 +151,8 @@ public class PayRollController {
 	// employe sie pay slip form
 	@RequestMapping(value = "/getemppayslip", method = RequestMethod.GET)
 	public String getMonthWisePaySlip(Model model) {
+		logger.info("get employee pay slip");
+
 		return "payslipEmpSide";
 	}
 
@@ -157,6 +165,8 @@ public class PayRollController {
 		int year = LocalDate.now().getYear();
 
 		try {
+			logger.info("get the pay slip based on the month");
+
 			EmployeePayslip eps = payrollDAO.getEmployeePayslipsByEmployeeIdAndMonthYear(id, month + "-" + year);
 
 			String firstName = employee.getEmplFirstname();
@@ -185,8 +195,12 @@ public class PayRollController {
 					.setNetpay((eps.getBasicSalary() + eps.getHra() + eps.getDa() + eps.getTa() + eps.getAdditions())
 							- eps.getDeductions());
 
+			logger.info("Employee Payslip retrieved successfully!!");
+
 			model.addAttribute("output", payRollOutput);
 		} catch (Exception e) {
+			logger.info("if user selects the month for which pay slip is not generated");
+
 			String errorMessage = "Please select a valid month."; // incase employee selects the month for which pay
 																	// slip haven't been generated
 			model.addAttribute("errorMessage", errorMessage);
