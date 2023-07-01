@@ -5,8 +5,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Details</title>
-    <link rel="stylesheet" type="text/css" href="./css/getEmployeeDetails.css">
+    <style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 2% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Center the content */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
     
+     button.back-button {
+    		 background-color: #333;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             margin-top: 10px;
+             cursor: pointer;
+             border-radius: 3px;
+		}		
+		
+		 button.back-buttons {
+    		 background-color: #333;
+             color: white;
+             border: none;
+             padding: 10px 20px;
+             margin-top: 10px;
+             cursor: pointer;
+             border-radius: 3px;
+		}		
+     </style>
 </head>
 
 <body>
@@ -51,8 +111,9 @@
                     <p>Fixed Salary: <%= employee.getEmpl_fixedsal() %></p>
                     <p>Variable Salary: <%= employee.getEmpl_variablesal() %></p>
                     <p>Status: <%= employee.getEmpl_status() %></p>
-                    <button class="back-button" onclick="window.location.href='updempl?id=<%= employee.getEmplId() %>'">Edit</button>
-                    <button class="back-button" onclick="window.location.href='emplparam?id=<%= employee.getEmplId() %>'">Parameters</button>
+                    <button class="back-button" data-id="<%= employee.getEmplId() %>">Edit</button>
+                    <button class="back-buttons" data-id="<%= employee.getEmplId() %>">Parameters</button>
+
                 </div>
                 
             <% } else { %>

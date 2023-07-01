@@ -141,7 +141,7 @@
       <label for="empl_status">Status:</label>
       <input type=text id="empl_status" name="empl_status" value="<%= employee.getEmpl_status() %>" readonly><br><br>
 
-      <input type="submit" value="Save">
+      <input type="submit" class="saved" value="Save">
   </form>
   </div>
   </div>

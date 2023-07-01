@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ public class HolidayController {
 	private final HolidayDAO hd;
 	private final JobGradeHolidaysDAO jobGradeHolidaysDAO;
 	private EmployeeOptedLeavesDAO employeeOptedLeavesDAO;
+	private final Logger logger = LoggerFactory.getLogger(HolidayController.class);
 	@Autowired
 	private ApplicationContext context;
 
@@ -51,6 +54,7 @@ public class HolidayController {
 	// to get list of holidays
 	@RequestMapping("/holidaysupd")
 	public String showHolidays(Model model) {
+		logger.info("Request received for holidays");
 		List<Holiday> holidays = hd.findAllHolidays();
 		model.addAttribute("holidays", holidays);
 		return "holidays";
@@ -59,6 +63,7 @@ public class HolidayController {
 	// to get list of grade wise holidays
 	@RequestMapping("/getgradewiseholidays")
 	public String getgradewiseHolidays(Model model) {
+		logger.info("Request received for /getgradewiseholidays");
 		List<GradeHoliday> gradeholidays = hd.findAllGradeHolidays();
 		model.addAttribute("gradeholidays", gradeholidays);
 		return "gradeholidays";
@@ -68,6 +73,7 @@ public class HolidayController {
 	@Transactional
 	public ResponseEntity<String> submitSelectedHolidays(
 			@RequestParam("selectedHolidays") List<String> selectedHolidays, @RequestParam("emplId") int emplId) {
+		logger.info("Request received for submitting optional holidays");
 		// Process the selected holidays and save to the database
 		System.out.println("hello this is emplId " + emplId);
 		List<String> years = new ArrayList<>();
@@ -108,6 +114,7 @@ public class HolidayController {
 	@RequestMapping(value = "/optionalHoliday", method = RequestMethod.GET)
 	public String displayEmployeeInformation(Model model, HttpSession session) {
 		int emplId = (int) session.getAttribute("employeeId");
+		logger.info("Request received for selecting optional holidays");
 		Employee employee = emp.getEmployeeById(emplId);
 		int currentYear = LocalDate.now().getYear();
 
