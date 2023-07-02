@@ -35,7 +35,7 @@ public class InductionController {
 	private EmploymentInductionServiceInterface indServ; // injecting service class object
 
 	@Autowired
-	private EmploymentInductionDocument document; // injecting Document Entity Model class object
+	private EmploymentInductionDocument documentt; // injecting Document Entity Model class object
 
 	@Autowired
 	private InductionDAO idao;// injecting DAO class object
@@ -107,15 +107,15 @@ public class InductionController {
 
 	@GetMapping("/add") // to save the induction documents
 	public String addDocument(@ModelAttribute addinductionDOC input) {
-		document.setEmplid(input.getEmploymentOfferId());// employee offer id
+		documentt.setEmplid(input.getEmploymentOfferId());// employee offer id
 		System.out.println(input.getEmploymentOfferId());
-		document.setEmplidty(input.getDocumentTypeId());// employee offer document type setting
-		document.setIndcProcessedAusrId(input.getProcessedUserId());
-		document.setVerified(input.getVerified());
+		documentt.setEmplidty(input.getDocumentTypeId());// employee offer document type setting
+		documentt.setIndcProcessedAusrId(input.getProcessedUserId());
+		documentt.setVerified(input.getVerified());
 		String path = input.getDocumentData().getAbsolutePath();
 		System.out.println("-----------------------" + path);
-		document.setDocumentData(path);
-		docServ.addEmploymentInductionDocument(document);
+		documentt.setDocumentData(path);
+		docServ.addEmploymentInductionDocument(documentt);
 		return "success";
 	}
 }

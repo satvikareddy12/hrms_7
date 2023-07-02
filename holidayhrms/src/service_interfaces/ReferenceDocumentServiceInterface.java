@@ -1,12 +1,12 @@
-package service;
+package service_interfaces;
 
 import java.util.List;
 
 import models.EmployeeRefDocuments;
 
-public interface ReferenceServiceInterface {
+public interface ReferenceDocumentServiceInterface {
 
-	public EmployeeRefDocuments getReferenceDocumentById(String id);
+	public EmployeeRefDocuments getReferenceDocumentById(int id);
 
 	public void addReferenceDocument(EmployeeRefDocuments document);
 

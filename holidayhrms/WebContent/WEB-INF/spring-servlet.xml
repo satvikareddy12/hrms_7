@@ -34,13 +34,13 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- DataSource configuration -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://192.168.110.48:5432/plf_training" />
-		<property name="username" value="plf_training_admin" />
-		<property name="password" value="pff123" />
-	</bean>
+	 <!-- DataSource configuration -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5433/postgres" />
+        <property name="username" value="postgres" />
+        <property name="password" value="satvika" />
+    </bean>
 
 	<!-- EntityManager configuration -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -89,7 +89,7 @@
 	<bean id="docServ" class="service.EmploymentInductionDocumentService" />
 	<bean id="indServ" class="service.EmploymentInductionService" />
 	<bean id="docDAO" class="DAO.EmploymentInductionDocDAOImpl" />
-	<bean id="document" class="models.EmploymentInductionDocument" />
+	<bean id="documentt" class="models.EmploymentInductionDocument" />
 	<bean id="employeeLeaveModel" class="models.EmployeeLeaveModel" scope="prototype" />
 	<bean id="leaveRequest" class="models.EmployeeLeaveRequest" autowire="byName" />
 	<bean id="leaveRequestId" class="models.EmployeeLeaveRequestId" autowire="byName" />
@@ -111,9 +111,9 @@
 	<bean id="payRollInput" class="models.input.output.EmployeePayRollInputModel" autowire="byName" />
 	<bean id="payrollDAO" class="DAO.PayRollDAOImpl" autowire="byName" />
 	<bean id="empPaySlip" class="models.EmployeePayslip" autowire="byName" />
-	<bean id="rd" class="DAO.ReferenceDAOImpl" />
-	<bean id="rs" class="service.ReferenceServiceImpl" />
-	<bean id="doc" class="models.EmployeeRefDocuments" />
+	<bean id="rd" class="DAO.ReferenceDocumentDAOImpl" />
+	<bean id="rs" class="service.ReferenceDocumentServiceImpl" />
+	<bean id="document" class="models.EmployeeRefDocuments" />
 	<bean id="empservice" class="service.EmployeeLoginService" />
 	 <bean id="employeeOptedLeavesDAO" class="DAO.EmployeeOptedLeavesDAOImpl" />
 	  <bean id="jobGradeHolidaysDAO" class="DAO.JobGradeHolidaysDAOImpl"/>

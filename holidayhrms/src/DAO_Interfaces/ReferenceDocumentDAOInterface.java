@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import models.EmployeeRefDocuments;
 
 @Repository
-public interface ReferenceDAOInterface {
+public interface ReferenceDocumentDAOInterface {
 
-	EmployeeRefDocuments findById(String id);
+	EmployeeRefDocuments findById(int id);
 
 	void save(EmployeeRefDocuments document);
 
@@ -19,5 +19,7 @@ public interface ReferenceDAOInterface {
 	int getIndex();
 
 	void deleteById(int id);
+
+	int getDOCIndex(String docname);
 
 }

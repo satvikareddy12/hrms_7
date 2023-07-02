@@ -2,11 +2,12 @@
 <Configuration status="WARN" monitorInterval="30">
 	<Properties>
 		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n</Property>
-		<Property name="basePath">D:/chandrasekhar/logs</Property>
+		<Property name="basePath">E:/chandrasekhar/logs</Property>
 		<Property name="permissionLogsPath">${basePath}/permissions</Property>
 		<Property name="holidayLogsPath">${basePath}/holidays</Property>
 		<Property name="payRollLogsPath">${basePath}/payroll</Property>
 		<Property name="empLogsPath">${basePath}/employee</Property>
+		<Property name="ReferenceDocumentLogsPath">${basePath}/ReferenceDocument</Property>
 	</Properties>
 
 	<Appenders>
@@ -86,6 +87,7 @@
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingFile>
+		
 		<RollingFile name="empLogger" fileName="${empLogsPath}/emp.log"
 			filePattern="${empLogsPath}/holidays-%d{yyyy-MM-dd}.log">
 			<PatternLayout>
@@ -103,6 +105,26 @@
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingFile>
+		
+		<RollingFile name="ReferenceDocumentLogger" fileName="${ReferenceDocumentLogsPath}/ReferenceDocument.log"
+			filePattern="${ReferenceDocumentLogsPath}/ReferenceDocument-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${InductionLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		
 	</Appenders>
 
 	<Loggers>
@@ -158,6 +180,18 @@
 			<AppenderRef ref="empLogger" />
 			<AppenderRef ref="console" />
 		</Logger>
+<Logger name="main.controller.ReferenceDocumentController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="ReferenceDocumentLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Logger name="main.DAO.ReferenceDocumentDAOImpl" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="ReferenceDocumentLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		
 
 	</Loggers>
 </Configuration>
