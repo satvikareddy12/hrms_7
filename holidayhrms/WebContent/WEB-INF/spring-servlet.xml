@@ -28,6 +28,8 @@
 
 	<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
 	<mvc:resources mapping="/js/**" location="/WEB-INF/javascriptfiles/" />
+	<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
