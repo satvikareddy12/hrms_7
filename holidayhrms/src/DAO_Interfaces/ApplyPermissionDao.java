@@ -88,4 +88,6 @@ public interface ApplyPermissionDao {
 	 * @return The count of approved permissions for the specified criteria.
 	 */
 	public long getEmployeeApprovedPermissionsCount(int id, int year);
+
+	public List<ApplyPermissions> appliedPermissions(int id);
 }

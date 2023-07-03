@@ -18,6 +18,7 @@ C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeAttendance
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO_Interfaces\EmployeeOptedLeavesDAO.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\JobGradeHolidays.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\EmpDAO.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\ForgotPasswordDAOImpl.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeLeaveModel.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeePayslip.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\ReferenceDocumentServiceInterface.java
@@ -27,10 +28,12 @@ C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\PayRol
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\OfferModel.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\controllers\PayRollController.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\HolidayDAOImpl.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EntityForgotPassword.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\PermissionAdminOutputModel.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\EmployeeOptedLeavesDAOImpl.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\HrmsJobGrade.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\Induction.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\input\output\MailOtpModel.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\Employee.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeLeaveRequestId.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\Holiday.java
@@ -45,6 +48,7 @@ C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\HrmsEmploymentOffe
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\EmployeeLeaveServiceInterface.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\EmploymentInductionDocumentServiceInterface.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeRequestResult.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\input\output\PasswordModel.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO_Interfaces\JobGradeHolidaysDAO.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service\HashGenerator.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\controllers\AttendanceController.java
@@ -80,6 +84,7 @@ C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service\EmployeeAttendanc
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO_Interfaces\CandidateDAO.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\JobGradeHolidaysDAOImpl.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\input\output\EmployeePayRollInputModel.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\MailService.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\HRDepartment.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\controllers\InductionController.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeLeaveInputModel.java
@@ -105,6 +110,7 @@ C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service_interfaces\Employ
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\CandidateDAOImpl.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO\PayRollDAOImpl.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\models\EmployeeAttendanceId.java
+C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\service\OtpMailService.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\controllers\PermissionsController.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\DAO_Interfaces\EmployeeLeaveRequestDAO.java
 C:\Users\chandrasekhar.s\git\chandmama\holidayhrms\src\controllers\CandidateController.java

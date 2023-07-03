@@ -101,6 +101,7 @@ public class ApplyPermissionDaoImpl implements ApplyPermissionDao {
 		Long count = query.getSingleResult();
 
 		return count;
+
 	}
 
 	@Override
@@ -127,6 +128,15 @@ public class ApplyPermissionDaoImpl implements ApplyPermissionDao {
 		query.setParameter("year", year);
 		Long count = query.getSingleResult();
 		return count;
+	}
+
+	@Override
+	public List<ApplyPermissions> appliedPermissions(int id) {
+		String queryString = "SELECT elrq FROM ApplyPermissions elrq WHERE elrq.id.empl_id = :empId";
+		Query query = em.createQuery(queryString);
+		query.setParameter("empId", id);
+		List<ApplyPermissions> result = query.getResultList();
+		return result;
 	}
 
 }

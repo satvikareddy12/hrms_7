@@ -156,19 +156,19 @@ a
     padding-top: 40px;
     
 }
-.form-box
-{
-
-    width:340px;
-	height:340px;
-	position:relative;
-	margin:2% auto;
-	margin-right:20px;
-	background: #E6E6FA;
-	padding:10px;
+.form-box {
+    width: 340px;
+    height: 400px;
+    position: relative;
+    margin: 2% auto;
+    margin: 66px 15px 30px -2px;
+    background: linear-gradient(to bottom, #e0f5ff, #b3e6ff); /* Lighter blue gradient */
+    padding: 20px;
     overflow: hidden;
-   
+    border-radius: 50px;
+    border:0.5px solid black;
 }
+
 .button-box
 {
 	width:220px;
@@ -193,7 +193,7 @@ a
 	position: absolute;
 	width: 110px;
 	height: 100%;
-    background: linear-gradient(to right, #7F00FF, #E100FF); /* Purple gradient */
+    background: linear-gradient(to right, #85d7ff, #0088ff); /* Lighter blue gradient */
 	border-radius: 30px;
 	transition: .5s;
 }
@@ -230,7 +230,7 @@ a
 	cursor: pointer;
 	display: block;
 	margin: auto;
-    background: linear-gradient(to right, #7F00FF, #E100FF); /* Purple gradient */
+    background: linear-gradient(to right, #85d7ff, #0088ff); /* Lighter blue gradient */
 	border: 0;
 	outline: none;
 	border-radius: 30px;
@@ -329,7 +329,9 @@ span
 	cursor:pointer;
 	box-shadow:0 5px 5px rgba(0,0,0,0.2);
 }       
-
+.input-field {
+    color: black !important;
+}
         
     </style>
 </head>
@@ -360,13 +362,13 @@ span
 		    <input type='password'id="empl_password" name="empl_password" class='input-field'placeholder='Enter Password' required>
 		    		    <button type='submit'class='submit-btn' >Log in</button>
 		    
-		      <div class="forgot-password"> <a href="forgot.jsp">Forgot Password?</a></div>
+		      <div class="forgot-password"> <a href="forgot">Forgot Password?</a></div>
 		 </form>
 		 <form id='register' class='input-group-register' action ="admin" method="POST">
                     <input type='text'id="admin_email" name ="admin_email" class='input-field'placeholder='Email Id' required >
 		    <input type='password' id="admin_password"  name ="admin_password" class='input-field'placeholder='Enter Password' required>
 		    <button type='submit'class='submit-btn' >Log in</button>
-		    <div class="forgot-password a"> <a href="forgot.jsp">Forgot Password?</a></div>
+		    <div class="forgot-password a"> <a href="forgot">Forgot Password?</a></div>
 		    
 	         </form>
             </div>

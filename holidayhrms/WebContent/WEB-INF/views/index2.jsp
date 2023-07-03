@@ -247,6 +247,10 @@ canvas {
                 <a onclick="getLeaves()"><i class="ri-file-list-line"></i> Leaves</a>
               </li>
                <li class="item">
+                <a onclick="getPermission_status()"><i class="ri-file-list-line"></i> Permissions</a>
+              </li>
+              
+               <li class="item">
                 <a onclick="optionalHolidays()"><i class="ri-calendar-line"></i>Choose Optional Holidays</a>
               </li>
             </ul>
@@ -737,6 +741,25 @@ var fieldMessage = $('<div class="field-message" id="msg1">No of leaves taken</d
        	    }
        	  });
        	}
+    
+    function getPermission_status() {
+      	 console.log("permission");
+      	 $(".main").empty();
+          	  $.ajax({
+          	    type: "GET",
+          	    url: "permissionStatusAtEmpSide",
+          	    data: {},
+          	    success: function(response) {
+          	      var containerDiv = $(".main");
+          	      containerDiv.html(response);
+          	     
+          	    },
+          	    error: function() {
+          	      alert("Error occurred. Please try again later.");
+          	    }
+          	  });
+          	}
+       
     
     
  </script>

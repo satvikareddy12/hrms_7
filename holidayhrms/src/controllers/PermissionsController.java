@@ -174,4 +174,15 @@ public class PermissionsController {
 		return ResponseEntity.ok(gson.toJson(count));
 	}
 
+	@RequestMapping(value = "/permissionStatusAtEmpSide", method = RequestMethod.GET)
+	public String getPermissionsStatusAtEmp(HttpSession session, Model model) {
+		logger.info("Request received to show permissions used at employee side");
+		int id = (int) session.getAttribute("employeeId");
+		List<ApplyPermissions> listOfPermission = apd.appliedPermissions(id);
+		System.out.println("done");
+		model.addAttribute("listOfPermission", listOfPermission);
+
+		return "empViewPermissions"; // Return the name of the JSP page to display the data
+	}
+
 }

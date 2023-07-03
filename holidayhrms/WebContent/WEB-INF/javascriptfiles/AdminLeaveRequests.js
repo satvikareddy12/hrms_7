@@ -36,9 +36,11 @@
 			success : function(response){
 				console.log(response);
 				modal.style.display = "none";
+				alert("Leave accepted successfully");
 				location.reload();
 			},
 			error : function(error){
+			   alert("something went wrong. please try again");
 				console.log(error);
 			}
 		});
@@ -54,9 +56,11 @@
 			},
 			success : function(response) {
 				console.log(response);
+				alert("leave rejected successfully");
 				location.reload();
 			},
 			error : function(error) {
+			alert("something went wrong. please try again");
 				console.log(error);
 			}
 		});

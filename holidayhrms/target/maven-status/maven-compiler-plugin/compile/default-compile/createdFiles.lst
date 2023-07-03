@@ -6,6 +6,7 @@ models\EmploymentOfferDocument.class
 service\OfferLetterMailService.class
 DAO\HolidayDAOImpl.class
 models\input\output\CandidateIO.class
+service\OtpMailService$1.class
 controllers\OfferLetterController.class
 DAO\EmployeeLeaveRequestDAOImpl.class
 service\EmployeeAttendanceService.class
@@ -23,7 +24,9 @@ DAO\EmploymentInductionDocDAOImpl.class
 models\EmployeeAttendance.class
 models\input\output\SaveInductioninput.class
 controllers\EmployeeController$6.class
+models\EntityForgotPassword.class
 models\EmployeeOptedLeavesId.class
+service_interfaces\MailService.class
 service\EmpService.class
 service\OfferLetterMailService$1.class
 service_interfaces\ReferenceDocumentServiceInterface.class
@@ -33,8 +36,10 @@ service\PaySlipMail$1.class
 models\Employee.class
 controllers\EmployeeController$3.class
 models\Candidate.class
+models\input\output\MailOtpModel.class
 controllers\EmployeeNotFoundException.class
 controllers\AttendanceController.class
+service\OtpMailService.class
 models\InductionDocumentTypes.class
 models\Holiday.class
 service\EmployeeLeaveService.class
@@ -43,6 +48,7 @@ models\Induction.class
 controllers\EmployeeController$10.class
 controllers\HolidayController.class
 DAO_Interfaces\EmploymentInductionDocumentDAO.class
+models\input\output\PasswordModel.class
 models\JobGradeWiseLeaves.class
 DAO\InductionDAOImpl.class
 models\input\output\EmployeeOutput.class
@@ -88,6 +94,7 @@ service_interfaces\EmploymentInductionServiceInterface.class
 controllers\EmployeeController.class
 controllers\ReferenceDocumentController.class
 controllers\PermissionsController.class
+DAO\ForgotPasswordDAOImpl.class
 models\HrmsEmploymentOffer.class
 models\EmployeePayslip.class
 models\input\output\EmployeeParameterIO.class
