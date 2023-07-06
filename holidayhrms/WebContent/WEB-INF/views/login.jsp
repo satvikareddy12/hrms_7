@@ -332,6 +332,11 @@ span
 .input-field {
     color: black !important;
 }
+
+        .error-message {
+            color: red;
+        }
+
         
     </style>
 </head>
@@ -478,6 +483,8 @@ span
         }
     </script>
     
-    
+     <c:if test="${not empty error}">
+        <p class="error-message">${error}</p>
+    </c:if>
 </body>
 </html>

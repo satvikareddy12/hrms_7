@@ -54,31 +54,30 @@ public class LoginController {
 
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
 	public String enterIntoMenu_employee(@RequestParam("empl_email") String email,
-			@RequestParam("empl_password") String password, HttpServletRequest request) {
+			@RequestParam("empl_password") String password, HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(true);
-		System.out.println("thi9s isemployee side ");
+		System.out.println("This is the employee side");
 
 		if (empservice.authenticateUser(email, password)) {
-
 			// Set employee ID in session
 			Employee empdetails = empservice.getByEmail(email);
 			int employeeId = empdetails.getEmplId();
 			session.setAttribute("employeeId", employeeId);
 			return "index2"; // Redirect to the dashboard page
 		} else {
+			model.addAttribute("error", "Invalid username or password");
 			return "login";
 		}
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.POST)
 	public String enterIntoMenu_admin(@RequestParam("admin_email") String email,
-			@RequestParam("admin_password") String password, HttpServletRequest request) {
-		System.out.println("thi9s isv admin side ");
+			@RequestParam("admin_password") String password, HttpServletRequest request, Model model) {
+		System.out.println("This is the admin side");
 
 		HttpSession session = request.getSession(true);
 		if (empservice.authenticateUser_admin(email, password)) {
-
 			// Set employee ID in session
 			Employee empdetails = empservice.getByEmail(email);
 			int adminId = empdetails.getEmplId();
@@ -88,6 +87,7 @@ public class LoginController {
 
 			return "Index_admin"; // Redirect to the dashboard page
 		} else {
+			model.addAttribute("error", "Invalid username or password");
 			return "login";
 		}
 	}
